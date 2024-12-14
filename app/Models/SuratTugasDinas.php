@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+class SuratTugasDinas extends Model
+{
+    use HasFactory;
+
+    protected $table = 'app_surat_tugas_dinas';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'spd_id',
+        'nomor_std',
+        'pegawai_id',
+        'departemen_id',
+        'kegiatan_std',
+        'tanggal_mulai_tugas',
+        'tanggal_selesai_tugas',
+        'keterangan',
+        'pimpinan_ttd',
+        'status_std'
+    ];
+
+    public function scopepencarian($query, $value)
+    {
+        if ($value) {
+            $query->where('app_surat_tugas_dinas.nomor_std', 'like', '%' . $value . '%');
+        }
+    }
+
+    public function scopestatus_std($query, $value)
+    {
+        if ($value) {
+            $query->whereIn('app_surat_tugas_dinas.status_std', $value);
+        }
+    }
+
+    public function scopebulan($query, $value)
+    {
+        if ($value) {
+            $query->whereMonth('app_surat_tugas_dinas.created_at', $value);
+        }
+    }
+
+    public function scopetahun($query, $value)
+    {
+        if ($value) {
+            $query->whereYear('app_surat_tugas_dinas.created_at', $value);
+        }
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class, 'id', 'pegawai_id');
+    }
+
+    public function departemen()
+    {
+        return $this->hasOne(Departemen::class, 'id', 'departemen_id');
+    }
+
+    public function pimpinan_ttd()
+    {
+        return $this->hasOne(Pimpinan::class, 'id', 'pimpinan_ttd');
+    }
+}

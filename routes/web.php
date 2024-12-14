@@ -1,0 +1,81 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::controller(App\Http\Controllers\WebController::class)->group(function () {
+    Route::get('/', 'index')->name('frontend.site');
+    Route::get('/beranda', 'index')->name('frontend.beranda');
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/sppd.unkhair/public/livewire/update', $handle);
+});
+
+Livewire::setScriptRoute(function ($handle) {
+    return Route::get('/sppd.unkhair/public/livewire/livewire.js', $handle);
+});
+
+Route::get('/login', App\Livewire\Auth\Login::class)->name('auth.login');
+
+Route::group(['middleware' => 'isLogin'], function () {
+
+    Route::controller(App\Http\Controllers\CetakController::class)->group(function () {
+        Route::get('/cetak/sppd/{params}', 'sppd')->name('cetak.sppd');
+    });
+
+    Route::get('/gantiperan/{role}', [App\Http\Controllers\ChangeRoleController::class, 'index'])->name('change.role');
+
+    // route user admin
+    Route::prefix('admin/')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+
+        Route::group(['middleware' => ['role:admin-spd|admin-st|ppk']], function () {
+            Route::controller(App\Http\Controllers\Admin\DepartemenController::class)->group(function () {
+                Route::get('/departemen/index', 'index')->name('admin.departemen.index');
+                Route::get('/departemen/unitkhusus/{params}', 'unitkhusus')->name('admin.departemen.unitkhusus');
+                Route::get('/departemen/search-departemen', 'search_departemen')->name('admin.departemen.search-departemen');
+            });
+
+            Route::get('/pimpinan/index', [App\Http\Controllers\Admin\PimpinanController::class, 'index'])->name('admin.pimpinan.index');
+
+            Route::controller(App\Http\Controllers\Admin\PegawaiController::class)->group(function () {
+                Route::get('/pegawai/index', 'index')->name('admin.pegawai.index');
+                Route::get('/pegawai/import/{params}', 'importdata')->name('admin.pegawai.import');
+                Route::post('/pegawai/act-import', 'act_importdata')->name('admin.pegawai.act-import');
+                Route::get('/pegawai/search-pegawai', 'search_pegawai')->name('admin.pegawai.search-pegawai');
+            });
+
+            Route::get('/kodesurat/index', [App\Http\Controllers\Admin\KodeSuratController::class, 'index'])->name('admin.kodesurat.index');
+
+            Route::controller(App\Http\Controllers\Admin\SppdController::class)->group(function () {
+                Route::get('/sppd/index', 'index')->name('admin.sppd.index');
+                Route::get('/sppd/create', 'create')->name('admin.sppd.create');
+                Route::get('/sppd/edit/{params}', 'edit')->name('admin.sppd.edit');
+                Route::get('/sppd/delete/{params}', 'delete')->name('admin.sppd.delete');
+            });
+
+            Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
+                Route::get('/sppd/review', 'index')->name('admin.sppd.review');
+            });
+        });
+
+        Route::get('/roles/index', App\Livewire\Sistem\Roles::class)->name('admin.roles');
+        Route::get('/pengguna/index', App\Livewire\Sistem\Pengguna::class)->name('admin.pengguna');
+        Route::get('/referensi/index', App\Livewire\Sistem\Referensi::class)->name('admin.referensi');
+    });
+});
