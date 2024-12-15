@@ -30,14 +30,14 @@
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-danger">
+                        <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>{{ $jml_pegawai }}</h3>
 
                                 <p>PEGAWAI</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-bag"></i>
+                                <i class="ion ion-ios-people"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -53,7 +53,7 @@
                                 <p>Departemen/Unit</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
+                                <i class="ion ion-home"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -69,7 +69,7 @@
                                 <p>SPPD {{ $tahun }}</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="ion ion-ios-paper-outline"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -85,7 +85,7 @@
                                 <p>SURAT TUGAS {{ $tahun }}</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-person-add"></i>
+                                <i class="ion ion-ios-paper-outline"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -125,4 +125,9 @@
         </section>
         <!-- /.content -->
     </div>
+
+    @push('style')
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    @endpush
 @endsection

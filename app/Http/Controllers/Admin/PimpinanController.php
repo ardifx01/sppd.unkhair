@@ -27,6 +27,11 @@ class PimpinanController extends Controller
                     $sup = '';
                     return $row->nama_pimpinan . $sup;
                 })
+                ->editColumn('jabatan', function ($row) {
+                    $str = $row->detail_jabatan;
+                    $str .= '<br>Singkat: &nbsp;' . $row->jabatan;
+                    return $str;
+                })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {
                         $instance->where(function ($w) use ($request) {
@@ -35,7 +40,7 @@ class PimpinanController extends Controller
                         });
                     }
                 })
-                ->rawColumns(['nama_pimpinan', 'action'])
+                ->rawColumns(['nama_pimpinan', 'jabatan', 'action'])
                 ->make(true);
         }
 

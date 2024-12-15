@@ -37,7 +37,7 @@
                         <div class="table-responsive p-0 mb-2">
                             <table class="table table-condensed table-bordered" style="width: 100%"
                                 id="{{ $datatable['id_table'] }}">
-                                <thead>
+                                <thead class="warna-warning">
                                     <tr>
                                         <th>#</th>
                                         <th class="text-left">Nomor SPPD</th>

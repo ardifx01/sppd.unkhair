@@ -54,7 +54,7 @@
                     </div>
                     <div class="table-responsive p-0 mb-2">
                         <table class="table table-condensed table-bordered" style="width: 100%">
-                            <thead>
+                            <thead class="bg-light">
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>

@@ -33,7 +33,6 @@ class SuratTugasDinas extends Model
         'user_id',
         'spd_id',
         'nomor_std',
-        'pegawai_id',
         'departemen_id',
         'kegiatan_std',
         'tanggal_mulai_tugas',
@@ -78,7 +77,7 @@ class SuratTugasDinas extends Model
 
     public function pegawai()
     {
-        return $this->hasOne(Pegawai::class, 'id', 'pegawai_id');
+        return $this->belongsToMany(Pegawai::class, 'app_surat_tugas_dinas_has_pegawai', 'stugas_id');
     }
 
     public function departemen()

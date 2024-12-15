@@ -1,6 +1,6 @@
 <div class="modal fade" wire:ignore.self id="{{ $modal }}" tabindex="-1" aria-labelledby="ModalUpdateRoleLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">{{ $judul }}</h5>
@@ -21,48 +21,48 @@
                             {{ tgl_indo($get->created_at) }}
                         </span>
                     </div>
-                    <div class="table-responsive mb-0">
-                        <table class="table table-sm mb-0" style="font-size:12px;">
+                    <div class="table-responsive mb-0 border">
+                        <table class="table table-sm mb-0">
                             <tr>
-                                <th class="text-right bg-light" width="15%">Nomor SPPD :</td>
+                                <th class="text-right warna-warning" width="15%">Nomor SPPD :</td>
                                 <td width="40%">
                                     {{ $get->nomor_spd }}
                                 </td>
 
-                                <th class="text-right bg-light" width="15%">Nama Pegawai :</td>
+                                <th class="text-right warna-warning" width="15%">Nama Pegawai :</td>
                                 <td width="30%">
                                     {{ $get->pegawai->nama_pegawai }} <br>
                                     NIP: {{ $get->pegawai->nip ?? '-' }}
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Perihal Kegiatan :</td>
+                                <th class="text-right warna-warning">Perihal Kegiatan :</td>
                                 <td>{{ $get->kegiatan_spd }}</td>
 
-                                <th class="text-right bg-light">Departemen/Unit :</td>
+                                <th class="text-right warna-warning">Departemen/Unit :</td>
                                 <td>{{ $get->departemen->departemen }}</td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Berangkat Dari :</td>
+                                <th class="text-right warna-warning">Berangkat Dari :</td>
                                 <td>{{ $get->berangakat }}</td>
 
-                                <th class="text-right bg-light">Lama Perjalanan :</td>
+                                <th class="text-right warna-warning">Lama Perjalanan :</td>
                                 <td>{{ $get->lama_pd }} hari</td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Tujuan Ke :</td>
+                                <th class="text-right warna-warning">Tujuan Ke :</td>
                                 <td>{{ $get->tujuan }}</td>
 
-                                <th class="text-right bg-light">Tanggal Berangkat :</td>
+                                <th class="text-right warna-warning">Tanggal Berangkat :</td>
                                 <td>
                                     {{ tgl_indo($get->tanggal_berangakat, false) }}
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Transportasi :</td>
+                                <th class="text-right warna-warning">Transportasi :</td>
                                 <td>{{ $get->angkutan }}</td>
 
-                                <th class="text-right bg-light">Tanggal Kembali :</td>
+                                <th class="text-right warna-warning">Tanggal Kembali :</td>
                                 <td>
                                     {{ tgl_indo($get->tanggal_kembali, false) }}
                                 </td>
@@ -73,25 +73,25 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Reviewer :</td>
+                                <th class="text-right warna-info">Reviewer :</td>
                                 <td colspan="3">
                                     {{ $get->reviwer?->name ?? '-' }}
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Tanggal Review :</td>
+                                <th class="text-right warna-info">Tanggal Review :</td>
                                 <td colspan="3">
                                     {{ tgl_indo($get->tanggal_review ?? '') }}
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Status Pengajuan :</td>
+                                <th class="text-right warna-info">Status Pengajuan :</td>
                                 <td colspan="3">
                                     {!! str_status_sppd($get->status_spd ?? '') !!}
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-right bg-light">Alasan :</td>
+                                <th class="text-right warna-info">Alasan :</td>
                                 <td colspan="3">
                                     {{ $get->alasan ?? '' }}
                                 </td>

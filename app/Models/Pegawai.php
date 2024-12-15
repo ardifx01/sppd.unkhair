@@ -90,4 +90,9 @@ class Pegawai extends Model
     {
         return $this->hasOne(Departemen::class, 'id', 'departemen_id');
     }
+
+    public function surat_tugas()
+    {
+        return $this->belongsToMany(SuratTugasDinas::class, 'app_surat_tugas_dinas_has_pegawai', 'pegawai_id');
+    }
 }

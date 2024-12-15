@@ -17,6 +17,7 @@ class Pimpinan extends Component
     public $nip;
     public $golongan;
     public $jabatan;
+    public $singkat_jabatan;
     public $ppk = 0;
 
     public function render()
@@ -40,7 +41,8 @@ class Pimpinan extends Component
         $this->nama_pimpinan = $get->nama_pimpinan;
         $this->nip = $get->nip;
         $this->golongan = $get->golongan;
-        $this->jabatan = $get->jabatan;
+        $this->singkat_jabatan = $get->jabatan;
+        $this->jabatan = $get->detail_jabatan;
         $this->ppk = $get->ppk;
         $this->id = $pimpinan_id;
         $this->mode = 'edit';
@@ -54,6 +56,7 @@ class Pimpinan extends Component
             'nama_pimpinan' => 'required',
             'nip' => 'required',
             'jabatan' => 'required',
+            'singkat_jabatan' => 'required',
         ]);
 
         if ($this->mode == 'add') {
@@ -61,7 +64,8 @@ class Pimpinan extends Component
                 'nama_pimpinan' => $this->nama_pimpinan,
                 'nip' => $this->nip,
                 'golongan' => $this->golongan,
-                'jabatan' => $this->jabatan,
+                'jabatan' => $this->singkat_jabatan,
+                'detail_jabatan' => $this->jabatan,
                 'ppk' => $this->ppk,
             ]);
 
@@ -71,7 +75,8 @@ class Pimpinan extends Component
                 'nama_pimpinan' => $this->nama_pimpinan,
                 'nip' => $this->nip,
                 'golongan' => $this->golongan,
-                'jabatan' => $this->jabatan,
+                'jabatan' => $this->singkat_jabatan,
+                'detail_jabatan' => $this->jabatan,
                 'ppk' => $this->ppk,
             ]);
 
@@ -90,6 +95,7 @@ class Pimpinan extends Component
         $this->nip = '';
         $this->golongan = '';
         $this->jabatan = '';
+        $this->singkat_jabatan = '';
         $this->ppk = 0;
         $this->id = '';
         $this->mode = 'add';

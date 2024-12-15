@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Referensi;
-use App\Models\Setup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -79,13 +78,6 @@ if (!function_exists('pengaturan')) {
     }
 }
 
-
-if (!function_exists('get_setup')) {
-    function get_setup(array $kolom = ['*'])
-    {
-        return Setup::where('aktif', 'Y')->select($kolom)->first();
-    }
-}
 
 if (!function_exists('master_referensi')) {
     function master_referensi($referensi)
@@ -275,30 +267,6 @@ if (!function_exists('data_params')) {
     }
 }
 
-if (!function_exists('listRekomendasi')) {
-    function listRekomendasi($field, $key = NULL)
-    {
-        $type = DB::select(DB::raw('SHOW COLUMNS FROM app_peserta_has_verifikasiberkas WHERE Field = "' . $field . '"')->getValue(DB::connection()->getQueryGrammar()))[0]->Type;
-        preg_match('/^enum\((.*)\)$/', $type, $matches);
-        $values = array();
-        foreach (explode(',', $matches[1]) as $value) {
-            $data = trim($value, "'");
-            $values[] = $data;
-        }
-
-        if ($key) {
-            $valueOne = [];
-            foreach ($values as $row) {
-                if ($row == $key) {
-                    $valueOne[] = $row;
-                }
-            }
-            return $valueOne;
-        }
-
-        return $values;
-    }
-}
 if (!function_exists('rupiah')) {
     function rupiah($nilai, $format = TRUE)
     {

@@ -26,7 +26,7 @@ class SppdController extends Controller
                 $admin_spd = auth()->user()->id;
             }
 
-            $listdata = SuratPerjalananDinas::with('departemen')->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
@@ -42,19 +42,41 @@ class SppdController extends Controller
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
-                    $print = '<a href="#" class="btn btn-sm btn-default disabled"><i class="fa fa-print"></i></a>';
+                    $btnPrint = '
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-default"><i class="fa fa-print"></i></button>
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>';
                     if ($row->status_spd == '200') {
-                        $print = '<a href="' . route('cetak.sppd', encode_arr(['sppd_id' => $row->id])) . '" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>';
+                        $btnPrint .= '<div class="dropdown-menu" role="menu">';
+                        $btnPrint .= '
+                            <a class="dropdown-item" href="' . route('cetak.sppd', encode_arr(['sppd_id' => $row->id])) . '" target="_blank">Cetak SPPD</a>
+                        ';
+
+                        if ($row->surat_tugas?->id) {
+                            $btnPrint .= '
+                                <a class="dropdown-item" href="' . route('cetak.std', encode_arr(['stugas_id' => $row->surat_tugas?->id])) . '" target="_blank">Cetak STD</a>
+                            ';
+                        }
+
+                        $btnPrint .= '</div>';
+                    }
+                    $btnPrint .= '</div>';
+
+                    $btnEdit = '<button type="button" class="btn btn-sm btn-warning disabled"><i class="fa fa-edit"></i></button>';
+                    if (in_array($row->status_spd, ['102'])) {
+                        $edit = "edit('" . encode_arr(['sppd_id' => $row->id]) . "')";
+                        $btnEdit = '<button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>';
                     }
 
-                    $edit = "edit('" . encode_arr(['sppd_id' => $row->id]) . "')";
                     $detail = "detail('" . encode_arr(['sppd_id' => $row->id]) . "')";
                     $confirm = "return confirm('Apakah Anda Yakin Menghapus Data?');";
                     $actionBtn = '
                     <center>
-                        ' . $print . '    
                         <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
-                        <button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
+                        ' . $btnEdit . '
+                        ' . $btnPrint . '    
                         <!--<a href="' . route('admin.sppd.delete', encode_arr(['sppd_id' => $row->id])) . '" onclick="' . $confirm . '" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a> -->
                     </center>';
                     return $actionBtn;

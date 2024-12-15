@@ -42,9 +42,11 @@ class ReviewSppdController extends Controller
                     return $actionBtn;
                 })
                 ->editColumn('nomor_spd', function ($row) {
-                    $str = Str::words($row->kegiatan_spd, 10, '...');
-                    $str .= '<br><b>Nomor: </b><span class="text-primary">' . $row->nomor_spd . '</span>';
-                    return  $str;
+                    $str = '<ul class="list-group list-group-flush">';
+                    $str .= '<li class="list-group-item p-0">' . (Str::limit($row->kegiatan_spd, 50, '...')) . '</li>';
+                    $str .= '<li class="list-group-item p-0"><span class="text-primary">' . $row->nomor_spd . '</span></li>';
+                    $str .= '</ul>';
+                    return $str;
                 })
                 ->editColumn('pegawai', function ($row) {
                     $str = $row->nama_pegawai;

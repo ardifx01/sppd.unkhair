@@ -134,7 +134,6 @@
                                 <option value="">-- Pilih --</option>
                             </select>
                         </div>
-                        <input type="hidden" id="pegawai_id_selected" value="{{ $pegawai_id }}">
 
                         @error('pegawai_id')
                             <small class="text-danger">{{ $message }}</small>
@@ -151,7 +150,6 @@
                                 <option value="">-- Pilih --</option>
                             </select>
                         </div>
-                        <input type="hidden" id="departemen_id_selected" value="{{ $departemen_id }}">
 
                         @error('departemen_id')
                             <small class="text-danger">{{ $message }}</small>
@@ -180,9 +178,9 @@
                         aria-hidden="true"></span> Please wait...</span>
             </button>
 
-            <button type="button" class="btn btn-secondary"
+            <button type="button" class="btn btn-secondary float-right"
                 onclick="location.href='{{ route('admin.sppd.index') }}'">
-                <i class="fa fa-arrow-circle-left"></i> Daftar SPPD
+                <i class="fa fa-list"></i> Daftar SPPD
             </button>
         </div>
     </form>
@@ -226,9 +224,10 @@
                         }
                     },
                     cache: true
-                }).on('select2:select', function(e) {
-                    @this.set('pegawai_id', $(this).select2("val"));
-                    //alert('oke');
+                }).on('change', function(e) {
+                    const selectedValues = $(this).val();
+                    @this.set('pegawai_id', selectedValues);
+                    console.log('change : ' + selectedValues);
                 });
 
                 $('#departemen_id').select2({
@@ -254,9 +253,9 @@
                         }
                     },
                     cache: true
-                }).on('select2:select', function(e) {
-                    @this.set('departemen_id', $(this).select2("val"));
-                    //alert($(this).select2("val"));
+                }).on('change', function(e) {
+                    const selectedValues = $(this).val();
+                    @this.set('departemen_id', selectedValues);
                 });
             });
 

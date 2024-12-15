@@ -38,16 +38,16 @@ class ReviewSppd extends Component
             'pejabat_ppk' => 'required'
         ];
 
-        if ($this->status_spd != '200') {
+        if ($this->status_spd && $this->status_spd != '200') {
             $rules += ['alasan' => 'required'];
             unset($rules['pejabat_ppk']);
         }
         $this->validate($rules);
 
-        $pejabat_ppk = $this->pejabat_ppk ? json_encode(decode_arr($this->pejabat_ppk)) : NULL;
+        $pejabat_ppk = Pimpinan::where('id', $this->pejabat_ppk)->select(['id', 'nama_pimpinan', 'nip', 'jabatan', 'detail_jabatan'])->first()->toArray();
         SuratPerjalananDinas::where('id', $this->params['sppd_id'])->update([
             'status_spd' => $this->status_spd,
-            'pejabat_ppk' => $pejabat_ppk,
+            'pejabat_ppk' => json_encode($pejabat_ppk),
             'tanggal_review' => now(),
             'reviewer_id' => auth()->user()->id,
             'alasan' => $this->alasan,

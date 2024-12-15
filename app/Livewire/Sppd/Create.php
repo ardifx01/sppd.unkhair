@@ -53,7 +53,7 @@ class Create extends Component
 
         $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
         if ($riwayat) {
-            $nomor = $riwayat->nomor + 1;
+            $nomor = (int) abs($riwayat->nomor) + 1;
         }
 
         $this->riwayat_nomor_surat = [

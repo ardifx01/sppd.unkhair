@@ -18,11 +18,7 @@ if (!function_exists('roles')) {
 if (!function_exists('my_roles')) {
     function my_roles()
     {
-        $expire = Carbon::now()->addMinutes(90); // 1.5 menit
-        $select = Cache::remember('my_roles', $expire, function () {
-            return auth()->user()->roles()->get();
-        });
-        return $select;
+        return auth()->user()->roles()->get();
     }
 }
 

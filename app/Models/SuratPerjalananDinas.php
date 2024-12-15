@@ -59,7 +59,7 @@ class SuratPerjalananDinas extends Model
     public function scopepencarian($query, $value)
     {
         if ($value) {
-            $query->where('app_surat_perjalanan_dinas.nomor_spd', 'like', '%' . $value . '%');
+            $query->where('app_surat_perjalanan_dinas.nomor_spd', '=', $value);
         }
     }
 

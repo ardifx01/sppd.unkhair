@@ -10,112 +10,60 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="judul_konten">
-                            Nomor SPPD<sup class="text-danger">*</sup> :
+                            Nomor STD<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="nomor_spd" placeholder="Nomor SPPD"
+                            <input type="text" class="form-control" wire:model="nomor_std" placeholder="Nomor STD"
                                 readonly>
                         </div>
-                        @error('nomor_spd')
+                        @error('nomor_std')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="judul_konten">
-                            Maksud Kegiatan SPPD<sup class="text-danger">*</sup> :
+                            Maksud Kegiatan STD<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group">
-                            <textarea class="form-control" wire:model="kegiatan_spd" rows="3" placeholder="Isi maksud perjalanan dinas"></textarea>
+                            <textarea class="form-control" wire:model="kegiatan_std" rows="5" placeholder="Isi maksud perjalanan dinas"></textarea>
                         </div>
-                        @error('kegiatan_spd')
+                        @error('kegiatan_std')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Transportasi<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="angkutan"
-                                placeholder="Transportasi berangkat">
-                        </div>
-                        @error('angkutan')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
 
                     <div class="form-group">
                         <label for="judul_konten">
-                            Tempat Berangkat<sup class="text-danger">*</sup> :
+                            Tanggal Mulai Dinas<sup class="text-danger">*</sup> :
                         </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="berangakat"
-                                placeholder="Tempat berangkat">
-                        </div>
-                        @error('berangakat')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Tempat Tujuan<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="tujuan" placeholder="Tempat tujuan">
-                        </div>
-                        @error('tujuan')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Lama Perjalanan Dinas<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="number" class="form-control" wire:model="lama_pd">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">hari</span>
-                            </div>
-                        </div>
-                        @error('lama_pd')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Tanggal Berangkat<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group date w-25" id="tanggal_berangakat" data-target-input="nearest">
-                            <input type="date" class="form-control datetimepicker-input"
-                                wire:model="tanggal_berangakat" data-target="#tanggal_berangakat" />
-                            <div class="input-group-append" data-target="#tanggal_berangakat"
-                                data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                        @error('tanggal_berangakat')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Tanggal Kembali<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="date" class="form-control" wire:model="tanggal_kembali">
+                        <div class="input-group date w-25">
+                            <input type="date" class="form-control" wire:model="tanggal_mulai_tugas" />
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">
                                     <i class="fa fa-calendar"></i>
                                 </span>
                             </div>
                         </div>
-                        @error('tanggal_kembali')
+                        @error('tanggal_mulai_tugas')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="judul_konten">
+                            Tanggal Selsai Dinas<sup class="text-danger">*</sup> :
+                        </label>
+                        <div class="input-group w-25">
+                            <input type="date" class="form-control" wire:model="tanggal_selesai_tugas">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        @error('tanggal_selesai_tugas')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -125,8 +73,11 @@
                             Pegawai<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group" wire:ignore>
-                            <select class="form-control" id="pegawai_id" wire:model="pegawai_id" style="width: 100%;">
-                                <option value="{{ $pegawai_id }}" selected="selected">{{ $nama_pegawai }}</option>
+                            <select class="form-control" style="width: 100%;">
+                                @foreach ($pegawai_selected as $row)
+                                    <option value="{{ $row['id'] }}" selected="selected">{{ $row['nama'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -154,6 +105,27 @@
 
                     <div class="form-group">
                         <label for="judul_konten">
+                            Ttd. Pimpinan<sup class="text-danger">*</sup> :
+                        </label>
+                        <div class="input-group">
+                            <select class="form-control form-control-sm w-50" wire:model="pimpinan_ttd">
+                                <option value="">-- Pilih Pimpinan --</option>
+                                @foreach ($pimpinan as $row)
+                                    <option value="{{ $row->id }}"
+                                        @if ($pimpinan_ttd == $row->id) selected @endif>
+                                        {{ $row->nama_pimpinan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        @error('pimpinan_ttd')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="judul_konten">
                             Keterangan Lainnya :
                         </label>
                         <div class="input-group">
@@ -174,9 +146,14 @@
                         aria-hidden="true"></span> Please wait...</span>
             </button>
 
+            @if ($stugas_id)
+                <a href="{{ route('cetak.std', encode_arr(['stugas_id' => $stugas_id])) }}" target="_blank"
+                    class="btn btn-default"><i class="fa fa-print"></i> Cetak STD</a>
+            @endif
+
             <button type="button" class="btn btn-secondary float-right"
-                onclick="location.href='{{ route('admin.sppd.index') }}'">
-                <i class="fa fa-list"></i> Daftar SPPD
+                onclick="location.href='{{ route('admin.std.index') }}'">
+                <i class="fa fa-list"></i> Daftar STD
             </button>
         </div>
     </form>
@@ -194,36 +171,6 @@
 
         <script>
             $(function() {
-                //Initialize Select2 Elements
-                $('#pegawai_id').select2({
-                    theme: 'bootstrap4',
-                    //minimumInputLength: 2,
-                    minimumResultsForSearch: 10,
-                    ajax: {
-                        url: "{{ route('admin.pegawai.search-pegawai') }}",
-                        dataType: 'json',
-                        data: function(params) {
-                            var query = {
-                                search: params.term,
-                                type: 'search-pegawai'
-                            }
-
-                            // Query parameters will be ?search=[term]&type=user_search
-                            return query;
-                        },
-                        processResults: function(data) {
-                            return {
-                                results: data
-                            };
-                        }
-                    },
-                    cache: true
-                }).on('change', function(e) {
-                    const selectedValues = $(this).val();
-                    @this.set('pegawai_id', selectedValues);
-                    console.log('change : ' + selectedValues);
-                });
-
                 $('#departemen_id').select2({
                     theme: 'bootstrap4',
                     //minimumInputLength: 2,
@@ -251,7 +198,6 @@
                     const selectedValues = $(this).val();
                     @this.set('departemen_id', selectedValues);
                 });
-
             });
         </script>
     @endpush

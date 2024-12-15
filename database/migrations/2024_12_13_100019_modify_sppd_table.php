@@ -21,7 +21,7 @@ return new class extends Migration
 
         if (!Schema::hasColumns($this->table, ['pejabat_ppk', 'reviewer_id', 'alasan', 'tanggal_review'])) {
             Schema::table($this->table, function (Blueprint $table) {
-                $table->string('pejabat_ppk')->nullable()->comment('pejabat ppk yg ttd')->after('status_spd');
+                $table->text('pejabat_ppk')->nullable()->comment('pejabat ppk yg ttd')->after('status_spd');
                 $table->dateTime('tanggal_review')->nullable()->after('pejabat_ppk');
                 $table->foreignId('reviewer_id')->nullable()->after('tanggal_review')->references('id')->on('users');
                 $table->string('alasan')->nullable()->after('reviewer_id');

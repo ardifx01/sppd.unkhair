@@ -166,23 +166,28 @@ if (!function_exists('hari_ini')) {
     }
 }
 
-if (!function_exists('bool_tgl_pembayaran')) {
-    function bool_tgl_pembayaran($tgl_pembayaran)
+if (!function_exists('str_tanggal_dinas')) {
+    function str_tanggal_dinas($mulai, $selesai = NULL)
     {
-        if (!$tgl_pembayaran) {
-            return FALSE;
+        if (!$mulai) {
+            return '';
         }
 
-        $tgl_sekarang = date('Y-m-d H:i');
-
-        $konvert_tgl_pembayaran   = date('Y-m-d H:i', strtotime($tgl_pembayaran));
-
-        /***
-         * cek tanggal 
-         * **/
-        if (strtotime($tgl_sekarang) <= strtotime($konvert_tgl_pembayaran)) {
-            return TRUE;
+        if (!$selesai) {
+            return tgl_indo($mulai, false);
         }
-        return FALSE;
+
+        $tgl_mulai = \Carbon\Carbon::parse($mulai);
+        $tgl_selesai = \Carbon\Carbon::parse($selesai);
+
+        if ($tgl_mulai->year != $tgl_selesai->year) {
+            return tgl_indo($mulai, false) . ' s/d ' . tgl_indo($selesai, false);
+        }
+
+        if ($tgl_mulai->month != $tgl_selesai->month) {
+            return tgl_indo($mulai, false) . ' s/d ' . tgl_indo($selesai, false);
+        }
+
+        return $tgl_mulai->day . '-' . tgl_indo($selesai, false);
     }
 }

@@ -34,6 +34,7 @@ class Pimpinan extends Model
         'nip',
         'golongan',
         'jabatan',
+        'detail_jabatan',
         'ppk',
     ];
 

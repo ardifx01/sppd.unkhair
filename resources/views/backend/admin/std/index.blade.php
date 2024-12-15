@@ -30,20 +30,29 @@
                         <div class="card-tools"></div>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-sm btn-primary" onclick="add('Tambah Pimpinan')">
-                            <i class="fa fa-plus"></i> Tambah Data
+                        <button class="btn btn-sm btn-primary" onclick="location.href='{{ route('admin.std.create') }}'">
+                            <i class="fa fa-plus"></i> Buat STD
+                        </button>
+
+                        <button class="btn btn-sm btn-danger"
+                            onclick="location.href='{{ route('admin.std.create-fromSppd') }}'">
+                            <i class="fa fa-plus"></i> Buat STD Dari SPPD
                         </button>
 
                         <div class="table-responsive p-0 mb-2">
-                            <table class="table table-condensed table-bordered" style="width: 100%"
+                            <table class="table table-condensed table-sm table-bordered" style="width: 100%"
                                 id="{{ $datatable['id_table'] }}">
-                                <thead class="bg-light">
+                                <thead class="warna-warning">
                                     <tr>
-                                        <th>#</th>
-                                        <th class="text-left">NIP</th>
-                                        <th class="text-left">Nama Pimpinan</th>
-                                        <th class="text-left">Jabatan</th>
-                                        <th>
+                                        <th style="vertical-align: middle">#</th>
+                                        <th class="text-left" style="vertical-align: middle">
+                                            Kegiatan STD
+                                        </th>
+                                        <th class="text-left">Tanggal Dinas</th>
+                                        <th class="text-left" style="vertical-align: middle">Pegawai</th>
+                                        <th class="text-left" style="vertical-align: middle">Departemen/Unit
+                                        </th>
+                                        <th style="vertical-align: middle">
                                             <center>Aksi</center>
                                         </th>
                                     </tr>
@@ -56,21 +65,19 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:master.pimpinan />
+        <livewire:std.detail-std />
 
         <!-- /.content -->
         @push('script')
             <script>
-                function add(title) {
-                    Livewire.dispatch('add-data', {
-                        title: title
+                function detail(params) {
+                    Livewire.dispatch('detail-std', {
+                        params: params
                     });
                 }
 
-                function edit(pimpinan_id) {
-                    Livewire.dispatch('edit-data', {
-                        pimpinan_id: pimpinan_id
-                    });
+                function edit(params) {
+                    return location.href = "{{ route('admin.std.edit', '') }}/" + params;
                 }
             </script>
         @endpush

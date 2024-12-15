@@ -133,9 +133,10 @@
 
         @if (in_array(session('role'), ['admin-st']))
             <li class="nav-item">
-                <a href="" class="nav-link {{ routeIs(['']) ? 'active' : '' }}">
+                <a href="{{ route('admin.std.index') }}"
+                    class="nav-link {{ routeIs(['admin.std.index', 'admin.std.create', 'admin.std.create-fromSppd', 'admin.std.create-fromSppd-params', 'admin.std.edit']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-newspaper-o"></i>
-                    <p>Surat Tugas</p>
+                    <p>Data STD</p>
                 </a>
             </li>
 

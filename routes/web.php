@@ -36,6 +36,7 @@ Route::group(['middleware' => 'isLogin'], function () {
 
     Route::controller(App\Http\Controllers\CetakController::class)->group(function () {
         Route::get('/cetak/sppd/{params}', 'sppd')->name('cetak.sppd');
+        Route::get('/cetak/std/{params}', 'std')->name('cetak.std');
     });
 
     Route::get('/gantiperan/{role}', [App\Http\Controllers\ChangeRoleController::class, 'index'])->name('change.role');
@@ -71,6 +72,14 @@ Route::group(['middleware' => 'isLogin'], function () {
 
             Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
                 Route::get('/sppd/review', 'index')->name('admin.sppd.review');
+            });
+
+            Route::controller(App\Http\Controllers\Admin\StdController::class)->group(function () {
+                Route::get('/std/index', 'index')->name('admin.std.index');
+                Route::get('/std/create', 'create')->name('admin.std.create');
+                Route::get('/std/create-from-sppd', 'createFromSppd')->name('admin.std.create-fromSppd');
+                Route::get('/std/create-from-sppd/{params}', 'createFromSppd')->name('admin.std.create-fromSppd-params');
+                Route::get('/std/edit/{params}', 'edit')->name('admin.std.edit');
             });
         });
 

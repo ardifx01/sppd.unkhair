@@ -1,6 +1,6 @@
 <div class="modal fade" wire:ignore.self id="{{ $modal }}" tabindex="-1" aria-labelledby="ModalUpdateRoleLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form wire:submit.prevent="save" class="form-horizontal">
                 <div class="modal-header">
@@ -11,64 +11,63 @@
                 </div>
                 <div class="modal-body">
                     @if ($get)
-                        <div class="table-responsive mb-0">
-                            <table class="table table-sm mb-0" style="font-size:12px;">
+                        <div class="table-responsive mb-0 border">
+                            <table class="table table-sm mb-0">
                                 <tr>
-                                    <th class="text-right bg-light" width="15%">Nomor SPPD :</td>
+                                    <th class="text-right warna-warning" width="15%">Nomor SPPD :</td>
                                     <td width="40%">
                                         {{ $get->nomor_spd }}
                                     </td>
 
-                                    <th class="text-right bg-light" width="15%">Nama Pegawai :</td>
+                                    <th class="text-right warna-warning" width="15%">Nama Pegawai :</td>
                                     <td width="30%">
                                         {{ $get->pegawai->nama_pegawai }} <br>
                                         NIP: {{ $get->pegawai->nip ?? '-' }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Perihal Kegiatan :</td>
+                                    <th class="text-right warna-warning">Perihal Kegiatan :</td>
                                     <td>{{ $get->kegiatan_spd }}</td>
 
-                                    <th class="text-right bg-light">Departemen/Unit :</td>
+                                    <th class="text-right warna-warning">Departemen/Unit :</td>
                                     <td>{{ $get->departemen->departemen }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Berangkat Dari :</td>
+                                    <th class="text-right warna-warning">Berangkat Dari :</td>
                                     <td>{{ $get->berangakat }}</td>
 
-                                    <th class="text-right bg-light">Lama Perjalanan :</td>
+                                    <th class="text-right warna-warning">Lama Perjalanan :</td>
                                     <td>{{ $get->lama_pd }} hari</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Tujuan Ke :</td>
+                                    <th class="text-right warna-warning">Tujuan Ke :</td>
                                     <td>{{ $get->tujuan }}</td>
 
-                                    <th class="text-right bg-light">Tanggal Berangkat :</td>
+                                    <th class="text-right warna-warning">Tanggal Berangkat :</td>
                                     <td>
                                         {{ tgl_indo($get->tanggal_berangakat, false) }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Transportasi :</td>
+                                    <th class="text-right warna-warning">Transportasi :</td>
                                     <td>{{ $get->angkutan }}</td>
 
-                                    <th class="text-right bg-light">Tanggal Kembali :</td>
+                                    <th class="text-right warna-warning">Tanggal Kembali :</td>
                                     <td>
                                         {{ tgl_indo($get->tanggal_kembali, false) }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"></td>
+                                    <td colspan="4">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">PPK :</td>
+                                    <th class="text-right warna-info">PPK :</td>
                                     <td colspan="3">
-                                        <select class="form-control form-control-sm w-50" wire:model="pejabat_ppk">
+                                        <select class="form-control w-50" wire:model="pejabat_ppk">
                                             <option value="">-- Pilih PPK --</option>
                                             @foreach ($listppk as $row)
-                                                <option
-                                                    value="{{ encode_arr(['nama_ppk' => $row->nama_pimpinan, 'nip' => $row->nip, 'pimpinan_id' => $row->id]) }}"
-                                                    {{ data_params($pejabat_ppk, 'pimpinan_id') == $row->id ? 'selected' : '' }}>
+                                                <option value="{{ $row->id }}"
+                                                    {{ $row->id == $row->id ? 'selected' : '' }}>
                                                     {{ $row->nama_pimpinan }}
                                                 </option>
                                             @endforeach
@@ -79,9 +78,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Status Pengajuan :</td>
+                                    <th class="text-right warna-info">Status Pengajuan :</td>
                                     <td colspan="3">
-                                        <select class="form-control form-control-sm w-25" wire:model="status_spd">
+                                        <select class="form-control w-25" wire:model="status_spd">
                                             <option value="">-- Pilih Status --</option>
                                             <option value="200" {{ $status_spd == '200' ? 'selected' : '' }}>
                                                 Pengajuan Disetuji</option>
@@ -94,10 +93,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right bg-light">Alasan :</td>
+                                    <th class="text-right warna-info">Alasan :</td>
                                     <td colspan="3">
-                                        <textarea class="form-control form-control-sm" wire:model="alasan" rows="3"
-                                            placeholder="Isi alasan jika diperlukan.."></textarea>
+                                        <textarea class="form-control" wire:model="alasan" rows="3" placeholder="Isi alasan jika diperlukan.."></textarea>
                                         @error('alasan')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror

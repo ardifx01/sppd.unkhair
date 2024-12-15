@@ -42,6 +42,16 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Singkat Jabatan<sup
+                                class="text-danger">*</sup>
+                            :</label>
+                        <input type="text" class="form-control" wire:model="singkat_jabatan"
+                            placeholder="Singkat Jabatan">
+                        @error('singkat_jabatan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" wire:click="_reset"><i
