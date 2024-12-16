@@ -47,7 +47,7 @@ class StdController extends Controller
                 ->editColumn('nomor_std', function ($row) {
                     $detail = "detail('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $str = '<ul class="list-group list-group-flush">';
-                    $str .= '<li class="list-group-item p-0">' . (Str::limit($row->kegiatan_std, 50, ' ...')) . '</li>';
+                    $str .= '<li class="list-group-item p-0">' . (Str::limit($row->kegiatan_std, 60, ' ...')) . '</li>';
                     $str .= '<li class="list-group-item p-0"><a href="#" onclick="' . $detail . '" class="">' . $row->nomor_std . '</a></li>';
                     $str .= '</ul>';
                     return $str;
@@ -58,8 +58,14 @@ class StdController extends Controller
                 })
                 ->editColumn('pegawai', function ($row) {
                     $str = '<ul class="list-group list-group-flush">';
-                    foreach ($row->pegawai as $r) {
-                        $str .= '<li class="list-group-item p-0">' . $r->nama_pegawai . '</li>';
+                    foreach ($row->pegawai as $index => $r) {
+                        $nomor = $index + 1;
+                        if ($nomor <= 3) {
+                            $str .= '<li class="list-group-item p-0">' . $nomor . '. ' . $r->nama_pegawai . '</li>';
+                        } else {
+                            $str .= '<li class="list-group-item p-0 text-muted">&nbsp;... </li>';
+                            break;
+                        }
                     }
                     $str .= '</ul>';
                     return  $str;

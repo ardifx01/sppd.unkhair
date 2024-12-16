@@ -39,8 +39,7 @@
                                     <ul class="list-group list-group-flush">
                                         @foreach ($get->pegawai as $r)
                                             <li class="list-group-item p-0">
-                                                {{ $r->nama_pegawai }}
-                                                <br>NIP: {{ $row->nip ?? '-' }}
+                                                {{ $loop->index + 1 }}. {{ $r->nama_pegawai }}
                                             </li>
                                         @endforeach
                                     </ul>

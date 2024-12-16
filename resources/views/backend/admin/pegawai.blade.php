@@ -37,7 +37,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Pilih Kategori Pegawai</label>
                                     <div class="col-sm-3">
                                         <select name="kategori" class="form-control" id="kategori">
-                                            <option value="-">-- Pilih --</option>
+                                            <option value="">-- All --</option>
                                             @foreach ($kategori as $key => $value)
                                                 <option value="{{ encode_arr(['kategori' => $key]) }}"
                                                     {{ data_params(old('kategori'), 'kategori') == $key ? 'selected' : '' }}>
@@ -97,7 +97,8 @@
                         ajax: {
                             url: "{{ $datatable2['url'] }}",
                             data: function(d) {
-                                d.jalur = $('#jalur').val()
+                                d.jalur = $('#jalur').val(),
+                                    d.kategori = $('#kategori').val()
                             }
                         },
                         columns: [

@@ -1,0 +1,22 @@
+1. barryvdh/laravel-dompdf
+   
+2. codedge/laravel-fpdf
+   
+3. livewire/livewire
+   php artisan livewire:publish --assets
+
+4. realrashid/sweet-alert
+   php artisan sweetalert:publish
+
+
+# edit file public_html/index.php
+    if (file_exists($maintenance = __DIR__.'/../ukt-unkhair-v2/storage/framework/maintenance.php')) {
+        require $maintenance;
+    }
+
+# edit file bootstrap/app.php
+    $app = new Illuminate\Foundation\Application(
+        $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+    );
+    $app->usePublicPath(realpath(base_path('/../public_html')));
+

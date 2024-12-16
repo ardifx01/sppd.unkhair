@@ -31,6 +31,7 @@ class SppdController extends Controller
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
                     'app_surat_perjalanan_dinas.tanggal_berangakat',
+                    'app_surat_perjalanan_dinas.tanggal_kembali',
                     'app_surat_perjalanan_dinas.tujuan',
                     'app_surat_perjalanan_dinas.status_spd',
                     'app_surat_perjalanan_dinas.departemen_id',
@@ -86,7 +87,7 @@ class SppdController extends Controller
                     return '<a href="#" onclick="' . $detail . '" class="">' . $row->nomor_spd . '</a>';
                 })
                 ->editColumn('tanggal_berangakat', function ($row) {
-                    return tgl_indo($row->tanggal_berangakat, false);
+                    return str_tanggal_dinas($row->tanggal_berangakat, $row->tanggal_kembali);
                 })
                 ->editColumn('pegawai', function ($row) {
                     $str = $row->nama_pegawai;

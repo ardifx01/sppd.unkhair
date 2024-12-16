@@ -115,7 +115,8 @@
                                     Sehingga Universitas Khairun dapat menyediakan layanan yang lebih efektif dan efisien.
                                 </p>
                                 <div class="d-grid gap-3 d-md-flex justify-content-md-start">
-                                    <livewire:Auth.Logout tampilan="logout2">
+                                    <livewire:auth.logout tampilan="logout2" />
+                                    <livewire:auth.profile />
                                 </div>
                             </div>
                         </div>

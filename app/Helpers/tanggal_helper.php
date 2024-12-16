@@ -188,6 +188,10 @@ if (!function_exists('str_tanggal_dinas')) {
             return tgl_indo($mulai, false) . ' s/d ' . tgl_indo($selesai, false);
         }
 
-        return $tgl_mulai->day . '-' . tgl_indo($selesai, false);
+        if ($tgl_mulai->day != $tgl_selesai->day) {
+            return $tgl_mulai->day . '-' . tgl_indo($selesai, false);
+        }
+
+        return tgl_indo($selesai, false);
     }
 }
