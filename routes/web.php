@@ -45,7 +45,7 @@ Route::group(['middleware' => 'isLogin'], function () {
     Route::prefix('admin/')->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
-        Route::group(['middleware' => ['role:admin-spd|admin-st|ppk']], function () {
+        Route::group(['middleware' => ['role:developper|admin-spd|admin-st|ppk']], function () {
             Route::controller(App\Http\Controllers\Admin\DepartemenController::class)->group(function () {
                 Route::get('/departemen/index', 'index')->name('admin.departemen.index');
                 Route::get('/departemen/unitkhusus/{params}', 'unitkhusus')->name('admin.departemen.unitkhusus');
