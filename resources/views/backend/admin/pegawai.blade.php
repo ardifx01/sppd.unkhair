@@ -50,9 +50,9 @@
                                             <i class="fa fa-user-plus"></i> Tambah Pegawai
                                         </button>
 
-                                        <button type="button" class="btn btn-primary tombol-import">
+                                        <a href="" class="btn btn-primary tombol-import">
                                             <i class="fa fa-users"></i> Tambah Masal
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </form>
