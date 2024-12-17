@@ -83,7 +83,7 @@
                                         <select class="form-control w-25" wire:model="status_spd">
                                             <option value="">-- Pilih Status --</option>
                                             <option value="200" {{ $status_spd == '200' ? 'selected' : '' }}>
-                                                Pengajuan Disetuji</option>
+                                                Pengajuan Disetujui</option>
                                             <option value="406" {{ $status_spd == '406' ? 'selected' : '' }}>
                                                 Pengajuan Ditolak</option>
                                         </select>

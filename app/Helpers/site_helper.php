@@ -119,6 +119,7 @@ if (!function_exists('str_role')) {
     {
         $roles = [
             'developper' => 'Developper',
+            'super-admin' => 'Super Admin',
             'admin-spd' => 'Admin SPD',
             'admin-st' => 'Admin STD',
             'ppk' => 'PPK',
@@ -129,5 +130,14 @@ if (!function_exists('str_role')) {
         }
 
         return '';
+    }
+}
+
+if (!function_exists('get_image')) {
+    function get_image($path_image = NULL)
+    {
+        $type = pathinfo($path_image, PATHINFO_EXTENSION);
+        $data = file_get_contents($path_image);
+        return 'data:image/' . $type . ';base64,' . base64_encode($data);
     }
 }

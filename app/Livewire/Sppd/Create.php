@@ -13,7 +13,7 @@ class Create extends Component
 {
     public $judul = "Buat SPPD";
 
-    public $id, $user_id, $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat, $tujuan;
+    public $id, $user_id, $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat = "Ternate", $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
 
     public $mode = "add";

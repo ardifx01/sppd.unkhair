@@ -39,13 +39,13 @@
                     <tr>
                         <td width="20%">
                             <center>
-                                <img src="{{ public_path('images/logo.jpg') }}" alt=""
+                                <img src="{{ get_image(public_path('images/logo.jpg')) }}" alt=""
                                     style="width:95px; height:85px;">
                             </center>
                         </td>
                         <td width="80%" style="text-align:center">
                             <span style="font-size:19px; font-weight:bold;">
-                                KEMENTERIAN PENDIDIKAN, SAIN DAN TEKNOLOGI
+                                KEMENTERIAN PENDIDIKAN, SAINS DAN TEKNOLOGI
                             </span>
                             <br>
                             <span style="font-size:19px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
