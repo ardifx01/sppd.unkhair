@@ -92,10 +92,8 @@
                         <label for="judul_konten">
                             Departemen/Unit<sup class="text-danger">*</sup> :
                         </label>
-                        <div class="input-group" wire:ignore>
-                            <select class="form-control" id="departemen_id" wire:model="departemen_id"
-                                style="width: 100%;">
-                                <option value="">-- Pilih --</option>
+                        <div class="input-group">
+                            <select class="form-control" wire:model="departemen_id" style="width: 100%;">
                                 @if ($departemen_id && $departemen)
                                     <option value="{{ $departemen_id }}" selected="selected">{{ $departemen }}
                                     </option>
@@ -165,49 +163,8 @@
 
     @include('livewire.std.modal-daftar-surat')
 
-    @push('style')
-        <!-- Select2 -->
-        <link rel="stylesheet" href="{{ asset('adminlte3') }}/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet"
-            href="{{ asset('adminlte3') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    @endpush
-
     @push('script')
-        <!-- Select2 -->
-        <script src="{{ asset('adminlte3') }}/plugins/select2/js/select2.full.min.js"></script>
-
         <script>
-            $(function() {
-                //Initialize Select2 Elements
-                $('#departemen_id').select2({
-                    theme: 'bootstrap4',
-                    //minimumInputLength: 2,
-                    minimumResultsForSearch: 10,
-                    ajax: {
-                        url: "{{ route('admin.departemen.search-departemen') }}",
-                        dataType: 'json',
-                        data: function(params) {
-                            var query = {
-                                search: params.term,
-                                type: 'search-departemen'
-                            }
-
-                            // Query parameters will be ?search=[term]&type=user_search
-                            return query;
-                        },
-                        processResults: function(data) {
-                            return {
-                                results: data
-                            };
-                        }
-                    },
-                    cache: true
-                }).on('change', function(e) {
-                    const selectedValues = $(this).val();
-                    @this.set('departemen_id', selectedValues);
-                });
-            });
-
             function pilih(kodesurat_id) {
                 Livewire.dispatch('generate-nomor-std', {
                     kodesurat_id: kodesurat_id

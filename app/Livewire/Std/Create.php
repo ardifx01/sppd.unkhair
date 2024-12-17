@@ -44,11 +44,11 @@ class Create extends Component
     public function render()
     {
         $pimpinan = Pimpinan::where('ppk', 0)->orderBy('nama_pimpinan', 'ASC')->get();
-        $view = 'livewire.std.create';
         if ($this->spd_id) {
-            $view = 'livewire.std.create-from-sppd';
+            return view('livewire.std.create-from-sppd', ['pimpinan' => $pimpinan]);
+        } else {
+            return view('livewire.std.create', ['pimpinan' => $pimpinan]);
         }
-        return view($view, ['pimpinan' => $pimpinan]);
     }
 
     public function show_modal_daftar_surat()
