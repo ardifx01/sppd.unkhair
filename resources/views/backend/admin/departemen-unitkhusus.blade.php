@@ -59,23 +59,23 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:master.unitkhusus params="{{ $params }}">
+        <livewire:master.unit-khusus params="{{ $params }}" />
 
-            <!-- /.content -->
-            @push('script')
-                <script>
-                    function add(title) {
-                        Livewire.dispatch('add-data', {
-                            title: title
-                        });
-                    }
+        <!-- /.content -->
+        @push('script')
+            <script>
+                function add(title) {
+                    Livewire.dispatch('add-data', {
+                        title: title
+                    });
+                }
 
-                    function edit(departemen_id) {
-                        Livewire.dispatch('edit-data', {
-                            departemen_id: departemen_id
-                        });
-                    }
-                </script>
-            @endpush
+                function edit(departemen_id) {
+                    Livewire.dispatch('edit-data', {
+                        departemen_id: departemen_id
+                    });
+                }
+            </script>
+        @endpush
     </div>
 @endsection
