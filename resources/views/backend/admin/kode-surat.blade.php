@@ -59,7 +59,7 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:master.kodesurat>
+        <livewire:master.kode-surat>
 
             <!-- /.content -->
             @push('script')
