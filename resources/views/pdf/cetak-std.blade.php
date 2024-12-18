@@ -35,24 +35,24 @@
     <body>
         <div class="wrapper-page">
             <page_header>
-                <table width="90%" align="center">
+                <table width="100%" align="center">
                     <tr>
-                        <td width="20%">
+                        <td width="15%">
                             <center>
                                 <img src="{{ get_image(public_path('images/logo.jpg')) }}" alt=""
                                     style="width:95px; height:85px;">
                             </center>
                         </td>
-                        <td width="80%" style="text-align:center">
-                            <span style="font-size:19px; font-weight:bold;">
+                        <td width="85%" style="text-align:center">
+                            <span style="font-size:20px; font-weight:bold;">
                                 KEMENTERIAN PENDIDIKAN, SAINS DAN TEKNOLOGI
                             </span>
                             <br>
-                            <span style="font-size:19px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
-                            <span style="font-size:14px;">
+                            <span style="font-size:20px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
+                            <span style="font-size:15px;">
                                 Jalan Jusuf Abdurrahman Kampus Gambesi Kode Pos 97719 Ternate Selatan
                             </span> <br>
-                            <span style="font-size:14px;">
+                            <span style="font-size:15px;">
                                 Laman: <a href="https://www.unkhair.ac.id">www.unkhair.ac.id</a> / Email:
                                 <u>admin@unkhair.ac.id</a>
                             </span>
@@ -64,23 +64,23 @@
 
             <br>
             <center>
-                <span style="font-size:14px;">
+                <span style="font-size:15px;">
                     SURAT TUGAS DINAS (STD) <br>
                     Nomor &nbsp;:&nbsp;{{ $std->nomor_std }}
                 </span>
             </center>
             <br>
 
-            <p style="font-size:12px; text-align: justify">
+            <p style="font-size:14px; text-align: justify">
                 {{ get_datajson($std->pimpinan_ttd, 'detail_jabatan') }} Universitas Khairun memberikan tugas kepada:
             </p>
 
-            <table width="100%" style="font-size:12px; border-collapse: collapse;">
+            <table width="100%" style="font-size:14px; border-collapse: collapse;">
                 <tr>
                     <th width="5%" class="kolom">No</th>
-                    <th width="30%" class="kolom">Nama / NIP</th>
-                    <th width="25%" class="kolom">Pangkat / Golongan</th>
-                    <th width="40%" class="kolom">Jabatan</th>
+                    <th width="45%" class="kolom">Nama / NIP</th>
+                    {{-- <th width="25%" class="kolom">Pangkat / Golongan</th> --}}
+                    <th width="50%" class="kolom">Jabatan</th>
                 </tr>
                 @foreach ($std->pegawai as $row)
                     <tr>
@@ -89,9 +89,9 @@
                             {{ $row->nama_pegawai }} <br>
                             NIP: {{ $row->nip ?? '-' }}
                         </td>
-                        <td class="kolom">
+                        {{-- <td class="kolom">
                             -
-                        </td>
+                        </td> --}}
                         <td class="kolom">
                             {{ $row->jabatan ?? '-' }}
                         </td>
@@ -99,14 +99,14 @@
                 @endforeach
             </table>
 
-            <p style="font-size:12px; text-align: justify">
+            <p style="font-size:14px; text-align: justify">
                 Untuk melakukan {{ $std->kegiatan_std }}
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan Universitas
             </p>
 
 
-            <table width="100%" style="font-size:12px;">
+            <table width="100%" style="font-size:14px;">
                 <tr>
                     <td width="60%" style="vertical-align: top">
                         {!! str_repeat('<br>', 10) !!}

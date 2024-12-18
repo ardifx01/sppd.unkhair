@@ -35,24 +35,24 @@
     <body>
         <div class="wrapper-page">
             <page_header>
-                <table width="90%" align="center">
+                <table width="100%" align="center">
                     <tr>
-                        <td width="20%">
+                        <td width="15%">
                             <center>
                                 <img src="{{ get_image(public_path('images/logo.jpg')) }}" alt=""
                                     style="width:95px; height:85px;">
                             </center>
                         </td>
-                        <td width="80%" style="text-align:center">
-                            <span style="font-size:19px; font-weight:bold;">
+                        <td width="85%" style="text-align:center">
+                            <span style="font-size:20px; font-weight:bold;">
                                 KEMENTERIAN PENDIDIKAN, SAINS DAN TEKNOLOGI
                             </span>
                             <br>
-                            <span style="font-size:19px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
-                            <span style="font-size:14px;">
+                            <span style="font-size:20px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
+                            <span style="font-size:15px;">
                                 Jalan Jusuf Abdurrahman Kampus Gambesi Kode Pos 97719 Ternate Selatan
                             </span> <br>
-                            <span style="font-size:14px;">
+                            <span style="font-size:15px;">
                                 Laman: <a href="https://www.unkhair.ac.id">www.unkhair.ac.id</a> / Email:
                                 <u>admin@unkhair.ac.id</a>
                             </span>
@@ -62,7 +62,7 @@
                 <hr>
             </page_header>
 
-            <table width="40%" align="right" border="0" style="font-size:14px;">
+            <table width="40%" align="right" border="0" style="font-size:15px;">
                 <tr>
                     <td width="30%">Lembar Ke</td>
                     <td width="70%">: (Satu) 1</td>
@@ -75,12 +75,12 @@
 
             <br>
             <center>
-                <span style="font-size:14px;">
+                <span style="font-size:15px;">
                     SURAT PERJALANAN DINAS (SPD)
                 </span>
             </center>
 
-            <table width="100%" style="font-size:12px; margin-top:5px; border-collapse: collapse;">
+            <table width="100%" style="font-size:14px; margin-top:5px; border-collapse: collapse;">
                 <tr>
                     <td width="5%" class="kolom">1</td>
                     <td width="40%" class="kolom">
@@ -199,7 +199,7 @@
                     </td>
                 </tr>
             </table>
-            <table width="100%" style="font-size:12px;">
+            <table width="100%" style="font-size:14px;">
                 <tr>
                     <td width="60%" style="vertical-align: top">
                         Coret yang tidak perlu
@@ -222,7 +222,7 @@
         </div>
 
         <div class="wrapper-page">
-            <table width="100%" style="font-size:12px; border-collapse: collapse;">
+            <table width="100%" style="font-size:14px; border-collapse: collapse;">
                 <tr>
                     <td width="45%" class="kolom2"></td>
                     <td width="55%" class="kolom2">
@@ -292,7 +292,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td colspan="2" style="padding-top:75px;">
+                                    <td colspan="2" style="padding-top:88px;">
                                         ({{ str_repeat('.', 60) }})<br>
                                         NIP:
                                     </td>
