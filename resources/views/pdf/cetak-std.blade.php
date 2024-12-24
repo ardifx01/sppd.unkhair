@@ -39,8 +39,8 @@
                     <tr>
                         <td width="15%">
                             <center>
-                                <img src="{{ get_image(public_path('images/logo.jpg')) }}" alt=""
-                                    style="width:95px; height:85px;">
+                                <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
+                                    style="width:95px; height:90px;">
                             </center>
                         </td>
                         <td width="85%" style="text-align:center">
