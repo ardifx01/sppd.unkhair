@@ -80,7 +80,8 @@
                             Lama Perjalanan Dinas<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group w-25">
-                            <input type="number" class="form-control" wire:model="lama_pd">
+                            <input type="number" class="form-control" wire:model="lama_pd"
+                                wire:change="pass_tanggal_kembali($event.target.value, 'lama_pd')">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">hari</span>
                             </div>
@@ -95,10 +96,9 @@
                             Tanggal Berangkat<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group date w-25" id="tanggal_berangakat" data-target-input="nearest">
-                            <input type="date" class="form-control datetimepicker-input"
-                                wire:model="tanggal_berangakat" data-target="#tanggal_berangakat" />
-                            <div class="input-group-append" data-target="#tanggal_berangakat"
-                                data-toggle="datetimepicker">
+                            <input type="date" class="form-control" wire:model="tanggal_berangakat"
+                                wire:change="pass_tanggal_kembali($event.target.value, 'tanggal_berangakat')" />
+                            <div class="input-group-append">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>

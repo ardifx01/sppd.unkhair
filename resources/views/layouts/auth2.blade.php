@@ -80,7 +80,7 @@
                 Livewire.on('alert', (event) => {
                     Swal.fire({
                         icon: event.type,
-                        title: upperCaseFirst(event.type),
+                        title: event.title,
                         text: event.message
                     });
                 });

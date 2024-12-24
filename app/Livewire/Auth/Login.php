@@ -50,12 +50,12 @@ class Login extends Component
 
             if (!$login->is_active) {
                 Auth::logout();
-                flash('error', 'Akun anda sedang dinonaktifkan!!');
+                error('Error', 'Akun anda sedang dinonaktifkan!!');
                 return $this->redirect(route('auth.login'));
             }
 
             if (!$login->hasRole(['developper', 'admin'])) {
-                flash('error', 'Username ' . $this->username . ' tidak di kenali, silahkan perika kembali!!');
+                error('Error', 'Username ' . $this->username . ' tidak di kenali, silahkan perika kembali!!');
                 return $this->redirect(route('auth.login'));
             }
         }

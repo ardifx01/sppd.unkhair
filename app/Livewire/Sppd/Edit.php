@@ -43,6 +43,23 @@ class Edit extends Component
         return view('livewire.sppd.edit');
     }
 
+    public function pass_tanggal_kembali($value, $form = NULL)
+    {
+        if ($form == 'lama_pd') {
+            $this->lama_pd = $value;
+            if ($this->tanggal_berangakat) {
+                $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $this->lama_pd);
+            }
+        }
+
+        if ($form == 'tanggal_berangakat') {
+            $this->tanggal_berangakat = $value;
+            if ($this->tanggal_berangakat) {
+                $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $this->lama_pd);
+            }
+        }
+    }
+
     public function save()
     {
         $this->validate([

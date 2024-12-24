@@ -195,3 +195,16 @@ if (!function_exists('str_tanggal_dinas')) {
         return tgl_indo($selesai, false);
     }
 }
+
+
+if (!function_exists('add_tanggal')) {
+    function add_tanggal($tgl_mulai, $jml_hari = NULL)
+    {
+        if (!$tgl_mulai) {
+            return '';
+        }
+
+        $date = \Carbon\Carbon::parse($tgl_mulai)->addDay($jml_hari);
+        return date('Y-m-d', strtotime($date));
+    }
+}
