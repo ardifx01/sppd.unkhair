@@ -19,7 +19,7 @@ class TampilKodeSurat extends Component
             $this->resetPage();
         }
 
-        $kodesurat = KodeSurat::pencarian($this->pencarian)->orderBy('created_at', 'ASC')->paginate($this->perPage);
+        $kodesurat = KodeSurat::pencarian($this->pencarian)->orderBy('urutan', 'ASC')->paginate($this->perPage);
         return view('livewire.sppd.tampil-kode-surat', ['listdata' => $kodesurat]);
     }
 }
