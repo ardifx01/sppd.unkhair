@@ -19,6 +19,9 @@ class KodeSurat extends Component
     public $kode;
     public $keterangan;
 
+    public $urutan;
+    public $parent_urutan;
+
     public $parent_kode_surat = [];
 
     public function render()
@@ -29,6 +32,7 @@ class KodeSurat extends Component
     public function kode_turunan()
     {
         $get = ModelsKodeSurat::where('id', $this->parent_id)->first();
+        $this->parent_urutan = (int) $get->urutan;
         $this->kode = $get->kode . '.';
     }
 
@@ -66,6 +70,7 @@ class KodeSurat extends Component
 
         if ($this->parent_id) {
             $this->turunan = true;
+            $this->parent_urutan = (int) $get->urutan;
             $this->parent_kode_surat();
         }
 
@@ -92,10 +97,22 @@ class KodeSurat extends Component
         }
 
         $this->validate($rules);
+
+        if (!$this->turunan) {
+            $urutan = ModelsKodeSurat::where('parent_id', NULL)->get();
+            $this->urutan = $urutan->count() + 1;
+            // dd($this->urutan);
+        } else {
+            $urutan = ModelsKodeSurat::where('parent_id', $this->parent_id)->get();
+            $this->urutan = $this->parent_urutan . '.' . ($urutan->count() + 1);
+            // dd($jadi);
+        }
+
         // dd($this);
         $data = [
             'kode' => $this->kode,
-            'keterangan' => $this->keterangan
+            'keterangan' => $this->keterangan,
+            'urutan' => $this->urutan
         ];
 
         if ($this->turunan) {

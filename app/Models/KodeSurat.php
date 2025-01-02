@@ -33,6 +33,7 @@ class KodeSurat extends Model
         'parent_id',
         'kode',
         'keterangan',
+        'urutan',
     ];
 
     public function turunanKode()

@@ -12,7 +12,7 @@ class KodeSuratController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = KodeSurat::orderBy('created_at', 'ASC');
+            $listdata = KodeSurat::orderBy('urutan', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
