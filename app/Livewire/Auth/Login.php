@@ -54,10 +54,10 @@ class Login extends Component
                 return $this->redirect(route('auth.login'));
             }
 
-            if (!$login->hasRole(['developper', 'admin'])) {
-                flash('error', 'Username ' . $this->username . ' tidak di kenali, silahkan perika kembali!!');
-                return $this->redirect(route('auth.login'));
-            }
+            // if (!$login->hasRole(['developper', 'admin'])) {
+            //     flash('error', 'Username ' . $this->username . ' tidak di kenali, silahkan perika kembali!!');
+            //     return $this->redirect(route('auth.login'));
+            // }
         }
 
         if (!$err) {
