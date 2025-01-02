@@ -110,9 +110,9 @@ class KodeSurat extends Component
             $this->dispatch('alert', type: 'success', title: 'Successfully', message: 'Kode Surat Berhasil Diperbarui');
         }
 
-        // $this->dispatch('load-datatable');
         $this->_reset();
-        $this->redirect(route('admin.kodesurat.index'));
+        $this->dispatch('load-datatable');
+        // $this->redirect(route('admin.kodesurat.index'));
     }
 
     public function _reset()

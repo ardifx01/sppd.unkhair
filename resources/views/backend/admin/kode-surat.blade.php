@@ -59,29 +59,29 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:master.kode-surat>
+        <livewire:master.kode-surat />
 
-            <!-- /.content -->
-            @push('script')
-                <script>
-                    function add(title) {
-                        Livewire.dispatch('add-data', {
-                            title: title
-                        });
-                    }
+        <!-- /.content -->
+        @push('script')
+            <script>
+                function add(title) {
+                    Livewire.dispatch('add-data', {
+                        title: title
+                    });
+                }
 
-                    function add_turunan(title) {
-                        Livewire.dispatch('add-turunan', {
-                            title: title
-                        });
-                    }
+                function add_turunan(title) {
+                    Livewire.dispatch('add-turunan', {
+                        title: title
+                    });
+                }
 
-                    function edit(kodesurat_id) {
-                        Livewire.dispatch('edit-data', {
-                            kodesurat_id: kodesurat_id
-                        });
-                    }
-                </script>
-            @endpush
+                function edit(kodesurat_id) {
+                    Livewire.dispatch('edit-data', {
+                        kodesurat_id: kodesurat_id
+                    });
+                }
+            </script>
+        @endpush
     </div>
 @endsection
