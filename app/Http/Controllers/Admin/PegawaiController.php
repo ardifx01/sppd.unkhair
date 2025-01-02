@@ -37,7 +37,7 @@ class PegawaiController extends Controller
                     return $str;
                 })
                 ->editColumn('departemen', function ($row) {
-                    $str = $row->departemen->departemen;
+                    $str = $row->departemen?->departemen;
                     return $str;
                 })
                 ->editColumn('ttl', function ($row) {
