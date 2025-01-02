@@ -102,6 +102,8 @@ class KodeSurat extends Component
             $data += ['parent_id' => $this->parent_id];
         }
 
+        // dd($data);
+
         if ($this->mode == 'add') {
             ModelsKodeSurat::create($data);
             $this->dispatch('alert', type: 'success', title: 'Successfully', message: 'Kode Surat Berhasil Ditambahkan');

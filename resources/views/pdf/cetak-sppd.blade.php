@@ -107,8 +107,8 @@
                         b. Tingkat Biaya Perjalanan Dinas
                     </td>
                     <td class="kolom" colspan="2">
-                        a. - <br>
-                        b. {{ $sppd->pegawai->jabatan }} <br>
+                        a. {{ $sppd->pegawai?->golongan }} <br>
+                        b. {{ $sppd->pegawai?->jabatan }} <br>
                         c. -
                     </td>
                 </tr>
