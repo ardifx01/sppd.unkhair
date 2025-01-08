@@ -105,7 +105,7 @@ class KodeSurat extends Component
         } else {
             $urutan = ModelsKodeSurat::where('parent_id', $this->parent_id)->get();
             $x = ($urutan->count() + 1);
-            $nomor = ($x < 9) ? '0' . $x : $x;
+            $nomor = ($x <= 9) ? '0' . $x : $x;
             $this->urutan = $this->parent_urutan . '.' . $nomor;
             // dd($jadi);
         }

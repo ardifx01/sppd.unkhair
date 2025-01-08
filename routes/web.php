@@ -70,6 +70,10 @@ Route::group(['middleware' => 'isLogin'], function () {
                 Route::get('/sppd/delete/{params}', 'delete')->name('admin.sppd.delete');
             });
 
+            Route::controller(App\Http\Controllers\Admin\LaporanSppdController::class)->group(function () {
+                Route::get('/sppd/laporan', 'index')->name('admin.sppd.laporan');
+            });
+
             Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
                 Route::get('/sppd/review', 'index')->name('admin.sppd.review');
             });
@@ -80,6 +84,10 @@ Route::group(['middleware' => 'isLogin'], function () {
                 Route::get('/std/create-from-sppd', 'createFromSppd')->name('admin.std.create-fromSppd');
                 Route::get('/std/create-from-sppd/{params}', 'createFromSppd')->name('admin.std.create-fromSppd-params');
                 Route::get('/std/edit/{params}', 'edit')->name('admin.std.edit');
+            });
+
+            Route::controller(App\Http\Controllers\Admin\LaporanStdController::class)->group(function () {
+                Route::get('/std/laporan', 'index')->name('admin.std.laporan');
             });
         });
 

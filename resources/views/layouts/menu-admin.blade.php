@@ -124,7 +124,8 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link {{ routeIs(['']) ? 'active' : '' }}">
+                <a href="{{ route('admin.sppd.laporan') }}"
+                    class="nav-link {{ routeIs(['admin.sppd.laporan']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     <p>Laporan</p>
                 </a>
@@ -141,7 +142,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="" class="nav-link {{ routeIs(['']) ? 'active' : '' }}">
+                <a href="{{ route('admin.std.laporan') }}"
+                    class="nav-link {{ routeIs(['admin.std.laporan']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     <p>Laporan</p>
                 </a>

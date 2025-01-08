@@ -102,7 +102,14 @@
             <p style="font-size:14px; text-align: justify">
                 Untuk melakukan {{ $std->kegiatan_std }}
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
-                Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan Universitas
+                Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
+                Universitas.
+                @if ($std->spd_id)
+                    Di lengkapi dengan: <br>
+                    1. Tiket PP di sertai boarding pass. <br>
+                    2. Bukti pembayaran hotel selama kegiatan. <br>
+                    3. Bukti pembayaran taxi PP.
+                @endif
             </p>
 
 
