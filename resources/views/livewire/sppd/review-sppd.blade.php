@@ -58,6 +58,14 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th class="text-right warna-warning">Kode MAK :</td>
+                                    <td colspan="3">{{ $get->kode_mak ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-right warna-warning">Detail Alokasi Anggaran :</td>
+                                    <td colspan="3">{{ $get->detail_alokasi_anggaran ?? '' }}</td>
+                                </tr>
+                                <tr>
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
                                 <tr>

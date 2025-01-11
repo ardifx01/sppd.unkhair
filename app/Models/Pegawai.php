@@ -37,6 +37,7 @@ class Pegawai extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'agama',
+        'pangkat',
         'golongan',
         'jabatan',
         'jabatan_tugas_tambahan',
@@ -55,6 +56,13 @@ class Pegawai extends Model
         if ($value) {
             $query->where('nip', 'like', '%' . $value . '%')
                 ->orWhere('nama_pegawai', 'like', '%' . $value . '%');
+        }
+    }
+
+    public function scopepangkat($query, $value)
+    {
+        if ($value) {
+            $query->where('pangkat', '=', $value);
         }
     }
 

@@ -45,6 +45,13 @@ class Departemen extends Model
         $query->where('parent_id', $value);
     }
 
+    public function scopeId($query, $value)
+    {
+        if ($value) {
+            $query->where('id', '=', $value);
+        }
+    }
+
     public function scopepencarian($query, $value)
     {
         if ($value) {

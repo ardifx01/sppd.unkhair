@@ -30,14 +30,6 @@
                         <div class="card-tools"></div>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-sm btn-primary" onclick="location.href='{{ route('admin.std.create') }}'">
-                            <i class="fa fa-plus"></i> Buat STD
-                        </button>
-
-                        <button class="btn btn-sm btn-danger" onclick="location.href='{{ route('admin.std.fromSppd') }}'">
-                            <i class="fa fa-list"></i> STD Dari SPPD
-                        </button>
-
                         <div class="table-responsive p-0 mb-2">
                             <table class="table table-condensed table-sm table-bordered" style="width: 100%"
                                 id="{{ $datatable['id_table'] }}">
@@ -49,8 +41,7 @@
                                         </th>
                                         <th class="text-left">Tanggal Dinas</th>
                                         <th class="text-left" style="vertical-align: middle">Pegawai</th>
-                                        <th class="text-left" style="vertical-align: middle">Departemen/Unit
-                                        </th>
+                                        <th class="text-left" style="vertical-align: middle">Dibuat</th>
                                         <th style="vertical-align: middle">
                                             <center>Aksi</center>
                                         </th>
@@ -64,17 +55,9 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:std.detail-std />
-
         <!-- /.content -->
         @push('script')
             <script>
-                function detail(params) {
-                    Livewire.dispatch('detail-std', {
-                        params: params
-                    });
-                }
-
                 function edit(params) {
                     return location.href = "{{ route('admin.std.edit', '') }}/" + params;
                 }

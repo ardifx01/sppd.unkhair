@@ -49,6 +49,9 @@ class SuratPerjalananDinas extends Model
         'tanggal_berangakat',
         'tanggal_kembali',
         'keterangan',
+        'kode_mak',
+        'detail_alokasi_anggaran',
+        'nilai_pencairan', // di input oleh keuangan (ibu ning)
         'status_spd',
         'pejabat_ppk',
         'tanggal_review',

@@ -77,6 +77,8 @@ class Edit extends Component
 
         $std = SuratTugasDinas::where('id', $this->stugas_id)->first();
 
+        $this->status_std = '200';
+
         // remove daftar pegawai
         $std->pegawai()->sync([]);
         $std->update([
@@ -89,6 +91,7 @@ class Edit extends Component
             'keterangan' => $this->keterangan,
             'status_std' => $this->status_std,
         ]);
+
         // simpan daftar pegawai
         $std->pegawai()->sync($this->pegawai_id);
 

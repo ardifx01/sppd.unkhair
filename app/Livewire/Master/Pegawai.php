@@ -7,8 +7,6 @@ use App\Models\Pegawai as ModelsPegawai;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-use function Laravel\Prompts\error;
-
 class Pegawai extends Component
 {
     public $judul = "Edit Pegawai";
@@ -26,6 +24,7 @@ class Pegawai extends Component
     public $agama;
 
     public $nip;
+    public $pangkat;
     public $golongan;
     public $jabatan;
     public $jabatan_tugas_tambahan;
@@ -39,6 +38,12 @@ class Pegawai extends Component
     public $kategori_pegawai;
 
     public $tabActive = "identitas";
+
+    public function mount($pegawai_id = NULL)
+    {
+        if ($pegawai_id) {
+        }
+    }
 
     public function render()
     {
@@ -76,6 +81,7 @@ class Pegawai extends Component
         $this->agama = $get->agama;
 
         $this->nip = $get->nip;
+        $this->pangkat = $get->pangkat;
         $this->golongan = $get->golongan;
         $this->jabatan = $get->jabatan;
         $this->jabatan_tugas_tambahan = $get->jabatan_tugas_tambahan;
@@ -87,7 +93,6 @@ class Pegawai extends Component
         $this->email = $get->email;
         $this->alamat = $get->alamat;
         $this->kategori_pegawai = $get->kategori_pegawai;
-
         $this->dispatch('open-modal', modal: $this->modal);
     }
 
@@ -95,10 +100,10 @@ class Pegawai extends Component
     {
         $rules = [
             'nama_pegawai' => 'required',
-            'jk' => 'required',
+            // 'jk' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'agama' => 'required',
+            // 'agama' => 'required',
             'jabatan' => 'required',
             'departemen_id' => 'required',
         ];
@@ -153,6 +158,7 @@ class Pegawai extends Component
             'tempat_lahir' => $this->tempat_lahir,
             'tanggal_lahir' => $this->tanggal_lahir,
             'agama' => $this->agama,
+            'pangkat' => $this->pangkat,
             'golongan' => $this->golongan,
             'jabatan' => $this->jabatan,
             'jabatan_tugas_tambahan' => $this->jabatan_tugas_tambahan,
@@ -194,6 +200,7 @@ class Pegawai extends Component
         $this->agama = "";
 
         $this->nip = "";
+        $this->pangkat = "";
         $this->golongan = "";
         $this->jabatan = "";
         $this->jabatan_tugas_tambahan = "";

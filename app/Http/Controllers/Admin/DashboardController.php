@@ -17,8 +17,8 @@ class DashboardController extends Controller
         $tahun = date('Y');
         $jml_pegawai = Pegawai::all()->count();
         $jml_departemen = Departemen::departemen(NULL)->get()->count();
-        $jml_sppd = SuratPerjalananDinas::tahun($tahun)->status_spd([200])->get()->count();
-        $jml_stugas = SuratTugasDinas::tahun($tahun)->status_std([200])->get()->count();
+        $jml_sppd = SuratPerjalananDinas::tahun($tahun)->status_spd(['200'])->get()->count();
+        $jml_stugas = SuratTugasDinas::tahun($tahun)->status_std(['200'])->get()->count();
 
         $data = [
             'jml_pegawai' => $jml_pegawai,

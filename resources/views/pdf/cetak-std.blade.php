@@ -44,15 +44,15 @@
                             </center>
                         </td>
                         <td width="85%" style="text-align:center">
-                            <span style="font-size:18px; font-weight:bold;">
+                            <span style="font-size:20px;">
                                 KEMENTERIAN PENDIDIKAN, SAINS <br> DAN TEKNOLOGI
                             </span>
                             <br>
-                            <span style="font-size:20px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
-                            <span style="font-size:15px;">
+                            <span style="font-size:18px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
+                            <span style="font-size:14px;">
                                 Jalan Jusuf Abdurrahman Kampus Gambesi Kode Pos 97719 Ternate Selatan
                             </span> <br>
-                            <span style="font-size:15px;">
+                            <span style="font-size:14px;">
                                 Laman: <a href="https://www.unkhair.ac.id">www.unkhair.ac.id</a> / Email:
                                 <u>admin@unkhair.ac.id</a>
                             </span>
@@ -64,23 +64,23 @@
 
             <br>
             <center>
-                <span style="font-size:15px;">
+                <span style="font-size:16px;">
                     SURAT TUGAS DINAS (STD) <br>
                     Nomor &nbsp;:&nbsp;{{ $std->nomor_std }}
                 </span>
             </center>
             <br>
 
-            <p style="font-size:14px; text-align: justify">
+            <p style="font-size:15px; text-align: justify">
                 {{ get_datajson($std->pimpinan_ttd, 'detail_jabatan') }} Universitas Khairun memberikan tugas kepada:
             </p>
 
-            <table width="100%" style="font-size:14px; border-collapse: collapse;">
+            <table width="100%" style="font-size:15px; border-collapse: collapse;">
                 <tr>
                     <th width="5%" class="kolom">No</th>
-                    <th width="45%" class="kolom">Nama / NIP</th>
-                    {{-- <th width="25%" class="kolom">Pangkat / Golongan</th> --}}
-                    <th width="50%" class="kolom">Jabatan</th>
+                    <th width="35%" class="kolom">Nama / NIP</th>
+                    <th width="25%" class="kolom">Pangkat / Golongan</th>
+                    <th width="35%" class="kolom">Jabatan</th>
                 </tr>
                 @foreach ($std->pegawai as $row)
                     <tr>
@@ -89,9 +89,10 @@
                             {{ $row->nama_pegawai }} <br>
                             NIP: {{ $row->nip ?? '-' }}
                         </td>
-                        {{-- <td class="kolom">
-                            -
-                        </td> --}}
+                        <td class="kolom">
+                            {{ $row->pangkat ?? '' }} &nbsp;
+                            {{ $row->golongan ?? '' }}
+                        </td>
                         <td class="kolom">
                             {{ $row->jabatan ?? '-' }}
                         </td>
@@ -99,13 +100,13 @@
                 @endforeach
             </table>
 
-            <p style="font-size:14px; text-align: justify">
+            <p style="font-size:15px; text-align: justify; line-height: 20px;">
                 Untuk melakukan {{ $std->kegiatan_std }}
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                 Universitas.
                 @if ($std->spd_id)
-                    Di lengkapi dengan: <br>
+                    <br>Di lengkapi dengan: <br>
                     1. Tiket PP di sertai boarding pass. <br>
                     2. Bukti pembayaran hotel selama kegiatan. <br>
                     3. Bukti pembayaran taxi PP.
@@ -113,7 +114,7 @@
             </p>
 
 
-            <table width="100%" style="font-size:14px;">
+            <table width="100%" style="font-size:15px;">
                 <tr>
                     <td width="60%" style="vertical-align: top">
                         {!! str_repeat('<br>', 10) !!}

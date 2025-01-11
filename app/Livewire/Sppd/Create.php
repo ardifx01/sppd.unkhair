@@ -15,6 +15,7 @@ class Create extends Component
 
     public $id, $user_id, $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat = "Ternate", $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
+    public $kode_mak, $detail_alokasi_anggaran;
 
     public $mode = "add";
 
@@ -97,7 +98,8 @@ class Create extends Component
             'tujuan' => 'required',
             'lama_pd' => 'required|min_digits:1',
             'tanggal_berangakat' => 'required',
-            'tanggal_kembali' => 'required'
+            'tanggal_kembali' => 'required',
+            'kode_mak' => 'required',
         ]);
 
         SuratPerjalananDinas::create([
@@ -106,13 +108,15 @@ class Create extends Component
             'pegawai_id' => $this->pegawai_id,
             'departemen_id' => $this->departemen_id,
             'kegiatan_spd' => $this->kegiatan_spd,
-            'angkutan' => $this->angkutan,
-            'berangakat' => $this->berangakat,
-            'tujuan' => $this->tujuan,
+            'angkutan' => ucwords(strtolower($this->angkutan)),
+            'berangakat' => ucwords(strtolower($this->berangakat)),
+            'tujuan' => ucwords(strtolower($this->tujuan)),
             'lama_pd' => $this->lama_pd,
             'tanggal_berangakat' => $this->tanggal_berangakat,
             'tanggal_kembali' => $this->tanggal_kembali,
             'keterangan' => $this->keterangan,
+            'kode_mak' => $this->kode_mak,
+            'detail_alokasi_anggaran' => $this->detail_alokasi_anggaran,
             'status_spd' => '102', // 102 status spd baru di diajukan ke ppk
         ]);
 

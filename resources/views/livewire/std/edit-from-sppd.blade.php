@@ -108,7 +108,7 @@
                             Ttd. Pimpinan<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group">
-                            <select class="form-control form-control-sm w-50" wire:model="pimpinan_ttd">
+                            <select class="form-control" wire:model="pimpinan_ttd">
                                 <option value="">-- Pilih Pimpinan --</option>
                                 @foreach ($pimpinan as $row)
                                     <option value="{{ $row->id }}"
@@ -146,7 +146,9 @@
                         aria-hidden="true"></span> Please wait...</span>
             </button>
 
-            @if ($stugas_id)
+            {{-- @dump($status_std) --}}
+
+            @if ($stugas_id && $status_std == '200')
                 <a href="{{ route('cetak.std', encode_arr(['stugas_id' => $stugas_id])) }}" target="_blank"
                     class="btn btn-default"><i class="fa fa-print"></i> Cetak STD</a>
             @endif

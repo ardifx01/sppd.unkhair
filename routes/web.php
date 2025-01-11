@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(App\Http\Controllers\WebController::class)->group(function () {
     Route::get('/', 'index')->name('frontend.site');
     Route::get('/beranda', 'index')->name('frontend.beranda');
+    Route::get('/verifikasi-sppd/{params}', 'verifikasi_qrcode')->name('frontend.verifikasi-qrcode');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -81,8 +82,7 @@ Route::group(['middleware' => 'isLogin'], function () {
             Route::controller(App\Http\Controllers\Admin\StdController::class)->group(function () {
                 Route::get('/std/index', 'index')->name('admin.std.index');
                 Route::get('/std/create', 'create')->name('admin.std.create');
-                Route::get('/std/create-from-sppd', 'createFromSppd')->name('admin.std.create-fromSppd');
-                Route::get('/std/create-from-sppd/{params}', 'createFromSppd')->name('admin.std.create-fromSppd-params');
+                Route::get('/std/from-sppd', 'stdfromsppd')->name('admin.std.fromSppd');
                 Route::get('/std/edit/{params}', 'edit')->name('admin.std.edit');
             });
 

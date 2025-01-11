@@ -51,77 +51,89 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="judul_konten">
-                            Tempat Berangkat<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="berangakat"
-                                placeholder="Tempat berangkat">
-                        </div>
-                        @error('berangakat')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Tempat Tujuan<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="tujuan" placeholder="Tempat tujuan">
-                        </div>
-                        @error('tujuan')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="judul_konten">
-                            Lama Perjalanan Dinas<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="number" class="form-control" wire:model="lama_pd"
-                                wire:change="pass_tanggal_kembali($event.target.value, 'lama_pd')">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">hari</span>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Tempat Berangkat<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" wire:model="berangakat"
+                                        placeholder="Tempat berangkat">
+                                </div>
+                                @error('berangakat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Tempat Tujuan<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" wire:model="tujuan"
+                                        placeholder="Tempat tujuan">
+                                </div>
+                                @error('tujuan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
-                        @error('lama_pd')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="judul_konten">
-                            Tanggal Berangkat<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group date w-25" id="tanggal_berangakat" data-target-input="nearest">
-                            <input type="date" class="form-control" wire:model="tanggal_berangakat"
-                                wire:change="pass_tanggal_kembali($event.target.value, 'tanggal_berangakat')" />
-                            <div class="input-group-append">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Lama Perjalanan Dinas<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" wire:model="lama_pd"
+                                        wire:change="pass_tanggal_kembali($event.target.value, 'lama_pd')">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">hari</span>
+                                    </div>
+                                </div>
+                                @error('lama_pd')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
+                            <div class="col-md-9"></div>
                         </div>
-                        @error('tanggal_berangakat')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="judul_konten">
-                            Tanggal Kembali<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="date" class="form-control" wire:model="tanggal_kembali">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Tanggal Berangkat<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" wire:model="tanggal_berangakat"
+                                        wire:change="pass_tanggal_kembali($event.target.value, 'tanggal_berangakat')" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                @error('tanggal_berangakat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Tanggal Kembali<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" wire:model="tanggal_kembali">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @error('tanggal_kembali')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
-                        @error('tanggal_kembali')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -154,6 +166,35 @@
                         @error('departemen_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="judul_konten">
+                                    Kode MAK<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" wire:model="kode_mak"
+                                        placeholder="Kode MAK">
+                                </div>
+                                @error('kode_mak')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-9">
+                                <label for="judul_konten">
+                                    Detail Alokasi Anggaran :
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" wire:model="detail_alokasi_anggaran"
+                                        placeholder="Detail Alokasi Anggaran">
+                                </div>
+                                @error('detail_alokasi_anggaran')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

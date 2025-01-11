@@ -92,4 +92,20 @@ class WebController extends Controller
             exit();
         }
     }
+
+    public function verifikasi_qrcode($params)
+    {
+        if (!$params) {
+            abort(404);
+            exit();
+        }
+
+        $params = decode_arr($params);
+        if (!$params) {
+            abort(403);
+            exit();
+        }
+
+        dd($params);
+    }
 }

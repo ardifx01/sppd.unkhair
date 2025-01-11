@@ -44,15 +44,15 @@
                             </center>
                         </td>
                         <td width="85%" style="text-align:center">
-                            <span style="font-size:18px; font-weight:bold;">
+                            <span style="font-size:20px;">
                                 KEMENTERIAN PENDIDIKAN, SAINS <br> DAN TEKNOLOGI
                             </span>
                             <br>
-                            <span style="font-size:20px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
-                            <span style="font-size:15px;">
+                            <span style="font-size:18px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
+                            <span style="font-size:14px;">
                                 Jalan Jusuf Abdurrahman Kampus Gambesi Kode Pos 97719 Ternate Selatan
                             </span> <br>
-                            <span style="font-size:15px;">
+                            <span style="font-size:14px;">
                                 Laman: <a href="https://www.unkhair.ac.id">www.unkhair.ac.id</a> / Email:
                                 <u>admin@unkhair.ac.id</a>
                             </span>
@@ -75,18 +75,18 @@
 
             <br>
             <center>
-                <span style="font-size:15px;">
+                <span style="font-size:16px;">
                     SURAT PERJALANAN DINAS (SPD)
                 </span>
             </center>
 
-            <table width="100%" style="font-size:14px; margin-top:5px; border-collapse: collapse;">
+            <table width="100%" style="font-size:15px; margin-top:5px; border-collapse: collapse;">
                 <tr>
-                    <td width="5%" class="kolom">1</td>
-                    <td width="40%" class="kolom">
+                    <td width="4%" class="kolom">1</td>
+                    <td width="38%" class="kolom">
                         Pejabat Pembuat Komitmen
                     </td>
-                    <td width="55%" class="kolom" colspan="2">
+                    <td width="58%" class="kolom" colspan="2">
                         Rektor Universitas Khairun
                     </td>
                 </tr>
@@ -96,7 +96,8 @@
                         Nama/NIP Pegawai yang melaksanakan Perjalanan Dinas
                     </td>
                     <td class="kolom" colspan="2">
-                        {{ $sppd->pegawai->nama_pegawai }}
+                        {{ $sppd->pegawai->nama_pegawai }} <br>
+                        {{-- NIP: {{ $sppd->pegawai->nip ?? '-' }} --}}
                     </td>
                 </tr>
                 <tr>
@@ -104,10 +105,10 @@
                     <td class="kolom">
                         a. Pangkat dan Golongan <br>
                         b. Jabatan/Instansi <br>
-                        b. Tingkat Biaya Perjalanan Dinas
+                        C. Tingkat Biaya Perjalanan Dinas
                     </td>
                     <td class="kolom" colspan="2">
-                        a. {{ $sppd->pegawai?->golongan }} <br>
+                        a. {{ $sppd->pegawai?->pangkat }} &nbsp; {{ $sppd->pegawai?->golongan }} <br>
                         b. {{ $sppd->pegawai?->jabatan }} <br>
                         c. -
                     </td>
@@ -199,7 +200,7 @@
                     </td>
                 </tr>
             </table>
-            <table width="100%" style="font-size:14px;">
+            <table width="100%" style="font-size:15px;">
                 <tr>
                     <td width="60%" style="vertical-align: top">
                         Coret yang tidak perlu
@@ -213,7 +214,18 @@
                         Dikeluarkan di Ternate <br>
                         Tanggal, {{ tgl_indo(now(), false) }} <br> <br>
                         Pejabat Pembuat Komitmen
-                        {!! str_repeat('<br>', 5) !!}
+
+                        @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
+                            <br>
+                            <br>
+                            <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
+                                style="width:90px; height:90px;">
+                            <br>
+                            <br>
+                        @else
+                            {!! str_repeat('<br>', 5) !!}
+                        @endif
+
                         {{ get_datajson($sppd->pejabat_ppk, 'nama_pimpinan') }} <br>
                         NIP: {{ get_datajson($sppd->pejabat_ppk, 'nip') }}
                     </td>
@@ -222,7 +234,7 @@
         </div>
 
         <div class="wrapper-page">
-            <table width="100%" style="font-size:14px; border-collapse: collapse;">
+            <table width="100%" style="font-size:15px; border-collapse: collapse;">
                 <tr>
                     <td width="45%" class="kolom2"></td>
                     <td width="55%" class="kolom2">
@@ -251,7 +263,6 @@
                                 <td></td>
                                 <td colspan="2">
                                     Kepala
-                                    <br>
                                     <br>
                                     <br>
                                     <br>
@@ -292,7 +303,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td colspan="2" style="padding-top:88px;">
+                                    <td colspan="2" style="padding-top:75px;">
                                         ({{ str_repeat('.', 60) }})<br>
                                         NIP:
                                     </td>
@@ -325,7 +336,6 @@
                                     <td></td>
                                     <td colspan="2">
                                         Kepala
-                                        <br>
                                         <br>
                                         <br>
                                         <br>
@@ -386,7 +396,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td style="padding-top:49px;">
+                                <td style="padding-top:75px;">
                                     ({{ get_datajson($sppd->pejabat_ppk, 'nama_pimpinan') }}) <br>
                                     NIP: {{ get_datajson($sppd->pejabat_ppk, 'nip') }}
                                 </td>
@@ -411,7 +421,7 @@
                         <table width="100%">
                             <tr>
                                 <td width="5%" style="vertical-align: top">VIII.</td>
-                                <td width="95%" style="vertical-align: top">
+                                <td width="95%" style="vertical-align: top;">
                                     PERHATIAN : <br>
                                     KPA yang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang
                                     mengesahkan

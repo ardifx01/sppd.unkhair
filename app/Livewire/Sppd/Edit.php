@@ -13,6 +13,7 @@ class Edit extends Component
 
     public $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat, $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
+    public $kode_mak, $detail_alokasi_anggaran;
 
     public $nama_pegawai;
     public $departemen;
@@ -33,6 +34,8 @@ class Edit extends Component
         $this->tanggal_berangakat = $get->tanggal_berangakat;
         $this->tanggal_kembali = $get->tanggal_kembali;
         $this->keterangan = $get->keterangan;
+        $this->kode_mak = $get->kode_mak;
+        $this->detail_alokasi_anggaran = $get->detail_alokasi_anggaran;
 
         $this->nama_pegawai = $get->pegawai->nama_pegawai;
         $this->departemen = $get->departemen->departemen;
@@ -72,7 +75,8 @@ class Edit extends Component
             'tujuan' => 'required',
             'lama_pd' => 'required|min_digits:1',
             'tanggal_berangakat' => 'required',
-            'tanggal_kembali' => 'required'
+            'tanggal_kembali' => 'required',
+            'kode_mak' => 'required'
         ]);
 
 
@@ -87,6 +91,8 @@ class Edit extends Component
             'tanggal_berangakat' => $this->tanggal_berangakat,
             'tanggal_kembali' => $this->tanggal_kembali,
             'keterangan' => $this->keterangan,
+            'kode_mak' => $this->kode_mak,
+            'detail_alokasi_anggaran' => $this->detail_alokasi_anggaran,
         ]);
 
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'SPPD Berhasil Diedit.');

@@ -112,6 +112,14 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Pangkat :</label>
+                                    <input type="text" class="form-control" wire:model="pangkat"
+                                        placeholder="Pangkat">
+                                    @error('pangkat')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Golongan :</label>
                                     <input type="text" class="form-control" wire:model="golongan"
                                         placeholder="Golongan">
@@ -120,18 +128,22 @@
                                     @enderror
                                 </div>
 
+                                {{-- @dump($departemen_id, $nama_departemen, $mode, $tabActive) --}}
+
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">
                                         Departemen/Unit<sup class="text-danger">*</sup> :
                                     </label>
+                                    <input type="hidden" id="hidden_departemen_id" value="{{ $departemen_id }}">
                                     <div wire:ignore>
                                         <select class="custom-select" wire:model.defer="departemen_id"
                                             id="departemen_id">
-                                            <option value="">-- Pilih --</option>
-                                            @if ($mode == 'edit' && $departemen_id)
+                                            @if ($departemen_id)
                                                 <option value="{{ $departemen_id }}" selected="selected">
                                                     {{ $nama_departemen }}
                                                 </option>
+                                            @else
+                                                <option value="">-- Pilih --</option>
                                             @endif
                                         </select>
                                     </div>
@@ -151,7 +163,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Jabatan Tugas Tambahan
+                                    <label for="exampleFormControlInput1" class="form-label">Tugas Tambahan
                                         :</label>
                                     <input type="text" class="form-control" wire:model="jabatan_tugas_tambahan"
                                         placeholder="Tugas Tambahan">
@@ -218,6 +230,7 @@
         <script src="{{ asset('adminlte3') }}/plugins/select2/js/select2.full.min.js"></script>
 
         <script>
+            var set_departemen_id = $('#hidden_departemen_id').val();
             $(function() {
                 $('#departemen_id').select2({
                     theme: 'bootstrap4',
@@ -229,7 +242,8 @@
                         data: function(params) {
                             var query = {
                                 search: params.term,
-                                type: 'search-departemen'
+                                type: 'search-departemen',
+                                //set_departemen_id: set_departemen_id
                             }
 
                             // Query parameters will be ?search=[term]&type=user_search
@@ -243,8 +257,8 @@
                     },
                     cache: true
                 }).change(function(e) {
-                    @this.set('departemen_id', $(this).val(), true);
-                    //alert($(this).select2("val"));
+                    const selectedValues = $(this).val();
+                    @this.set('departemen_id', selectedValues);
                 });
             });
         </script>

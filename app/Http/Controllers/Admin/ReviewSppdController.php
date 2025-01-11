@@ -63,6 +63,7 @@ class ReviewSppdController extends Controller
                         $instance->where(function ($w) use ($request) {
                             $search = $request->input('search.value');
                             $w->orWhere('app_surat_perjalanan_dinas.nomor_spd', 'LIKE', "%$search%")
+                                ->orWhere('b.kegiatan_spd', 'LIKE', "%$search%")
                                 ->orWhere('b.nama_pegawai', 'LIKE', "%$search%");
                         });
                     }
