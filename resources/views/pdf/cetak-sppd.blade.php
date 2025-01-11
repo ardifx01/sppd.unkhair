@@ -216,6 +216,7 @@
                         Pejabat Pembuat Komitmen
 
                         @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
+                            @dump(public_path('images/qrcode/' . $sppd->id . '.png'))
                             <br>
                             <br>
                             <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
