@@ -2,12 +2,12 @@
 <html lang='en'>
 
     <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link id='favicon' rel='shortcut icon' type='image/x-icon' href='{{ asset('images/') . pengaturan('logo') }}' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <title>{{ pengaturan('nama-sub-aplikasi') }}</title>
-        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css'
-            integrity='sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M' crossorigin='anonymous'>
 
         <style>
             .warna-success {
@@ -38,94 +38,99 @@
                 border-left: none;
                 border-top: none;
             }
+
+            .table-responsive {
+                display: table;
+            }
         </style>
     </head>
 
     <body>
-        <div class='container'>
-            <div class="text-right mb-4">
-                <b style="font-size:12px;">Diajukan Oleh : &nbsp;</b>
-                <span class="badge badge-info">
-                    <i class="fa fa-user"></i>
-                    {{ $get->user?->name }}
-                </span>
-                <span class="badge badge-info">
-                    <i class="fa fa-clock"></i>
-                    {{ tgl_indo($get->created_at) }}
-                </span>
-            </div>
-            <div class="table-responsive border">
-                <table class="table table-sm mb-0">
-                    <tr>
-                        <th class="text-right warna-warning" width="15%">Nomor SPPD :</td>
-                        <td width="40%">
-                            {{ $get->nomor_spd }}
-                        </td>
+        <div class='container mt-3'>
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-right mb-4">
+                        <b style="font-size:12px;">Diajukan Oleh : &nbsp;</b>
+                        <span class="badge badge-info">
+                            <i class="fa fa-user"></i>
+                            {{ $get->user?->name }}
+                        </span>
+                        <span class="badge badge-info">
+                            <i class="fa fa-clock"></i>
+                            {{ tgl_indo($get->created_at) }}
+                        </span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th class="text-right warna-warning">Nomor SPPD :</td>
+                                <td>
+                                    {{ $get->nomor_spd }}
+                                </td>
 
-                        <th class="text-right warna-warning" width="15%">Nama Pegawai :</td>
-                        <td width="30%">
-                            {{ $get->pegawai->nama_pegawai }} <br>
-                            NIP: {{ $get->pegawai->nip ?? '-' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Perihal Kegiatan :</td>
-                        <td>{{ $get->kegiatan_spd }}</td>
+                                <th class="text-right warna-warning">Nama Pegawai :</td>
+                                <td>
+                                    {{ $get->pegawai->nama_pegawai }} <br>
+                                    NIP: {{ $get->pegawai->nip ?? '-' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Perihal Kegiatan :</td>
+                                <td>{{ $get->kegiatan_spd }}</td>
 
-                        <th class="text-right warna-warning">Departemen/Unit :</td>
-                        <td>{{ $get->departemen->departemen }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Berangkat Dari :</td>
-                        <td>{{ $get->berangakat }}</td>
+                                <th class="text-right warna-warning">Departemen/Unit :</td>
+                                <td>{{ $get->departemen->departemen }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Berangkat Dari :</td>
+                                <td>{{ $get->berangakat }}</td>
 
-                        <th class="text-right warna-warning">Lama Perjalanan :</td>
-                        <td>{{ $get->lama_pd }} hari</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Tujuan Ke :</td>
-                        <td>{{ $get->tujuan }}</td>
+                                <th class="text-right warna-warning">Lama Perjalanan :</td>
+                                <td>{{ $get->lama_pd }} hari</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Tujuan Ke :</td>
+                                <td>{{ $get->tujuan }}</td>
 
-                        <th class="text-right warna-warning">Tanggal Berangkat :</td>
-                        <td>
-                            {{ tgl_indo($get->tanggal_berangakat, false) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Transportasi :</td>
-                        <td>{{ $get->angkutan }}</td>
+                                <th class="text-right warna-warning">Tanggal Berangkat :</td>
+                                <td>
+                                    {{ tgl_indo($get->tanggal_berangakat, false) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Transportasi :</td>
+                                <td>{{ $get->angkutan }}</td>
 
-                        <th class="text-right warna-warning">Tanggal Kembali :</td>
-                        <td>
-                            {{ tgl_indo($get->tanggal_kembali, false) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Kode MAK :</td>
-                        <td colspan="3">{{ $get->kode_mak ?? '' }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-warning">Detail Alokasi Anggaran :</td>
-                        <td colspan="3">{{ $get->detail_alokasi_anggaran ?? '' }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-info">Disetujui Oleh PPK :</td>
-                        <td colspan="3">
-                            {{ $get->reviwer?->name ?? '-' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-right warna-info">Tanggal Persetujuan :</td>
-                        <td colspan="3">
+                                <th class="text-right warna-warning">Tanggal Kembali :</td>
+                                <td>
+                                    {{ tgl_indo($get->tanggal_kembali, false) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Kode MAK :</td>
+                                <td>{{ $get->kode_mak ?? '' }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="text-right warna-warning">Detail Alokasi Anggaran :</td>
+                                <td>{{ $get->detail_alokasi_anggaran ?? '' }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr>
+                    <dl>
+                        <dt>Disetujui Oleh PPK :</dt>
+                        <dd>{{ $get->reviwer?->name ?? '-' }}</dd>
+
+                        <dt>Tanggal Persetujuan :</dt>
+                        <dd>
                             {{ tgl_indo($get->tanggal_review ?? '') }}
-                        </td>
-                    </tr>
-                </table>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
     </body>
