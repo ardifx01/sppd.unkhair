@@ -73,6 +73,8 @@ Route::group(['middleware' => 'isLogin'], function () {
 
             Route::controller(App\Http\Controllers\Admin\LaporanSppdController::class)->group(function () {
                 Route::get('/sppd/laporan', 'index')->name('admin.sppd.laporan');
+                Route::get('/sppd/export/excel', 'excel')->name('admin.sppd.laporan.export.excel');
+                Route::get('/sppd/export/pdf', 'pdf')->name('admin.sppd.laporan.export.pdf');
             });
 
             Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
@@ -88,11 +90,22 @@ Route::group(['middleware' => 'isLogin'], function () {
 
             Route::controller(App\Http\Controllers\Admin\LaporanStdController::class)->group(function () {
                 Route::get('/std/laporan', 'index')->name('admin.std.laporan');
+                Route::get('/std/export/excel', 'excel')->name('admin.std.laporan.export.excel');
             });
         });
 
         Route::get('/roles/index', App\Livewire\Sistem\Roles::class)->name('admin.roles');
         Route::get('/pengguna/index', App\Livewire\Sistem\Pengguna::class)->name('admin.pengguna');
         Route::get('/referensi/index', App\Livewire\Sistem\Referensi::class)->name('admin.referensi');
+    });
+
+    // route keuangan
+    Route::prefix('keuangan/')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Keuangan\DashboardController::class, 'index'])->name('keuangan.dashboard');
+        Route::group(['middleware' => ['role:keuangan']], function () {
+            Route::controller(App\Http\Controllers\Keuangan\SppdController::class)->group(function () {
+                Route::get('/sppd/index', 'index')->name('keuangan.sppd.index');
+            });
+        });
     });
 });

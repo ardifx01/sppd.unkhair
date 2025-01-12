@@ -19,7 +19,7 @@ class ReviewSppdController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = SuratPerjalananDinas::with(['departemen'])->status_spd(['102'])->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            $listdata = SuratPerjalananDinas::with(['departemen'])->tahun(date('Y'))->status_spd(['102'])->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
@@ -29,8 +29,7 @@ class ReviewSppdController extends Controller
                     'app_surat_perjalanan_dinas.departemen_id',
                     'b.nama_pegawai'
                 ])
-                ->orderBy('app_surat_perjalanan_dinas.created_at', 'ASC')
-                ->orderBy('app_surat_perjalanan_dinas.nomor_spd', 'ASC');
+                ->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {

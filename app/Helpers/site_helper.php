@@ -123,6 +123,7 @@ if (!function_exists('str_role')) {
             'admin-spd' => 'Admin SPD',
             'admin-st' => 'Admin STD',
             'ppk' => 'PPK',
+            'keuangan' => 'Keuangan',
         ];
 
         if ($roles && array_key_exists($key, $roles)) {

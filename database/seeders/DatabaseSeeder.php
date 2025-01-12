@@ -7,13 +7,18 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run(): void {
+        $this->role();
+    }
+
+    public function users()
     {
         $users = [
             'name' => 'Muhamad Yasir',
@@ -25,5 +30,15 @@ class DatabaseSeeder extends Seeder
         ];
 
         User::create($users);
+    }
+
+    public function role()
+    {
+        $role = [
+            'name' => 'keuangan',
+            'description' => 'Role user Keuangan bertugas untuk input Nilai Pencairan SPPD',
+        ];
+
+        Role::create($role);
     }
 }

@@ -278,6 +278,7 @@ if (!function_exists('rupiah')) {
             return preg_replace("/[^0-9]/", "", $nilai);
         }
 
-        return number_format($nilai, 0, ',', '.');
+        $nilai = preg_replace("/[^0-9]/", "", $nilai);
+        return (strlen($nilai) > 1) ? number_format($nilai, 0, ',', '.') : $nilai;
     }
 }

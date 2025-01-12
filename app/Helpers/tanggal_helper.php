@@ -180,11 +180,7 @@ if (!function_exists('str_tanggal_dinas')) {
         $tgl_mulai = \Carbon\Carbon::parse($mulai);
         $tgl_selesai = \Carbon\Carbon::parse($selesai);
 
-        if ($tgl_mulai->year != $tgl_selesai->year) {
-            return tgl_indo($mulai, false) . ' s/d ' . tgl_indo($selesai, false);
-        }
-
-        if ($tgl_mulai->month != $tgl_selesai->month) {
+        if (($tgl_mulai->year != $tgl_selesai->year) || ($tgl_mulai->month != $tgl_selesai->month)) {
             return tgl_indo($mulai, false) . ' s/d ' . tgl_indo($selesai, false);
         }
 

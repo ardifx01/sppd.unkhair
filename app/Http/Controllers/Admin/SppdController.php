@@ -19,6 +19,7 @@ class SppdController extends Controller
         if ($request->ajax()) {
 
             // NULL maka data sppd akan tampil semua
+            $tahun = date('Y');
             $admin_spd = NULL;
 
             // menampilkan data sppd hanya punya admin-spd
@@ -26,7 +27,7 @@ class SppdController extends Controller
                 $admin_spd = auth()->user()->id;
             }
 
-            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->tahun($tahun)->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
@@ -38,8 +39,7 @@ class SppdController extends Controller
                     'b.nama_pegawai',
                     'b.nip',
                 ])
-                ->orderBy('app_surat_perjalanan_dinas.created_at', 'ASC')
-                ->orderBy('app_surat_perjalanan_dinas.nomor_spd', 'ASC');
+                ->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {

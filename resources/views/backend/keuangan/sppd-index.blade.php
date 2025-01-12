@@ -30,21 +30,17 @@
                         <div class="card-tools"></div>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-sm btn-primary" onclick="location.href='{{ route('admin.sppd.create') }}'">
-                            <i class="fa fa-plus"></i> Buat SPPD
-                        </button>
-
                         <div class="table-responsive p-0 mb-2">
                             <table class="table table-condensed table-bordered" style="width: 100%"
                                 id="{{ $datatable['id_table'] }}">
                                 <thead class="warna-warning">
                                     <tr>
-                                        <th>#</th>
+                                        <th class="text-left">#</th>
                                         <th class="text-left">Perihal SPPD</th>
-                                        <th class="text-left">Pegawai</th>
+                                        <th class="text-left">Tanggal SPPD</th>
                                         <th class="text-left">Tujuan</th>
-                                        <th class="text-left">Departemen/Unit</th>
-                                        <th class="text-left">Tgl. Pengajuan</th>
+                                        <th class="text-left">Pegawai</th>
+                                        <th class="text-left">Nilai Pencairan</th>
                                         <th>
                                             <center>Aksi</center>
                                         </th>
@@ -58,13 +54,13 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <livewire:sppd.review-sppd />
+        <livewire:sppd.input-nilai-pencairan />
 
         <!-- /.content -->
         @push('script')
             <script>
-                function review(params) {
-                    Livewire.dispatch('review-pengajuan-sppd', {
+                function input_np(params) {
+                    Livewire.dispatch('form-nilai-pencairan-sppd', {
                         params: params
                     });
                 }

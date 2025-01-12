@@ -17,6 +17,11 @@ class ChangeRoleController extends Controller
         if ($role == 'verifikator') {
             return redirect(route('verifikator.dashboard'));
         }
+
+        if ($role == 'keuangan') {
+            return redirect(route('keuangan.dashboard'));
+        }
+
         return redirect(route('admin.dashboard'));
     }
 }

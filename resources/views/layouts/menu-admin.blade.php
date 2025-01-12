@@ -151,5 +151,30 @@
         @endif
     @endif
 
+    @if (auth()->user()->hasRole(['keuangan']) && in_array(session('role'), ['keuangan']))
+        <li class="nav-item {{ routeIs('keuangan.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('keuangan.dashboard') }}"
+                class="nav-link {{ routeIs('keuangan.dashboard') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Dashboard</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('keuangan.sppd.index') }}"
+                class="nav-link {{ routeIs(['keuangan.sppd.index']) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-newspaper-o"></i>
+                <p>Data SPPD</p>
+            </a>
+        </li>
+
+        {{-- <li class="nav-item">
+            <a href="" class="nav-link {{ routeIs(['']) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-book"></i>
+                <p>Laporan</p>
+            </a>
+        </li> --}}
+    @endif
+
     <livewire:Auth.Logout tampilan="logout1">
 </ul>
