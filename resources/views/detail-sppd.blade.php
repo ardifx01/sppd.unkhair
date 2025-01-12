@@ -45,16 +45,16 @@
         <div class='container'>
             <div class="text-right mb-4">
                 <b style="font-size:12px;">Diajukan Oleh : &nbsp;</b>
-                <span class="badge bg-cyan">
+                <span class="badge badge-info">
                     <i class="fa fa-user"></i>
                     {{ $get->user?->name }}
                 </span>
-                <span class="badge bg-cyan">
+                <span class="badge badge-info">
                     <i class="fa fa-clock"></i>
                     {{ tgl_indo($get->created_at) }}
                 </span>
             </div>
-            <div class="table-responsive mb-0 border">
+            <div class="table-responsive border">
                 <table class="table table-sm mb-0">
                     <tr>
                         <th class="text-right warna-warning" width="15%">Nomor SPPD :</td>
