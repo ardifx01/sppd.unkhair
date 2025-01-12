@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berkas;
+use App\Models\SuratPerjalananDinas;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -106,6 +107,12 @@ class WebController extends Controller
             exit();
         }
 
-        dd($params);
+        $get = SuratPerjalananDinas::with(['pegawai', 'departemen', 'reviwer', 'user'])->where('id', $params['sppd_id'])->first();
+        // dd($get);
+        $data = [
+            'judul' => 'Data Pengajuan SPPD',
+            'get' => $get
+        ];
+        return view('detail-sppd', $data);
     }
 }
