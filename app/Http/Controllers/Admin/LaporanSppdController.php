@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
+use PDF;
+
 class LaporanSppdController extends Controller
 {
     public function __construct()
@@ -131,6 +133,54 @@ class LaporanSppdController extends Controller
 
     public function pdf(Request $request)
     {
-        dd($request->departemen_id, $request->date);
+        if (!trim($request->date)) {
+            abort(500);
+        }
+        if (trim($request->date) == 'to') {
+            abort(500);
+        }
+
+        $tanggal = explode('to', $request->date);
+        $departemen_id = $request->departemen_id;
+
+
+        $tgl_mulai = Carbon::parse(trim($tanggal[0]))->format('Y-m-d');
+        $tgl_akhir = Carbon::parse(trim($tanggal[1]))->format('Y-m-d');
+        $listsppd = SuratPerjalananDinas::with(['departemen'])->status_spd(['200'])->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            ->select([
+                'app_surat_perjalanan_dinas.id',
+                'app_surat_perjalanan_dinas.nomor_spd',
+                'app_surat_perjalanan_dinas.kegiatan_spd',
+                'app_surat_perjalanan_dinas.tanggal_berangakat',
+                'app_surat_perjalanan_dinas.tanggal_kembali',
+                'app_surat_perjalanan_dinas.tujuan',
+                'app_surat_perjalanan_dinas.departemen_id',
+                'app_surat_perjalanan_dinas.kode_mak',
+                'app_surat_perjalanan_dinas.detail_alokasi_anggaran',
+                'app_surat_perjalanan_dinas.nilai_pencairan',
+                'app_surat_perjalanan_dinas.created_at',
+                'b.nama_pegawai',
+                'b.nip',
+            ]);
+        $listsppd->whereBetween(DB::raw('DATE(app_surat_perjalanan_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+
+        if ($departemen_id) {
+            $listsppd->where('app_surat_perjalanan_dinas.departemen_id', '=', $departemen_id);
+        }
+
+        $listsppd->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
+        $listsppd->orderBy('app_surat_perjalanan_dinas.departemen_id', 'ASC');
+
+        $data = [
+            'listsppd' => $listsppd->get(),
+            'tanggal' => str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1]))
+        ];
+        $pdf = PDF::loadView('exports.sppd-pdf', $data)->setPaper('legal', 'landscape');
+
+
+        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan SPPD (' . str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1])) . ')' . '.pdf';
+
+        //menampilkan output beupa halaman PDF
+        return $pdf->stream($judul);
     }
 }

@@ -191,7 +191,8 @@
                     //alert(export_excel);
                     $('#export-excel').attr("href", export_excel).removeClass("disabled");
 
-                    $('#export-pdf').attr("href", export_excel);
+                    var export_pdf = "{{ route('admin.sppd.laporan.export.pdf') }}?" + params;
+                    $('#export-pdf').attr("href", export_pdf).removeClass("disabled");
                 });
 
             });

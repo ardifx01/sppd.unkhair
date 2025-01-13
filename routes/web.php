@@ -91,6 +91,7 @@ Route::group(['middleware' => 'isLogin'], function () {
             Route::controller(App\Http\Controllers\Admin\LaporanStdController::class)->group(function () {
                 Route::get('/std/laporan', 'index')->name('admin.std.laporan');
                 Route::get('/std/export/excel', 'excel')->name('admin.std.laporan.export.excel');
+                Route::get('/std/export/pdf', 'pdf')->name('admin.std.laporan.export.pdf');
             });
         });
 

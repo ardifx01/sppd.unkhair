@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
+use PDF;
+
 class LaporanStdController extends Controller
 {
     //
@@ -127,5 +129,53 @@ class LaporanStdController extends Controller
             'departemen_id' => $departemen_id
         ];
         return Excel::download(new StdExport($params), $nama_file);
+    }
+
+
+    public function pdf(Request $request)
+    {
+        if (!trim($request->date)) {
+            abort(500);
+        }
+        if (trim($request->date) == 'to') {
+            abort(500);
+        }
+
+        $tanggal = explode('to', $request->date);
+        $departemen_id = $request->departemen_id;
+
+
+        $tgl_mulai = Carbon::parse(trim($tanggal[0]))->format('Y-m-d');
+        $tgl_akhir = Carbon::parse(trim($tanggal[1]))->format('Y-m-d');
+        $liststd = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200'])
+            ->select([
+                'app_surat_tugas_dinas.id',
+                'app_surat_tugas_dinas.nomor_std',
+                'app_surat_tugas_dinas.kegiatan_std',
+                'app_surat_tugas_dinas.tanggal_mulai_tugas',
+                'app_surat_tugas_dinas.tanggal_selesai_tugas',
+                'app_surat_tugas_dinas.departemen_id',
+                'app_surat_tugas_dinas.created_at',
+            ]);
+        $liststd->whereBetween(DB::raw('DATE(app_surat_tugas_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+
+        if ($departemen_id) {
+            $liststd->where('app_surat_tugas_dinas.departemen_id', '=', $departemen_id);
+        }
+
+        $liststd->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
+        $liststd->orderBy('app_surat_tugas_dinas.departemen_id', 'ASC');
+
+        $data = [
+            'liststd' => $liststd->get(),
+            'tanggal' => str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1]))
+        ];
+        $pdf = PDF::loadView('exports.std-pdf', $data)->setPaper('a4', 'landscape');
+
+
+        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan STD (' . str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1])) . ')' . '.pdf';
+
+        //menampilkan output beupa halaman PDF
+        return $pdf->stream($judul);
     }
 }
