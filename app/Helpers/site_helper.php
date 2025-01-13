@@ -56,6 +56,8 @@ if (!function_exists('kategori_pegawai')) {
             'dosen-kontrak' => 'Dosen Kontrak',
             'tendik-pns' => 'Tendik PNS',
             'tendik-kontrak' => 'Tendik Kontrak',
+            'tamu-undangan' => 'Tamu Undangan',
+            'mahasiswa' => 'Mahasiswa',
         ];
 
         if ($key && array_key_exists($key, $kategori)) {
