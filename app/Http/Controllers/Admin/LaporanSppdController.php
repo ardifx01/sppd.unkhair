@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SuratPerjalananDinas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -178,7 +179,7 @@ class LaporanSppdController extends Controller
         $pdf = PDF::loadView('exports.sppd-pdf', $data)->setPaper('legal', 'landscape');
 
 
-        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan SPPD (' . str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1])) . ')' . '.pdf';
+        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan SPPD.pdf';
 
         //menampilkan output beupa halaman PDF
         return $pdf->stream($judul);

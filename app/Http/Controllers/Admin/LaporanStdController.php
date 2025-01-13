@@ -173,7 +173,7 @@ class LaporanStdController extends Controller
         $pdf = PDF::loadView('exports.std-pdf', $data)->setPaper('a4', 'landscape');
 
 
-        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan STD (' . str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1])) . ')' . '.pdf';
+        $judul = date('Ymd') . ' - ' . 'Laporan Pengajuan STD.pdf';
 
         //menampilkan output beupa halaman PDF
         return $pdf->stream($judul);
