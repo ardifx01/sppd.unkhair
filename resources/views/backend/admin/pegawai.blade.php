@@ -83,6 +83,7 @@
         </section>
 
         <livewire:master.pegawai />
+        <livewire:master.edit-pegawai />
 
         <!-- /.content -->
         @push('script')

@@ -1,5 +1,5 @@
 <div>
-    <div class="modal fade" wire:ignore.self id="ModalForm" tabindex="-1" aria-labelledby="ModalUpdateRoleLabel"
+    <div class="modal fade" wire:ignore.self id="ModalFormEdit" tabindex="-1" aria-labelledby="ModalUpdateRoleLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -29,6 +29,7 @@
                         </nav>
                     </div>
                     <div class="modal-body pt-0">
+                        {{-- @dump($departemen_id, $nama_departemen, $mode, $tabActive) --}}
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade {{ $tabActive == 'identitas' ? 'show active' : '' }}"
                                 role="tabpanel">
@@ -132,10 +133,15 @@
                                     <label for="exampleFormControlInput1" class="form-label">
                                         Departemen/Unit<sup class="text-danger">*</sup> :
                                     </label>
-                                    <div wire:ignore>
-                                        <select class="custom-select" wire:model.defer="departemen_id"
-                                            id="departemen_id">
+                                    <div>
+                                        <select class="custom-select" wire:model.defer="departemen_id">
                                             <option value="">-- Pilih --</option>
+                                            @foreach ($list_departemen as $row)
+                                                <option value="{{ $row->id }}"
+                                                    {{ $row->id == $departemen_id ? 'selected' : '' }}>
+                                                    {{ $row->departemen }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     @error('departemen_id')
@@ -209,48 +215,4 @@
             </div>
         </div>
     </div>
-    @push('style')
-        <!-- Select2 -->
-        <link rel="stylesheet" href="{{ asset('adminlte3') }}/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet"
-            href="{{ asset('adminlte3') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    @endpush
-
-    @push('script')
-        <!-- Select2 -->
-        <script src="{{ asset('adminlte3') }}/plugins/select2/js/select2.full.min.js"></script>
-
-        <script>
-            $(function() {
-                $('#departemen_id').select2({
-                    theme: 'bootstrap4',
-                    dropdownParent: $('#ModalForm'),
-                    minimumResultsForSearch: 10,
-                    ajax: {
-                        url: "{{ route('admin.departemen.search-departemen') }}",
-                        dataType: 'json',
-                        data: function(params) {
-                            var query = {
-                                search: params.term,
-                                type: 'search-departemen',
-                                //set_departemen_id: set_departemen_id
-                            }
-
-                            // Query parameters will be ?search=[term]&type=user_search
-                            return query;
-                        },
-                        processResults: function(data) {
-                            return {
-                                results: data
-                            };
-                        }
-                    },
-                    cache: true
-                }).change(function(e) {
-                    const selectedValues = $(this).val();
-                    @this.set('departemen_id', selectedValues);
-                });
-            });
-        </script>
-    @endpush
 </div>
