@@ -12,13 +12,11 @@ class ChangeRoleController extends Controller
         request()->session()->put([
             'role' => $role
         ]);
+
         alert()->success('Success', 'Sukses ganti peran, Selamat datang ' . auth()->user()->name);
 
-        if ($role == 'verifikator') {
-            return redirect(route('verifikator.dashboard'));
-        }
-
         if ($role == 'keuangan') {
+            dd($role);
             return redirect(route('keuangan.dashboard'));
         }
 
