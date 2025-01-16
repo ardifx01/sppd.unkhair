@@ -15,6 +15,8 @@ class Edit extends Component
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
     public $kode_mak, $detail_alokasi_anggaran;
 
+    public $tanggal_spd;
+
     public $nama_pegawai;
     public $departemen;
 
@@ -24,6 +26,7 @@ class Edit extends Component
         $this->sppd_id = data_params($params, 'sppd_id');
         $get = SuratPerjalananDinas::with(['pegawai', 'departemen'])->where('id', $this->sppd_id)->first();
         $this->nomor_spd = $get->nomor_spd;
+        $this->tanggal_spd = $get->tanggal_spd;
         $this->pegawai_id = $get->pegawai_id;
         $this->departemen_id = $get->departemen_id;
         $this->kegiatan_spd = $get->kegiatan_spd;
@@ -76,11 +79,13 @@ class Edit extends Component
             'lama_pd' => 'required|min_digits:1',
             'tanggal_berangakat' => 'required',
             'tanggal_kembali' => 'required',
-            'kode_mak' => 'required'
+            'kode_mak' => 'required',
+            'tanggal_spd' => 'required',
         ]);
 
 
         SuratPerjalananDinas::where('id', $this->sppd_id)->update([
+            'tanggal_spd' => $this->tanggal_spd,
             'pegawai_id' => $this->pegawai_id,
             'departemen_id' => $this->departemen_id,
             'kegiatan_spd' => $this->kegiatan_spd,

@@ -9,16 +9,34 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="judul_konten">
-                            Nomor SPPD<sup class="text-danger">*</sup> :
-                        </label>
-                        <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="nomor_spd" placeholder="Nomor SPPD"
-                                readonly>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="judul_konten">
+                                    Nomor SPPD<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group w-50">
+                                    <input type="text" class="form-control" wire:model="nomor_spd" readonly>
+                                </div>
+                                @error('nomor_spd')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                                <label for="judul_konten">
+                                    Tanggal SPPD<sup class="text-danger">*</sup> :
+                                </label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" wire:model="tanggal_spd">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                @error('tanggal_spd')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
-                        @error('nomor_spd')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <div class="form-group">

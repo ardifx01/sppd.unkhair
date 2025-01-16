@@ -39,6 +39,7 @@ class SuratPerjalananDinas extends Model
     protected $fillable = [
         'user_id',
         'nomor_spd',
+        'tanggal_spd',
         'pegawai_id',
         'departemen_id',
         'kegiatan_spd',

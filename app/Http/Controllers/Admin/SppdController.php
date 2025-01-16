@@ -55,7 +55,7 @@ class SppdController extends Controller
                             <a class="dropdown-item" href="' . route('cetak.sppd', encode_arr(['sppd_id' => $row->id])) . '" target="_blank">Cetak SPPD</a>
                         ';
 
-                        if ($row->surat_tugas?->id) {
+                        if ($row->surat_tugas?->status_std == '200') {
                             $btnPrint .= '
                                 <a class="dropdown-item" href="' . route('cetak.std', encode_arr(['stugas_id' => $row->surat_tugas?->id])) . '" target="_blank">Cetak STD</a>
                             ';
@@ -65,11 +65,8 @@ class SppdController extends Controller
                     }
                     $btnPrint .= '</div>';
 
-                    $btnEdit = '<button type="button" class="btn btn-sm btn-warning disabled"><i class="fa fa-edit"></i></button>';
-                    if (in_array($row->status_spd, ['102'])) {
-                        $edit = "edit('" . encode_arr(['sppd_id' => $row->id]) . "')";
-                        $btnEdit = '<button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>';
-                    }
+                    $edit = "edit('" . encode_arr(['sppd_id' => $row->id]) . "')";
+                    $btnEdit = '<button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>';
 
                     $detail = "detail('" . encode_arr(['sppd_id' => $row->id]) . "')";
                     $confirm = "return confirm('Apakah Anda Yakin Menghapus Data?');";

@@ -33,6 +33,7 @@ class SuratTugasDinas extends Model
         'user_id',
         'spd_id',
         'nomor_std',
+        'tanggal_std',
         'departemen_id',
         'kegiatan_std',
         'tanggal_mulai_tugas',

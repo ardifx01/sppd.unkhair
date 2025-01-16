@@ -104,15 +104,16 @@ class ReviewSppd extends Component
         $pecah = explode("/", $nomor_spd);
 
         $nomor = 1;
-        $kode = $pecah[1] . "/" . $pecah[2];
-        $tahun = $pecah[3];
+        $kode = trim($pecah[1]) . "/" . trim($pecah[2]);
+        $tahun = trim($pecah[3]);
         $jenis_surat = 'st';
         $keterangan = auth()->user()->name . ', PPK auto dibuatkan STD setelah menyetujui usulan SPPD ' . $nomor_spd;
 
         // cek nomor surat terakhir
         $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
         if ($riwayat) {
-            $nomor = (int) abs($riwayat->nomor) + 1;
+            $urut = (int) abs($riwayat->nomor) + 1;
+            $nomor = ($urut < 10) ? '0' . $urut : $urut;
         }
 
         $riwayat_nomor_surat = [

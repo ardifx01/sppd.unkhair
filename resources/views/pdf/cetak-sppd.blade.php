@@ -211,7 +211,11 @@
                     <td width="40%" style="vertical-align: top">
                         <br>
                         Dikeluarkan di Ternate <br>
-                        Tanggal, {{ tgl_indo(now(), false) }} <br> <br>
+                        @if ($sppd->tanggal_spd)
+                            Tanggal, {{ tgl_indo($sppd->tanggal_spd, false) }} <br> <br>
+                        @else
+                            Tanggal, {{ tgl_indo(now(), false) }} <br> <br>
+                        @endif
                         Pejabat Pembuat Komitmen
 
                         @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))

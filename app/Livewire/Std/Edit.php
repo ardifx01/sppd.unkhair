@@ -15,6 +15,8 @@ class Edit extends Component
 
     public $pegawai_id = [];
 
+    public $tanggal_std;
+
     public $fromSppd = false;
 
     public $pegawai_selected = [];
@@ -26,6 +28,7 @@ class Edit extends Component
 
         $get = SuratTugasDinas::with(['departemen', 'pegawai'])->where('id', $this->stugas_id)->first();
         $this->nomor_std = $get->nomor_std;
+        $this->tanggal_std = $get->tanggal_std;
         $this->departemen_id = $get->departemen_id;
         $this->departemen = $get->departemen->departemen;
 
@@ -68,7 +71,8 @@ class Edit extends Component
             'kegiatan_std' => 'required',
             'tanggal_mulai_tugas' => 'required',
             'tanggal_selesai_tugas' => 'required',
-            'pimpinan_ttd' => 'required'
+            'pimpinan_ttd' => 'required',
+            'tanggal_std' => 'required',
         ]);
 
         // dd($this);
@@ -83,6 +87,7 @@ class Edit extends Component
         $std->pegawai()->sync([]);
         $std->update([
             'nomor_std' => $this->nomor_std,
+            'tanggal_std' => $this->tanggal_std,
             'departemen_id' => $this->departemen_id,
             'kegiatan_std' => $this->kegiatan_std,
             'tanggal_mulai_tugas' => $this->tanggal_mulai_tugas,

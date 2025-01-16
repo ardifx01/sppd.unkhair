@@ -17,6 +17,8 @@ class Create extends Component
     public $id, $spd_id, $user_id, $nomor_std, $pegawai_id = [], $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $status_std = '200';
 
+    public $tanggal_std;
+
     public $nama_pegawai;
 
     public $show_daftar_surat = false;
@@ -77,7 +79,8 @@ class Create extends Component
 
         $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
         if ($riwayat) {
-            $nomor = (int) abs($riwayat->nomor) + 1;
+            $urut = (int) abs($riwayat->nomor) + 1;
+            $nomor = ($urut < 10) ? '0' . $urut : $urut;
         }
 
         $this->riwayat_nomor_surat = [
@@ -102,7 +105,8 @@ class Create extends Component
             'kegiatan_std' => 'required',
             'tanggal_mulai_tugas' => 'required',
             'tanggal_selesai_tugas' => 'required',
-            'pimpinan_ttd' => 'required'
+            'pimpinan_ttd' => 'required',
+            'tanggal_std' => 'required',
         ]);
 
         // dd($this);
@@ -112,6 +116,7 @@ class Create extends Component
             'user_id' => auth()->user()->id,
             'spd_id' => $this->spd_id,
             'nomor_std' => $this->nomor_std,
+            'tanggal_std' => $this->tanggal_std,
             'departemen_id' => $this->departemen_id,
             'kegiatan_std' => $this->kegiatan_std,
             'tanggal_mulai_tugas' => $this->tanggal_mulai_tugas,
@@ -127,16 +132,35 @@ class Create extends Component
         $std->pegawai()->sync($this->pegawai_id);
 
         // simpan riwayat nomor surat
-        RiwayatNomorSurat::create($this->riwayat_nomor_surat);
+        $this->simpan_riwayat_nomor_surat();
+
         $this->_clear_form();
 
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'Surat Tugas Berhasil Dibuat.');
+    }
+
+    public function simpan_riwayat_nomor_surat()
+    {
+        $pecah = explode("/", $this->nomor_std);
+
+        $value = $this->riwayat_nomor_surat;
+        if (trim($pecah[0]) != trim($this->riwayat_nomor_surat['nomor'])) {
+            $value = [
+                'nomor' => $pecah[0],
+                'kode' => $this->riwayat_nomor_surat['kode'],
+                'tahun' => $this->riwayat_nomor_surat['tahun'],
+                'jenis_surat' => $this->riwayat_nomor_surat['jenis_surat'],
+                'keterangan' => $this->riwayat_nomor_surat['keterangan']
+            ];
+        }
+        RiwayatNomorSurat::create($value);
     }
 
     public function _clear_form()
     {
         $this->resetErrorBag();
 
+        $this->tanggal_std = "";
         $this->show_daftar_surat = false;
         $this->riwayat_nomor_surat = [];
     }

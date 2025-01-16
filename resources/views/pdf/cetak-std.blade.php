@@ -124,7 +124,11 @@
                     </td>
                     <td width="40%" style="vertical-align: top">
                         <br>
-                        Ternate, {{ tgl_indo(now(), false) }} <br>
+                        @if ($std->tanggal_std)
+                            Tanggal, {{ tgl_indo($std->tanggal_std, false) }} <br>
+                        @else
+                            Tanggal, {{ tgl_indo(now(), false) }} <br>
+                        @endif
                         a.n Rektor <br>
                         {{ get_datajson($std->pimpinan_ttd, 'jabatan') }}
                         {!! str_repeat('<br>', 5) !!}
