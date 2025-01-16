@@ -262,9 +262,14 @@
                                 <td></td>
                                 <td colspan="2">
                                     Kepala
-                                    <br>
-                                    <br>
-                                    <br>
+                                    @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
+                                        <br>
+                                        <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
+                                            style="width:60px; height:60px;">
+                                        <br>
+                                    @else
+                                        {!! str_repeat('<br>', 3) !!}
+                                    @endif
                                     {{ get_datajson($sppd->pejabat_ppk, 'nama_pimpinan') }} <br>
                                     NIP: {{ get_datajson($sppd->pejabat_ppk, 'nip') }}
                                 </td>
