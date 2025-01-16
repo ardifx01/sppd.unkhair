@@ -9,7 +9,7 @@ class ChangeRoleController extends Controller
     //
     public function index($role)
     {
-        dd($role);
+        // dd($role);
 
         request()->session()->put([
             'role' => $role
