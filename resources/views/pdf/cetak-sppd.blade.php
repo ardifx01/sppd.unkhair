@@ -243,8 +243,8 @@
                     <td width="55%" class="kolom2" style="padding:0px;">
                         <table width="100%">
                             <tr>
-                                <td width="5%" style="padding:0px;">I.</td>
-                                <td width="45%" style="padding:0px;">Berangkat dari</td>
+                                <td width="2%" style="padding:0px;">I.</td>
+                                <td width="48%" style="padding:0px;">Berangkat dari</td>
                                 <td width="50%" style="padding:0px;"></td>
                             </tr>
                             <tr>
@@ -295,8 +295,8 @@
                         <td class="kolom2" style="padding:0px;">
                             <table width="100%">
                                 <tr>
-                                    <td width="7%">{{ $romawi[$i] }}</td>
-                                    <td width="40%">Tiba di</td>
+                                    <td width="3%">{{ $romawi[$i] }}.</td>
+                                    <td width="44%">Tiba di</td>
                                     <td width="52%">:</td>
                                 </tr>
                                 <tr>
@@ -321,8 +321,8 @@
                         <td class="kolom2">
                             <table width="100%">
                                 <tr>
-                                    <td width="5%"></td>
-                                    <td width="45%">Berangkat dari</td>
+                                    <td width="2%"></td>
+                                    <td width="48%">Berangkat dari</td>
                                     <td width="50%"></td>
                                 </tr>
                                 <tr>
@@ -359,8 +359,8 @@
                     <td class="kolom2">
                         <table width="100%">
                             <tr>
-                                <td width="7%">VI.</td>
-                                <td width="40%">Tiba di</td>
+                                <td width="3%">VI.</td>
+                                <td width="44%">Tiba di</td>
                                 <td width="52%">:</td>
                             </tr>
                             <tr>
@@ -389,8 +389,8 @@
                     <td class="kolom2" style="padding:0px;">
                         <table width="100%">
                             <tr>
-                                <td width="5%"></td>
-                                <td width="95%">
+                                <td width="2%"></td>
+                                <td width="98%">
                                     Telah diperiksa dengan keterangan bahwa perjalanan
                                     tersebut atas perintahnya dan semata-mata untuk
                                     kepentingan jabatan dalam waktu yang sesingkat-singkatnya.
@@ -414,8 +414,8 @@
                     <td colspan="2" class="kolom2">
                         <table width="100%">
                             <tr>
-                                <td width="5%">VII.</td>
-                                <td width="95%">
+                                <td width="2%">VII.</td>
+                                <td width="98%">
                                     Catatan Lain-Lain
                                 </td>
                             </tr>
@@ -426,8 +426,8 @@
                     <td colspan="2" class="kolom2">
                         <table width="100%">
                             <tr>
-                                <td width="5%" style="vertical-align: top">VIII.</td>
-                                <td width="95%" style="vertical-align: top;">
+                                <td width="2%" style="vertical-align: top">VIII.</td>
+                                <td width="98%" style="vertical-align: top;">
                                     PERHATIAN : <br>
                                     KPA yang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang
                                     mengesahkan
