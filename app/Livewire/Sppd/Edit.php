@@ -11,11 +11,14 @@ class Edit extends Component
 
     public $sppd_id;
 
-    public $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat, $tujuan;
+    public $nomor_surat, $kode_surat, $nomor_spd;
+    public $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat, $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
     public $kode_mak, $detail_alokasi_anggaran;
 
     public $tanggal_spd;
+
+    public $readonly = "readonly";
 
     public $nama_pegawai;
     public $departemen;
@@ -26,6 +29,9 @@ class Edit extends Component
         $this->sppd_id = data_params($params, 'sppd_id');
         $get = SuratPerjalananDinas::with(['pegawai', 'departemen'])->where('id', $this->sppd_id)->first();
         $this->nomor_spd = $get->nomor_spd;
+
+        $this->pecah_nomor_spd($this->nomor_spd);
+
         $this->tanggal_spd = $get->tanggal_spd;
         $this->pegawai_id = $get->pegawai_id;
         $this->departemen_id = $get->departemen_id;
@@ -42,6 +48,13 @@ class Edit extends Component
 
         $this->nama_pegawai = $get->pegawai->nama_pegawai;
         $this->departemen = $get->departemen->departemen;
+    }
+
+    public function pecah_nomor_spd($nomor_spd)
+    {
+        $pecah = explode("/", $nomor_spd);
+        $this->nomor_surat = trim($pecah[0]);
+        $this->kode_surat = trim($pecah[1]) . "/" . trim($pecah[2]) . "/" . trim($pecah[3]);
     }
 
     public function render()
@@ -69,6 +82,8 @@ class Edit extends Component
     public function save()
     {
         $this->validate([
+            'nomor_surat' => 'required|numeric|integer',
+            'kode_surat' => 'required',
             'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd,' . $this->sppd_id,
             'pegawai_id' => 'required',
             'departemen_id' => 'required',

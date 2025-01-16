@@ -22,6 +22,7 @@ class RiwayatNomorSurat extends Model
         'tahun',
         'jenis_surat',
         'keterangan',
+        'surat_id',
     ];
 
     public function scopekode($query, $value)

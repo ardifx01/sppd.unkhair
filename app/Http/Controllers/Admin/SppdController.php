@@ -27,7 +27,13 @@ class SppdController extends Controller
                 $admin_spd = auth()->user()->id;
             }
 
-            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->tahun($tahun)->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            $status_spd = [
+                '102',
+                '406',
+                '200'
+            ];
+
+            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->status_spd($status_spd)->tahun($tahun)->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
@@ -75,7 +81,7 @@ class SppdController extends Controller
                         <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
                         ' . $btnEdit . '
                         ' . $btnPrint . '    
-                        <!--<a href="' . route('admin.sppd.delete', encode_arr(['sppd_id' => $row->id])) . '" onclick="' . $confirm . '" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a> -->
+                        <a href="' . route('admin.sppd.delete', encode_arr(['sppd_id' => $row->id])) . '" onclick="' . $confirm . '" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </center>';
                     return $actionBtn;
                 })
@@ -154,7 +160,7 @@ class SppdController extends Controller
     public function delete($params)
     {
         $sppd_id = data_params($params, 'sppd_id');
-        SuratPerjalananDinas::where('id', $sppd_id)->delete();
+        SuratPerjalananDinas::where('id', $sppd_id)->update(['status_spd' => '204']);
         alert()->success('Success', 'Data SPPD Berhasil Dihapus');
         return redirect(route('admin.sppd.index'));
     }

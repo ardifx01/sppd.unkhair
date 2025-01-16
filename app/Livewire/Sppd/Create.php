@@ -13,13 +13,16 @@ class Create extends Component
 {
     public $judul = "Buat SPPD";
 
-    public $id, $user_id, $nomor_spd, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat = "Ternate", $tujuan;
+    public $nomor_surat, $kode_surat, $nomor_spd;
+    public $id, $user_id, $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat = "Ternate", $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
     public $kode_mak, $detail_alokasi_anggaran;
 
     public $tanggal_spd;
 
     public $mode = "add";
+
+    public $readonly = "readonly";
 
     public $show_daftar_surat = false;
 
@@ -48,27 +51,30 @@ class Create extends Component
         // dd($kodesurat_id);
         $get = KodeSurat::where('id', $kodesurat_id)->first();
 
-        $nomor_urut = 1;
+        $this->nomor_surat = '01';
         $kode = "UN44" . "/" . $get->kode;
         $tahun = date('Y');
         $jenis_surat = 'spd';
         $keterangan = auth()->user()->name . ' membuat surat ' . $get->keterangan;
 
-        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
+        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
-            $nomor_urut = ($urut < 10) ? '0' . $urut : $urut;
+            $this->nomor_surat = ($urut < 10) ? '0' . $urut : $urut;
         }
 
         $this->riwayat_nomor_surat = [
-            'nomor' => $nomor_urut,
+            'nomor' => $this->nomor_surat,
             'kode' => $kode,
             'tahun' => $tahun,
             'jenis_surat' => $jenis_surat,
             'keterangan' => $keterangan
         ];
 
-        $this->nomor_spd = $nomor_urut . "/" . $kode . "/" . $tahun;
+        $this->kode_surat = $kode . "/" . $tahun;
+        $this->nomor_spd = $this->nomor_surat . "/" . $kode . "/" . $tahun;
+
+        $this->readonly = "";
         $this->close_modal_daftar_surat();
     }
 
@@ -92,6 +98,8 @@ class Create extends Component
     public function save()
     {
         $this->validate([
+            'nomor_surat' => 'required|numeric|integer',
+            'kode_surat' => 'required',
             'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd',
             'pegawai_id' => 'required',
             'departemen_id' => 'required',
@@ -106,7 +114,7 @@ class Create extends Component
             'tanggal_spd' => 'required',
         ]);
 
-        SuratPerjalananDinas::create([
+        $sppd = SuratPerjalananDinas::create([
             'user_id' => auth()->user()->id,
             'nomor_spd' => $this->nomor_spd,
             'pegawai_id' => $this->pegawai_id,
@@ -125,29 +133,32 @@ class Create extends Component
             'status_spd' => '102', // 102 status spd baru di diajukan ke ppk
         ]);
 
+        $sppd_id = $sppd->id->toString();
+
+        // dd($sppd_id);
+
         // simpan riwayat nomor surat
-        $this->simpan_riwayat_nomor_surat();
+        $this->simpan_riwayat_nomor_surat($sppd_id);
 
         $this->_clear_form();
 
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'SPPD Berhasil Dibuat.');
     }
 
-    public function simpan_riwayat_nomor_surat()
+    public function simpan_riwayat_nomor_surat($sppd_id)
     {
-        $pecah = explode("/", $this->nomor_spd);
-
         $value = $this->riwayat_nomor_surat;
-        if (trim($pecah[0]) != trim($this->riwayat_nomor_surat['nomor'])) {
+        if (trim($this->nomor_surat) != trim($this->riwayat_nomor_surat['nomor'])) {
             $value = [
-                'nomor' => $pecah[0],
+                'nomor' => $this->nomor_surat,
                 'kode' => $this->riwayat_nomor_surat['kode'],
                 'tahun' => $this->riwayat_nomor_surat['tahun'],
                 'jenis_surat' => $this->riwayat_nomor_surat['jenis_surat'],
-                'keterangan' => $this->riwayat_nomor_surat['keterangan']
+                'keterangan' => $this->riwayat_nomor_surat['keterangan'],
             ];
         }
-        RiwayatNomorSurat::create($value);
+        $values = array_merge($value, ['surat_id' => $sppd_id]);
+        RiwayatNomorSurat::create($values);
     }
 
     public function _clear_form()
@@ -168,6 +179,11 @@ class Create extends Component
         $this->keterangan = "";
         $this->status_spd = "";
         $this->tanggal_spd = "";
+
+        $this->nomor_surat = "";
+        $this->kode_surat = "";
+
+        $this->readonly = "readonly";
 
         $this->show_daftar_surat = false;
         $this->riwayat_nomor_surat = [];

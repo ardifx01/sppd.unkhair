@@ -10,18 +10,45 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <label for="judul_konten">
                                     Nomor SPPD<sup class="text-danger">*</sup> :
                                 </label>
-                                <div class="input-group w-50">
-                                    <input type="text" class="form-control" wire:model="nomor_spd" readonly>
+                                <div class="row">
+                                    <div class="col-sm-3 mr-0 pr-1">
+                                        <input type="text" class="form-control" wire:model="nomor_surat"
+                                            {{ $readonly }}>
+                                    </div>
+                                    <div class="col-sm-9 ml-0 pl-0">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text pl-1 pr-1">/</span>
+                                            </div>
+                                            <input type="text" class="form-control" wire:model="kode_surat"
+                                                {{ $readonly }}>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" type="button"
+                                                    wire:click="show_modal_daftar_surat" id="button-addon2">Kode
+                                                    Surat</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                @error('nomor_spd')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                <input type="hidden" wire:model="nomor_spd">
+                                @if ($errors->has('nomor_spd'))
+                                    @error('nomor_spd')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                @else
+                                    @error('nomor_surat')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                    @error('kode_surat')
+                                        <br><small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                @endif
                             </div>
-                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6"></div>
                             <div class="col-sm-3">
                                 <label for="judul_konten">
                                     Tanggal SPPD<sup class="text-danger">*</sup> :

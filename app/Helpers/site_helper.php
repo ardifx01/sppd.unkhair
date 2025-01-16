@@ -95,6 +95,7 @@ if (!function_exists('str_status_sppd')) {
             '102' => '<span class="text-muted">Sedang Pengajuan</span>',
             '406' => '<span class="text-danger">Pengajuan Ditolak!</span>',
             '200' => '<span class="text-success">Pengajuan Disetujui</span>',
+            '204' => '<span class="text-danger">Pengajuan Dihapus</span>',
         ];
 
         if ($status && array_key_exists($key, $status)) {
