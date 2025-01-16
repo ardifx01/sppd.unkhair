@@ -18,7 +18,7 @@ class LaporanSppdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:ppk|admin-spd']);
+        $this->middleware(['role:ppk']);
     }
 
     public function index(Request $request)

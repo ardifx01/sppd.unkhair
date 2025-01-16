@@ -16,7 +16,11 @@ use PDF;
 
 class LaporanStdController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware(['role:ppk']);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

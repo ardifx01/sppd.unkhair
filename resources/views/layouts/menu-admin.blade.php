@@ -123,13 +123,6 @@
                     @endif
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.sppd.laporan') }}"
-                    class="nav-link {{ routeIs(['admin.sppd.laporan']) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-book"></i>
-                    <p>Laporan</p>
-                </a>
-            </li>
         @endif
 
         @if (in_array(session('role'), ['admin-st']))
@@ -140,12 +133,22 @@
                     <p>Data STD</p>
                 </a>
             </li>
+        @endif
+
+        @if (auth()->user()->hasRole(['ppk']) && in_array(session('role'), ['ppk']))
+            <li class="nav-item">
+                <a href="{{ route('admin.sppd.laporan') }}"
+                    class="nav-link {{ routeIs(['admin.sppd.laporan']) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Laporan SPPD</p>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('admin.std.laporan') }}"
                     class="nav-link {{ routeIs(['admin.std.laporan']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
-                    <p>Laporan</p>
+                    <p>Laporan STD</p>
                 </a>
             </li>
         @endif

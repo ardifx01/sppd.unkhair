@@ -236,32 +236,32 @@
             <table width="100%" style="font-size:13px; border-collapse: collapse;">
                 <tr>
                     <td width="45%" class="kolom2"></td>
-                    <td width="55%" class="kolom2">
+                    <td width="55%" class="kolom2" style="padding:0px;">
                         <table width="100%">
                             <tr>
-                                <td width="5%">I.</td>
-                                <td width="45%">Berangkat dari</td>
-                                <td width="50%"></td>
+                                <td width="5%" style="padding:0px;">I.</td>
+                                <td width="45%" style="padding:0px;">Berangkat dari</td>
+                                <td width="50%" style="padding:0px;"></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>(Tempat Kedudukan)</td>
-                                <td>: {{ $sppd->berangakat }}</td>
+                                <td style="padding:0px;"></td>
+                                <td style="padding:0px;">(Tempat Kedudukan)</td>
+                                <td style="padding:0px;">: {{ $sppd->berangakat }}</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>Ke</td>
-                                <td>: {{ $sppd->tujuan }}</td>
+                                <td style="padding:0px;"></td>
+                                <td style="padding:0px;">Ke</td>
+                                <td style="padding:0px;">: {{ $sppd->tujuan }}</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>Pada tanggal</td>
-                                <td style="text-align:right;">{{ date('Y') }}</td>
+                                <td style="padding:0px;"></td>
+                                <td style="padding:0px;">Pada tanggal</td>
+                                <td style="text-align:right; padding:0px;">{{ date('Y') }}</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td colspan="2">
-                                    Kepala
+                                <td style="padding:0px;"></td>
+                                <td colspan="2" style="padding:0px;">
+                                    Pejabat Pembuat Komitmen
                                     @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
                                         <br>
                                         <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
@@ -372,7 +372,7 @@
                             <tr>
                                 <td></td>
                                 <td colspan="2">
-                                    Kepala
+                                    Pejabat Pembuat Komitmen
                                     <br>
                                     <br>
                                     <br>
