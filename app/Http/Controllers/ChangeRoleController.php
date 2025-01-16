@@ -9,11 +9,11 @@ class ChangeRoleController extends Controller
     //
     public function index($role)
     {
+        dd($role);
+
         request()->session()->put([
             'role' => $role
         ]);
-
-        dd($role);
 
         alert()->success('Success', 'Sukses ganti peran, Selamat datang ' . auth()->user()->name);
 
