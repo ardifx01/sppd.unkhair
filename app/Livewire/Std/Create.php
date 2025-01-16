@@ -14,10 +14,13 @@ class Create extends Component
 {
     public $judul = "Buat Surat Tugas";
 
-    public $id, $spd_id, $user_id, $nomor_std, $pegawai_id = [], $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
+    public $nomor_surat, $kode_surat, $nomor_std;
+    public $id, $spd_id, $user_id, $pegawai_id = [], $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $status_std = '200';
 
     public $tanggal_std;
+
+    public $readonly = "readonly";
 
     public $nama_pegawai;
 
@@ -71,27 +74,30 @@ class Create extends Component
         // dd($kodesurat_id);
         $get = KodeSurat::where('id', $kodesurat_id)->first();
 
-        $nomor = 1;
+        $this->nomor_surat = '01';
         $kode = "UN44" . "/" . $get->kode;
         $tahun = date('Y');
         $jenis_surat = 'st';
         $keterangan = auth()->user()->name . ' membuat surat ' . $get->keterangan;
 
-        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
+        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
-            $nomor = ($urut < 10) ? '0' . $urut : $urut;
+            $this->nomor_surat = ($urut < 10) ? '0' . $urut : $urut;
         }
 
         $this->riwayat_nomor_surat = [
-            'nomor' => $nomor,
+            'nomor' => $this->nomor_surat,
             'kode' => $kode,
             'tahun' => $tahun,
             'jenis_surat' => $jenis_surat,
             'keterangan' => $keterangan
         ];
 
-        $this->nomor_std = $nomor . "/" . $kode . "/" . $tahun;
+        $this->kode_surat = $kode . "/" . $tahun;
+        $this->nomor_std = $this->nomor_surat . "/" . $kode . "/" . $tahun;
+
+        $this->readonly = "";
         $this->close_modal_daftar_surat();
     }
 
@@ -99,6 +105,8 @@ class Create extends Component
     {
         // dd($this->pegawai_id);
         $this->validate([
+            'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
+            'kode_surat' => 'required',
             'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std',
             'pegawai_id' => 'required|array|min:1',
             'departemen_id' => 'required',
@@ -132,35 +140,34 @@ class Create extends Component
         $std->pegawai()->sync($this->pegawai_id);
 
         // simpan riwayat nomor surat
-        $this->simpan_riwayat_nomor_surat();
+        $this->simpan_riwayat_nomor_surat($this->id);
 
         $this->_clear_form();
 
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'Surat Tugas Berhasil Dibuat.');
     }
 
-    public function simpan_riwayat_nomor_surat()
+    public function simpan_riwayat_nomor_surat($std_id)
     {
-        $pecah = explode("/", $this->nomor_std);
-
         $value = $this->riwayat_nomor_surat;
-        if (trim($pecah[0]) != trim($this->riwayat_nomor_surat['nomor'])) {
+        if (trim($this->nomor_surat) != trim($this->riwayat_nomor_surat['nomor'])) {
             $value = [
-                'nomor' => $pecah[0],
+                'nomor' => $this->nomor_surat,
                 'kode' => $this->riwayat_nomor_surat['kode'],
                 'tahun' => $this->riwayat_nomor_surat['tahun'],
                 'jenis_surat' => $this->riwayat_nomor_surat['jenis_surat'],
-                'keterangan' => $this->riwayat_nomor_surat['keterangan']
+                'keterangan' => $this->riwayat_nomor_surat['keterangan'],
             ];
         }
-        RiwayatNomorSurat::create($value);
+        $values = array_merge($value, ['surat_id' => $std_id]);
+        RiwayatNomorSurat::create($values);
     }
 
     public function _clear_form()
     {
         $this->resetErrorBag();
 
-        $this->tanggal_std = "";
+        $this->readonly = "readonly";
         $this->show_daftar_surat = false;
         $this->riwayat_nomor_surat = [];
     }

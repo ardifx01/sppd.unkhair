@@ -26,11 +26,6 @@
                                             </div>
                                             <input type="text" class="form-control" wire:model="kode_surat"
                                                 {{ $readonly }}>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary" type="button"
-                                                    wire:click="show_modal_daftar_surat" id="button-addon2">Kode
-                                                    Surat</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

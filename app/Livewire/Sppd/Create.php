@@ -98,7 +98,7 @@ class Create extends Component
     public function save()
     {
         $this->validate([
-            'nomor_surat' => 'required|numeric|integer',
+            'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
             'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd',
             'pegawai_id' => 'required',

@@ -19,6 +19,8 @@ class ReviewSppd extends Component
 
     public $status_spd, $alasan, $pejabat_ppk;
 
+    public $riwayat_nomor_surat = [];
+
     public function render()
     {
         return view('livewire.sppd.review-sppd');
@@ -89,11 +91,15 @@ class ReviewSppd extends Component
             'tanggal_selesai_tugas' => $tanggal_selesai_tugas,
             'status_std' => '206', // kode STD belum lengkap
         ];
-        // dd($values, $pegawai_id);
 
         $std = SuratTugasDinas::create($values);
+        $std_id = $std->id->toString();
+
         // simpan daftar pegawai
         $std->pegawai()->sync($pegawai_id);
+
+        // simpan riwayat nomor surat
+        $this->simpan_riwayat_nomor_surat($std_id);
 
         return TRUE;
     }
@@ -103,20 +109,20 @@ class ReviewSppd extends Component
         // pecah nomor_sppd dalam bentuk array
         $pecah = explode("/", $nomor_spd);
 
-        $nomor = 1;
+        $nomor = '01';
         $kode = trim($pecah[1]) . "/" . trim($pecah[2]);
         $tahun = trim($pecah[3]);
         $jenis_surat = 'st';
         $keterangan = auth()->user()->name . ', PPK auto dibuatkan STD setelah menyetujui usulan SPPD ' . $nomor_spd;
 
         // cek nomor surat terakhir
-        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('id', 'DESC')->limit(1)->first();
+        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
             $nomor = ($urut < 10) ? '0' . $urut : $urut;
         }
 
-        $riwayat_nomor_surat = [
+        $this->riwayat_nomor_surat = [
             'nomor' => $nomor,
             'kode' => $kode,
             'tahun' => $tahun,
@@ -124,10 +130,20 @@ class ReviewSppd extends Component
             'keterangan' => $keterangan
         ];
 
-        // simpan riwayat nomor surat
-        RiwayatNomorSurat::create($riwayat_nomor_surat);
-
         return $nomor . "/" . $kode . "/" . $tahun;
+    }
+
+    public function simpan_riwayat_nomor_surat($std_id)
+    {
+        $value = [
+            'nomor' => $this->riwayat_nomor_surat['nomor'],
+            'kode' => $this->riwayat_nomor_surat['kode'],
+            'tahun' => $this->riwayat_nomor_surat['tahun'],
+            'jenis_surat' => $this->riwayat_nomor_surat['jenis_surat'],
+            'keterangan' => $this->riwayat_nomor_surat['keterangan'],
+            'surat_id' => $std_id
+        ];
+        RiwayatNomorSurat::create($value);
     }
 
     public function _reset()

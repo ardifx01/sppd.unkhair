@@ -10,12 +10,16 @@ class Edit extends Component
 {
     public $judul;
 
-    public $stugas_id, $nomor_std, $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
+    public $nomor_surat, $kode_surat, $nomor_std;
+
+    public $stugas_id, $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $status_std;
 
     public $pegawai_id = [];
 
     public $tanggal_std;
+
+    public $readonly = "readonly";
 
     public $fromSppd = false;
 
@@ -28,6 +32,9 @@ class Edit extends Component
 
         $get = SuratTugasDinas::with(['departemen', 'pegawai'])->where('id', $this->stugas_id)->first();
         $this->nomor_std = $get->nomor_std;
+
+        $this->pecah_nomor_std($this->nomor_std);
+
         $this->tanggal_std = $get->tanggal_std;
         $this->departemen_id = $get->departemen_id;
         $this->departemen = $get->departemen->departemen;
@@ -52,19 +59,28 @@ class Edit extends Component
         }
     }
 
+    public function pecah_nomor_std($nomor_std)
+    {
+        $pecah = explode("/", $nomor_std);
+        $this->nomor_surat = trim($pecah[0]);
+        $this->kode_surat = trim($pecah[1]) . "/" . trim($pecah[2]) . "/" . trim($pecah[3]);
+    }
+
     public function render()
     {
         $pimpinan = Pimpinan::where('ppk', 0)->orderBy('nama_pimpinan', 'ASC')->get();
-        $view = 'livewire.std.edit';
         if ($this->fromSppd) {
-            $view = 'livewire.std.edit-from-sppd';
+            return view('livewire.std.edit-from-sppd', ['pimpinan' => $pimpinan]);
+        } else {
+            return view('livewire.std.edit', ['pimpinan' => $pimpinan]);
         }
-        return view($view, ['pimpinan' => $pimpinan]);
     }
 
     public function save()
     {
         $this->validate([
+            'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
+            'kode_surat' => 'required',
             'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std,' . $this->stugas_id,
             'pegawai_id' => 'required|array|min:1',
             'departemen_id' => 'required',
