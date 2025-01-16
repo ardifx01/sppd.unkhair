@@ -13,10 +13,11 @@ class ChangeRoleController extends Controller
             'role' => $role
         ]);
 
+        dd($role);
+
         alert()->success('Success', 'Sukses ganti peran, Selamat datang ' . auth()->user()->name);
 
         if ($role == 'keuangan') {
-            dd($role);
             return redirect(route('keuangan.dashboard'));
         }
 
