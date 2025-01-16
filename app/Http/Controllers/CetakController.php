@@ -40,7 +40,7 @@ class CetakController extends Controller
         }
 
         $data = ['sppd' => $sppd];
-        $pdf = PDF::loadView('pdf.cetak-sppd', $data)->setPaper('legal', 'portrait');
+        $pdf = PDF::loadView('pdf.cetak-sppd', $data)->setPaper('a4', 'portrait');
 
 
         $judul = date('Ymd') . ' - ' . 'Surat Perjalanan Dinas' . '.pdf';

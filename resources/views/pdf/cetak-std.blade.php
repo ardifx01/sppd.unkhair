@@ -37,13 +37,11 @@
             <page_header>
                 <table width="100%" align="center">
                     <tr>
-                        <td width="15%">
-                            <center>
-                                <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
-                                    style="width:95px; height:90px;">
-                            </center>
+                        <td width="10%" style="text-align:center">
+                            <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
+                                style="width:95px; height:90px;">
                         </td>
-                        <td width="85%" style="text-align:center">
+                        <td width="80%" style="text-align:center">
                             <span style="font-size:20px;">
                                 KEMENTERIAN PENDIDIKAN, SAINS <br> DAN TEKNOLOGI
                             </span>
@@ -57,6 +55,7 @@
                                 <u>admin@unkhair.ac.id</a>
                             </span>
                         </td>
+                        <td width="10%" style="text-align:center"></td>
                     </tr>
                 </table>
                 <hr>

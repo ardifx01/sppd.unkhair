@@ -11,7 +11,7 @@
                 border: 1px solid black;
                 text-align: left;
                 vertical-align: top;
-                padding: 4px;
+                padding: 2px;
             }
 
             .kolom2 {
@@ -37,13 +37,11 @@
             <page_header>
                 <table width="100%" align="center">
                     <tr>
-                        <td width="15%">
-                            <center>
-                                <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
-                                    style="width:95px; height:90px;">
-                            </center>
+                        <td width="10%" style="text-align:center">
+                            <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
+                                style="width:95px; height:90px;">
                         </td>
-                        <td width="85%" style="text-align:center">
+                        <td width="80%" style="text-align:center">
                             <span style="font-size:20px;">
                                 KEMENTERIAN PENDIDIKAN, SAINS <br> DAN TEKNOLOGI
                             </span>
@@ -57,6 +55,7 @@
                                 <u>admin@unkhair.ac.id</a>
                             </span>
                         </td>
+                        <td width="10%" style="text-align:center"></td>
                     </tr>
                 </table>
                 <hr>
@@ -234,7 +233,7 @@
         </div>
 
         <div class="wrapper-page">
-            <table width="100%" style="font-size:15px; border-collapse: collapse;">
+            <table width="100%" style="font-size:13px; border-collapse: collapse;">
                 <tr>
                     <td width="45%" class="kolom2"></td>
                     <td width="55%" class="kolom2">
@@ -284,7 +283,7 @@
                         ];
                     @endphp
                     <tr>
-                        <td class="kolom2">
+                        <td class="kolom2" style="padding:0px;">
                             <table width="100%">
                                 <tr>
                                     <td width="7%">{{ $romawi[$i] }}</td>
@@ -303,7 +302,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td colspan="2" style="padding-top:75px;">
+                                    <td colspan="2" style="padding-top:50px;">
                                         ({{ str_repeat('.', 60) }})<br>
                                         NIP:
                                     </td>
@@ -336,7 +335,6 @@
                                     <td></td>
                                     <td colspan="2">
                                         Kepala
-                                        <br>
                                         <br>
                                         <br>
                                         ({{ str_repeat('.', 60) }})<br>
@@ -373,14 +371,13 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <br>
                                     ({{ get_datajson($sppd->pejabat_ppk, 'nama_pimpinan') }}) <br>
                                     NIP: {{ get_datajson($sppd->pejabat_ppk, 'nip') }}
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td class="kolom2">
+                    <td class="kolom2" style="padding:0px;">
                         <table width="100%">
                             <tr>
                                 <td width="5%"></td>
@@ -396,7 +393,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td style="padding-top:75px;">
+                                <td style="padding-top:40px;">
                                     ({{ get_datajson($sppd->pejabat_ppk, 'nama_pimpinan') }}) <br>
                                     NIP: {{ get_datajson($sppd->pejabat_ppk, 'nip') }}
                                 </td>
