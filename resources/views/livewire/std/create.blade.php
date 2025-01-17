@@ -24,8 +24,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text pl-1 pr-1">/</span>
                                             </div>
-                                            <input type="text" class="form-control" wire:model="kode_surat"
-                                                {{ $readonly }}>
+                                            <input type="text" class="form-control" wire:model="kode_surat" readonly>
                                             <div class="input-group-append">
                                                 <button class="btn btn-secondary" type="button"
                                                     wire:click="show_modal_daftar_surat" id="button-addon2">Kode

@@ -35,11 +35,13 @@ class StdController extends Controller
                 ->editColumn('action', function ($row) {
                     $edit = "edit('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $detail = "detail('" . encode_arr(['stugas_id' => $row->id]) . "')";
+                    $confirm = "return confirm('Apakah Anda Yakin Menghapus Data?');";
                     $actionBtn = '
                     <center>
                         <a href="' . route('cetak.std', encode_arr(['stugas_id' => $row->id])) . '" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>    
                         <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
                         <button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
+                        <a href="' . route('admin.std.delete', encode_arr(['std_id' => $row->id])) . '" onclick="' . $confirm . '" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </center>';
                     return $actionBtn;
                 })
@@ -207,5 +209,13 @@ class StdController extends Controller
         ];
 
         return view('backend.admin.std.edit', $data);
+    }
+
+    public function delete($params)
+    {
+        $std_id = data_params($params, 'std_id');
+        SuratTugasDinas::where('id', $std_id)->update(['status_std' => '204']);
+        alert()->success('Success', 'Data STD Berhasil Dihapus');
+        return redirect(route('admin.std.index'));
     }
 }
