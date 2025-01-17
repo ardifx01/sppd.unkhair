@@ -17,7 +17,7 @@
                                 <div class="row">
                                     <div class="col-sm-3 mr-0 pr-1">
                                         <input type="text" class="form-control" wire:model="nomor_surat"
-                                            {{ $readonly }}>
+                                            wire:model.live.debounce.400ms="nomor_surat">
                                     </div>
                                     <div class="col-sm-9 ml-0 pl-0">
                                         <div class="input-group">
@@ -30,6 +30,8 @@
                                     </div>
                                 </div>
                                 <input type="hidden" wire:model="nomor_spd">
+                                <input type="hidden" wire:model="nomor_spd_old">
+                                {{-- @dump($nomor_spd, $nomor_spd_old) --}}
                                 @if ($errors->has('nomor_spd'))
                                     @error('nomor_spd')
                                         <small class="text-danger">{{ $message }}</small>

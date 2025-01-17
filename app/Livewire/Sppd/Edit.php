@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Sppd;
 
+use App\Models\KodeSurat;
+use App\Models\RiwayatNomorSurat;
 use App\Models\SuratPerjalananDinas;
 use Livewire\Component;
 
@@ -11,7 +13,7 @@ class Edit extends Component
 
     public $sppd_id;
 
-    public $nomor_surat, $kode_surat, $nomor_spd;
+    public $nomor_surat, $kode_surat, $nomor_spd, $nomor_spd_old;
     public $pegawai_id, $departemen_id, $kegiatan_spd, $angkutan, $berangakat, $tujuan;
     public $lama_pd = 1, $tanggal_berangakat, $tanggal_kembali, $keterangan, $pejabat_ppk, $status_spd;
     public $kode_mak, $detail_alokasi_anggaran;
@@ -22,6 +24,7 @@ class Edit extends Component
 
     public $nama_pegawai;
     public $departemen;
+    public $riwayat_nomor_surat = [];
 
 
     public function mount($params)
@@ -29,6 +32,7 @@ class Edit extends Component
         $this->sppd_id = data_params($params, 'sppd_id');
         $get = SuratPerjalananDinas::with(['pegawai', 'departemen'])->where('id', $this->sppd_id)->first();
         $this->nomor_spd = $get->nomor_spd;
+        $this->nomor_spd_old = $get->nomor_spd;
 
         $this->pecah_nomor_spd($this->nomor_spd);
 
@@ -50,16 +54,39 @@ class Edit extends Component
         $this->departemen = $get->departemen->departemen;
     }
 
+    public function render()
+    {
+        if ($this->nomor_surat) {
+            $this->update_nomor_sppd($this->nomor_surat);
+        }
+
+        return view('livewire.sppd.edit');
+    }
+
     public function pecah_nomor_spd($nomor_spd)
     {
         $pecah = explode("/", $nomor_spd);
         $this->nomor_surat = trim($pecah[0]);
         $this->kode_surat = trim($pecah[1]) . "/" . trim($pecah[2]) . "/" . trim($pecah[3]);
+
+        $get = KodeSurat::where('kode', trim($pecah[2]))->first();
+        $kode = "UN44" . "/" . trim($pecah[2]);
+        $tahun = trim($pecah[3]);
+        $jenis_surat = 'spd';
+        $keterangan = auth()->user()->name . ' membuat SPPD ' . $get->keterangan;
+        $this->riwayat_nomor_surat = [
+            'nomor' => $this->nomor_surat,
+            'kode' => $kode,
+            'tahun' => $tahun,
+            'jenis_surat' => $jenis_surat,
+            'keterangan' => $keterangan
+        ];
     }
 
-    public function render()
+    public function update_nomor_sppd($nomor)
     {
-        return view('livewire.sppd.edit');
+        $this->riwayat_nomor_surat['nomor'] = $nomor;
+        $this->nomor_spd = $nomor . "/" . $this->kode_surat;
     }
 
     public function pass_tanggal_kembali($value, $form = NULL)
@@ -101,6 +128,7 @@ class Edit extends Component
 
         SuratPerjalananDinas::where('id', $this->sppd_id)->update([
             'tanggal_spd' => $this->tanggal_spd,
+            'nomor_spd' => $this->nomor_spd,
             'pegawai_id' => $this->pegawai_id,
             'departemen_id' => $this->departemen_id,
             'kegiatan_spd' => $this->kegiatan_spd,
@@ -115,6 +143,16 @@ class Edit extends Component
             'detail_alokasi_anggaran' => $this->detail_alokasi_anggaran,
         ]);
 
+        $this->simpan_riwayat_nomor_surat($this->sppd_id);
+
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'SPPD Berhasil Diedit.');
+    }
+
+    public function simpan_riwayat_nomor_surat($sppd_id)
+    {
+        if ($this->nomor_spd != $this->nomor_spd_old) {
+            $value = array_merge($this->riwayat_nomor_surat, ['surat_id' => $sppd_id]);
+            RiwayatNomorSurat::create($value);
+        }
     }
 }

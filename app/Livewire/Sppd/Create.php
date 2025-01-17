@@ -30,6 +30,9 @@ class Create extends Component
 
     public function render()
     {
+        if ($this->nomor_surat) {
+            $this->update_nomor_sppd($this->nomor_surat);
+        }
         return view('livewire.sppd.create');
     }
 
@@ -55,7 +58,7 @@ class Create extends Component
         $kode = "UN44" . "/" . $get->kode;
         $tahun = date('Y');
         $jenis_surat = 'spd';
-        $keterangan = auth()->user()->name . ' membuat surat ' . $get->keterangan;
+        $keterangan = auth()->user()->name . ' membuat SPPD ' . $get->keterangan;
 
         $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
@@ -76,6 +79,11 @@ class Create extends Component
 
         $this->readonly = "";
         $this->close_modal_daftar_surat();
+    }
+
+    public function update_nomor_sppd($nomor)
+    {
+        $this->nomor_spd = $nomor . "/" . $this->kode_surat;
     }
 
     public function pass_tanggal_kembali($value, $form = NULL)
