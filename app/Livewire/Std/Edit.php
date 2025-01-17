@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Std;
 
+use App\Models\KodeSurat;
 use App\Models\Pimpinan;
+use App\Models\RiwayatNomorSurat;
 use App\Models\SuratTugasDinas;
 use Livewire\Component;
 
@@ -10,7 +12,7 @@ class Edit extends Component
 {
     public $judul;
 
-    public $nomor_surat, $kode_surat, $nomor_std;
+    public $nomor_surat, $kode_surat, $nomor_std, $nomor_std_old;
 
     public $stugas_id, $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $status_std;
@@ -25,6 +27,8 @@ class Edit extends Component
 
     public $pegawai_selected = [];
 
+    public $riwayat_nomor_surat = [];
+
     public function mount($params, $judul)
     {
         $this->stugas_id = data_params($params, 'stugas_id');
@@ -32,6 +36,7 @@ class Edit extends Component
 
         $get = SuratTugasDinas::with(['departemen', 'pegawai'])->where('id', $this->stugas_id)->first();
         $this->nomor_std = $get->nomor_std;
+        $this->nomor_std_old = $get->nomor_std;
 
         $this->pecah_nomor_std($this->nomor_std);
 
@@ -59,21 +64,44 @@ class Edit extends Component
         }
     }
 
-    public function pecah_nomor_std($nomor_std)
-    {
-        $pecah = explode("/", $nomor_std);
-        $this->nomor_surat = trim($pecah[0]);
-        $this->kode_surat = trim($pecah[1]) . "/" . trim($pecah[2]) . "/" . trim($pecah[3]);
-    }
-
     public function render()
     {
+        if ($this->nomor_surat) {
+            $this->update_nomor_std($this->nomor_surat);
+        }
+
         $pimpinan = Pimpinan::where('ppk', 0)->orderBy('nama_pimpinan', 'ASC')->get();
         if ($this->fromSppd) {
             return view('livewire.std.edit-from-sppd', ['pimpinan' => $pimpinan]);
         } else {
             return view('livewire.std.edit', ['pimpinan' => $pimpinan]);
         }
+    }
+
+    public function pecah_nomor_std($nomor_std)
+    {
+        $pecah = explode("/", $nomor_std);
+        $this->nomor_surat = trim($pecah[0]);
+        $this->kode_surat = trim($pecah[1]) . "/" . trim($pecah[2]) . "/" . trim($pecah[3]);
+
+        $get = KodeSurat::where('kode', trim($pecah[2]))->first();
+        $kode = "UN44" . "/" . trim($pecah[2]);
+        $tahun = trim($pecah[3]);
+        $jenis_surat = 'st';
+        $keterangan = auth()->user()->name . ' membuat STD ' . $get->keterangan;
+        $this->riwayat_nomor_surat = [
+            'nomor' => $this->nomor_surat,
+            'kode' => $kode,
+            'tahun' => $tahun,
+            'jenis_surat' => $jenis_surat,
+            'keterangan' => $keterangan
+        ];
+    }
+
+    public function update_nomor_std($nomor)
+    {
+        $this->riwayat_nomor_surat['nomor'] = $nomor;
+        $this->nomor_std = $nomor . "/" . $this->kode_surat;
     }
 
     public function save()
@@ -116,8 +144,18 @@ class Edit extends Component
         // simpan daftar pegawai
         $std->pegawai()->sync($this->pegawai_id);
 
+        $this->simpan_riwayat_nomor_surat($this->stugas_id);
+
         $this->_clear_form();
         $this->dispatch('alert', type: 'success', title: 'Successfuly', message: 'Surat Tugas Berhasil Diedit.');
+    }
+
+    public function simpan_riwayat_nomor_surat($std_id)
+    {
+        if ($this->nomor_std != $this->nomor_std_old) {
+            $value = array_merge($this->riwayat_nomor_surat, ['surat_id' => $std_id]);
+            RiwayatNomorSurat::create($value);
+        }
     }
 
     public function _clear_form()
