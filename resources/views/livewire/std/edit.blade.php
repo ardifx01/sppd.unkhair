@@ -177,6 +177,33 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label class="mb-0">
+                            Menyampaikan Laporan Hasil Kegiatan :
+                        </label>
+                        @foreach (kelengkapan_laporan_std() as $row)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ $row['key'] }}"
+                                    id="{{ $row['key'] }}" wire:model="kelengkapan_laporan_std">
+                                <label class="form-check-label">{{ $loop->index + 1 }}. {{ $row['value'] }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="form-group">
+                        <label class="mb-0">
+                            Tembusan Ke :
+                        </label>
+                        @foreach (tembusan_std() as $row)
+                            <div class="form-check mt-0">
+                                <input class="form-check-input" type="checkbox" value="{{ $row['key'] }}"
+                                    id="{{ $row['key'] }}" wire:model="tembusan_std">
+                                <label class="form-check-label">{{ $loop->index + 1 }}. {{ $row['value'] }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -271,6 +298,8 @@
                     const selectedValues = $(this).val();
                     @this.set('departemen_id', selectedValues);
                 });
+
+                $('#k0').attr('checked', true).prop('checked', true);
             });
         </script>
     @endpush

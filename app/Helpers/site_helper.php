@@ -145,3 +145,83 @@ if (!function_exists('get_image')) {
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
     }
 }
+
+if (!function_exists('kelengkapan_laporan_std')) {
+    function kelengkapan_laporan_std($key = NULL)
+    {
+        $arr = [
+            [
+                'key' => 'k0',
+                'value' => 'Tiket PP di sertai boarding pass'
+            ],
+            [
+                'key' => 'k1',
+                'value' => 'Bukti pembayaran hotel selama kegiatan'
+            ],
+            [
+                'key' => 'k2',
+                'value' => 'Bukti pembayaran taxi PP'
+            ]
+        ];
+
+        if ($key) {
+            $return =  "";
+            foreach ($arr as $row) {
+                if ($row['key'] === $key) {
+                    $return = $row['value'];
+                    break;
+                }
+            }
+            if ($return) {
+                return $return;
+            }
+            return '-';
+        }
+
+        return $arr;
+    }
+}
+
+if (!function_exists('tembusan_std')) {
+    function tembusan_std($key = NULL)
+    {
+        $arr = [
+            [
+                'key' => 't0',
+                'value' => 'Rektor Universitas Khairun'
+            ],
+            [
+                'key' => 't1',
+                'value' => 'Kepala KPPN Ternate'
+            ],
+            [
+                'key' => 't2',
+                'value' => 'Bendahara Universitas Khairun'
+            ]
+        ];
+
+        if ($key) {
+            $return =  "";
+            foreach ($arr as $row) {
+                if ($row['key'] === $key) {
+                    $return = $row['value'];
+                    break;
+                }
+            }
+            if ($return) {
+                return $return;
+            }
+            return '-';
+        }
+
+        return $arr;
+    }
+}
+
+if (!function_exists('searcharray')) {
+    function searcharray($val, $kolom, $array)
+    {
+        $key = array_search($val, array_column($array, $kolom));
+        return ($key === FALSE) ? FALSE : TRUE;
+    }
+}

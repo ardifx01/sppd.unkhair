@@ -39,6 +39,8 @@ class SuratTugasDinas extends Model
         'tanggal_mulai_tugas',
         'tanggal_selesai_tugas',
         'keterangan',
+        'kelengkapan_laporan_std',
+        'tembusan_std',
         'pimpinan_ttd',
         'status_std'
     ];

@@ -91,14 +91,24 @@ class Create extends Component
         if ($form == 'lama_pd') {
             $this->lama_pd = $value;
             if ($this->tanggal_berangakat) {
-                $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $this->lama_pd);
+                if ($this->lama_pd == 1) {
+                    $this->tanggal_kembali = $this->tanggal_berangakat;
+                } else {
+                    $lama_pd = $this->lama_pd - 1;
+                    $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $lama_pd);
+                }
             }
         }
 
         if ($form == 'tanggal_berangakat') {
             $this->tanggal_berangakat = $value;
             if ($this->tanggal_berangakat) {
-                $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $this->lama_pd);
+                if ($this->lama_pd == 1) {
+                    $this->tanggal_kembali = $this->tanggal_berangakat;
+                } else {
+                    $lama_pd = $this->lama_pd - 1;
+                    $this->tanggal_kembali = add_tanggal($this->tanggal_berangakat, $lama_pd);
+                }
             }
         }
     }

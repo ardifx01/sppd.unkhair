@@ -18,6 +18,9 @@ class Create extends Component
     public $id, $spd_id, $user_id, $pegawai_id = [], $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $status_std = '200';
 
+    public $kelengkapan_laporan_std = [];
+    public $tembusan_std = [];
+
     public $tanggal_std;
 
     public $readonly = "readonly";
@@ -103,7 +106,6 @@ class Create extends Component
 
     public function save()
     {
-        // dd($this->pegawai_id);
         $this->validate([
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
@@ -117,7 +119,26 @@ class Create extends Component
             'tanggal_std' => 'required',
         ]);
 
-        // dd($this);
+        $kelengkapan_laporan_std = [];
+        $tembusan_std = [];
+
+        if ($this->kelengkapan_laporan_std) {
+            foreach ($this->kelengkapan_laporan_std as $index => $val) {
+                $kelengkapan_laporan_std[] = [
+                    'key' => $val,
+                    'value' => kelengkapan_laporan_std($val)
+                ];
+            }
+        }
+
+        if ($this->tembusan_std) {
+            foreach ($this->tembusan_std as $index => $val) {
+                $tembusan_std[] = [
+                    'key' => $val,
+                    'value' => tembusan_std($val)
+                ];
+            }
+        }
 
         $pimpinan_ttd = Pimpinan::where('id', $this->pimpinan_ttd)->select(['id', 'nama_pimpinan', 'nip', 'jabatan', 'detail_jabatan'])->first()->toArray();
         $std = SuratTugasDinas::create([
@@ -131,6 +152,8 @@ class Create extends Component
             'tanggal_selesai_tugas' => $this->tanggal_selesai_tugas,
             'pimpinan_ttd' => json_encode($pimpinan_ttd),
             'keterangan' => $this->keterangan,
+            'kelengkapan_laporan_std' => json_encode($kelengkapan_laporan_std),
+            'tembusan_std' => json_encode($tembusan_std),
             'status_std' => $this->status_std,
         ]);
 
@@ -170,5 +193,7 @@ class Create extends Component
         $this->readonly = "readonly";
         $this->show_daftar_surat = false;
         $this->riwayat_nomor_surat = [];
+        $this->kelengkapan_laporan_std = [];
+        $this->tembusan_std = [];
     }
 }

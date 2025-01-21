@@ -104,11 +104,11 @@
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                 Universitas.
-                @if ($std->spd_id)
+                @if ($std->kelengkapan_laporan_std)
                     <br>Di lengkapi dengan: <br>
-                    1. Tiket PP di sertai boarding pass. <br>
-                    2. Bukti pembayaran hotel selama kegiatan. <br>
-                    3. Bukti pembayaran taxi PP.
+                    @foreach (json_decode($std->kelengkapan_laporan_std, true) as $row)
+                        {{ $loop->index + 1 }}. {{ $row['value'] }} <br>
+                    @endforeach
                 @endif
             </p>
 
@@ -118,9 +118,11 @@
                     <td width="60%" style="vertical-align: top">
                         {!! str_repeat('<br>', 10) !!}
                         Tembusan: <br>
-                        1. Rektor Universitas Khairun <br>
-                        2. Kepala KPPN Ternate <br>
-                        3. Bendahara Universitas Khairun
+                        @if ($std->tembusan_std)
+                            @foreach (json_decode($std->tembusan_std, true) as $row)
+                                {{ $loop->index + 1 }}. {{ $row['value'] }} <br>
+                            @endforeach
+                        @endif
                     </td>
                     <td width="40%" style="vertical-align: top">
                         <br>
