@@ -44,7 +44,11 @@ Route::group(['middleware' => 'isLogin'], function () {
 
     // route user admin
     Route::prefix('admin/')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::controller(App\Http\Controllers\Admin\DashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('admin.dashboard');
+            Route::get('/dashboard/statistik-departemen', 'get_statistik_usulan_departemen')->name('admin.dashboard.satistik-departemen');
+            Route::get('/dashboard/statistik-pegawai', 'get_statistik_usulan_pegawai')->name('admin.dashboard.satistik-pegawai');
+        });
 
         Route::group(['middleware' => ['role:developper|admin-spd|admin-st|ppk']], function () {
             Route::controller(App\Http\Controllers\Admin\DepartemenController::class)->group(function () {

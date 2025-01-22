@@ -23,9 +23,9 @@ class SppdController extends Controller
             $admin_spd = NULL;
 
             // menampilkan data sppd hanya punya admin-spd
-            if (session('role') == 'admin-spd') {
-                $admin_spd = auth()->user()->id;
-            }
+            // if (session('role') == 'admin-spd') {
+            //     $admin_spd = auth()->user()->id;
+            // }
 
             $status_spd = [
                 '102',
