@@ -15,11 +15,11 @@
                                     Nomor STD<sup class="text-danger">*</sup> :
                                 </label>
                                 <div class="row">
-                                    <div class="col-sm-3 mr-0 pr-1">
+                                    <div class="col-sm-4 mr-0 pr-1">
                                         <input type="text" class="form-control" wire:model="nomor_surat"
                                             {{ $readonly }}>
                                     </div>
-                                    <div class="col-sm-9 ml-0 pl-0">
+                                    <div class="col-sm-8 ml-0 pl-0">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text pl-1 pr-1">/</span>
@@ -27,8 +27,8 @@
                                             <input type="text" class="form-control" wire:model="kode_surat" readonly>
                                             <div class="input-group-append">
                                                 <button class="btn btn-secondary" type="button"
-                                                    wire:click="show_modal_daftar_surat" id="button-addon2">Kode
-                                                    Surat</button>
+                                                    wire:click="show_modal_daftar_surat"
+                                                    id="button-addon2">Kode</button>
                                             </div>
                                         </div>
                                     </div>

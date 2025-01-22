@@ -15,11 +15,11 @@
                                     Nomor STD<sup class="text-danger">*</sup> :
                                 </label>
                                 <div class="row">
-                                    <div class="col-sm-3 mr-0 pr-1">
+                                    <div class="col-sm-4 mr-0 pr-1">
                                         <input type="text" class="form-control" wire:model="nomor_surat"
                                             wire:model.live.debounce.400ms="nomor_surat">
                                     </div>
-                                    <div class="col-sm-9 ml-0 pl-0">
+                                    <div class="col-sm-8 ml-0 pl-0">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text pl-1 pr-1">/</span>
