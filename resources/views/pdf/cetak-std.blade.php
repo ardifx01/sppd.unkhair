@@ -104,7 +104,7 @@
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                 Universitas.
-                @if ($std->kelengkapan_laporan_std)
+                @if (json_decode($std->kelengkapan_laporan_std, true))
                     <br>Di lengkapi dengan: <br>
                     @foreach (json_decode($std->kelengkapan_laporan_std, true) as $row)
                         {{ $loop->index + 1 }}. {{ $row['value'] }} <br>
@@ -117,8 +117,8 @@
                 <tr>
                     <td width="60%" style="vertical-align: top">
                         {!! str_repeat('<br>', 10) !!}
-                        Tembusan: <br>
-                        @if ($std->tembusan_std)
+                        @if (json_decode($std->tembusan_std, true))
+                            Tembusan: <br>
                             @foreach (json_decode($std->tembusan_std, true) as $row)
                                 {{ $loop->index + 1 }}. {{ $row['value'] }} <br>
                             @endforeach
