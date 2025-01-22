@@ -76,10 +76,10 @@
 
             <table width="100%" style="font-size:15px; border-collapse: collapse;">
                 <tr>
-                    <th width="5%" class="kolom">No</th>
+                    <th width="4%" class="kolom">No</th>
                     <th width="35%" class="kolom">Nama / NIP</th>
                     <th width="25%" class="kolom">Pangkat / Golongan</th>
-                    <th width="35%" class="kolom">Jabatan</th>
+                    <th width="36%" class="kolom">Jabatan</th>
                 </tr>
                 @foreach ($std->pegawai as $row)
                     <tr>
@@ -94,6 +94,7 @@
                         </td>
                         <td class="kolom">
                             {{ $row->jabatan ?? '-' }}
+                            {{ $row->departemen->departemen ?? '-' }}
                         </td>
                     </tr>
                 @endforeach
