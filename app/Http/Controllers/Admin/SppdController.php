@@ -80,8 +80,10 @@ class SppdController extends Controller
                     <center>
                         <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
                         ' . $btnEdit . '
-                        ' . $btnPrint . '    
+                        ' . $btnPrint . '   
+                        <!-- 
                         <a href="' . route('admin.sppd.delete', encode_arr(['sppd_id' => $row->id])) . '" onclick="' . $confirm . '" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                        -->
                     </center>';
                     return $actionBtn;
                 })
