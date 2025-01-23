@@ -96,7 +96,7 @@
                     </td>
                     <td class="kolom" colspan="2">
                         {{ $sppd->pegawai->nama_pegawai }} <br>
-                        NIP: {{ $sppd->pegawai->nip ?? '-' }}
+                        {{ $sppd->pegawai->nip ?? '-' }}
                     </td>
                 </tr>
                 <tr>
