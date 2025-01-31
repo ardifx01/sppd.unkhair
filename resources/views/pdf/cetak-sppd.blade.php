@@ -43,7 +43,7 @@
                         </td>
                         <td width="80%" style="text-align:center">
                             <span style="font-size:20px;">
-                                KEMENTERIAN PENDIDIKAN, SAINS <br> DAN TEKNOLOGI
+                                KEMENTERIAN PENDIDIKAN TINGGI, SAINS, <br> DAN TEKNOLOGI
                             </span>
                             <br>
                             <span style="font-size:18px; font-weight:bold;">UNIVERSITAS KHAIRUN</span> <br>
