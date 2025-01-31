@@ -90,7 +90,12 @@ Route::group(['middleware' => 'isLogin'], function () {
                 Route::get('/std/create', 'create')->name('admin.std.create');
                 Route::get('/std/from-sppd', 'stdfromsppd')->name('admin.std.fromSppd');
                 Route::get('/std/edit/{params}', 'edit')->name('admin.std.edit');
+                Route::get('/std/lengkapi/{params}', 'lengkapi')->name('admin.std.lengkapi');
                 Route::get('/std/delete/{params}', 'delete')->name('admin.std.delete');
+            });
+
+            Route::controller(App\Http\Controllers\Admin\ReviewStdController::class)->group(function () {
+                Route::get('/std/review', 'index')->name('admin.std.review');
             });
 
             Route::controller(App\Http\Controllers\Admin\LaporanStdController::class)->group(function () {

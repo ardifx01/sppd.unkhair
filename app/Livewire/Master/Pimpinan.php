@@ -3,6 +3,7 @@
 namespace App\Livewire\Master;
 
 use App\Models\Pimpinan as ModelsPimpinan;
+use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -19,10 +20,12 @@ class Pimpinan extends Component
     public $jabatan;
     public $singkat_jabatan;
     public $ppk = 0;
+    public $user_id;
 
     public function render()
     {
-        return view('livewire.master.pimpinan');
+        $users = User::role('review-st')->orderBy('created_at', 'ASC')->get();
+        return view('livewire.master.pimpinan', ['users' => $users]);
     }
 
     #[On('add-data')]
@@ -44,6 +47,7 @@ class Pimpinan extends Component
         $this->singkat_jabatan = $get->jabatan;
         $this->jabatan = $get->detail_jabatan;
         $this->ppk = $get->ppk;
+        $this->user_id = $get->user_id;
         $this->id = $pimpinan_id;
         $this->mode = 'edit';
 
@@ -67,6 +71,7 @@ class Pimpinan extends Component
                 'jabatan' => $this->singkat_jabatan,
                 'detail_jabatan' => $this->jabatan,
                 'ppk' => $this->ppk,
+                'user_id' => $this->user_id,
             ]);
 
             $this->dispatch('alert', type: 'success', title: 'Successfully', message: 'Pimpinan Berhasil Ditambahkan');
@@ -78,6 +83,7 @@ class Pimpinan extends Component
                 'jabatan' => $this->singkat_jabatan,
                 'detail_jabatan' => $this->jabatan,
                 'ppk' => $this->ppk,
+                'user_id' => $this->user_id,
             ]);
 
             $this->dispatch('alert', type: 'success', title: 'Successfully', message: 'Pimpinan Berhasil Diperbarui');
@@ -98,6 +104,7 @@ class Pimpinan extends Component
         $this->singkat_jabatan = '';
         $this->ppk = 0;
         $this->id = '';
+        $this->user_id = '';
         $this->mode = 'add';
         $this->dispatch('close-modal', modal: $this->modal);
     }

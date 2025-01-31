@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive p-0 mb-2">
-                            <table class="table table-condensed table-sm table-bordered" style="width: 100%"
+                            <table class="table table-condensed table-bordered" style="width: 100%"
                                 id="{{ $datatable['id_table'] }}">
                                 <thead class="warna-warning">
                                     <tr>
@@ -41,7 +41,8 @@
                                         </th>
                                         <th class="text-left">Tanggal Dinas</th>
                                         <th class="text-left" style="vertical-align: middle">Pegawai</th>
-                                        <th class="text-left" style="vertical-align: middle">Dibuat</th>
+                                        <th class="text-left" style="vertical-align: middle">Departemen/Unit
+                                        </th>
                                         <th style="vertical-align: middle">
                                             <center>Aksi</center>
                                         </th>
@@ -55,11 +56,15 @@
             </div><!-- /.container-fluid -->
         </section>
 
+        <livewire:std.review-std />
+
         <!-- /.content -->
         @push('script')
             <script>
-                function lengkapi(params) {
-                    return location.href = "{{ route('admin.std.lengkapi', '') }}/" + params;
+                function review(params) {
+                    Livewire.dispatch('review-pengajuan-std', {
+                        params: params
+                    });
                 }
             </script>
         @endpush

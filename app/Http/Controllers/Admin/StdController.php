@@ -20,14 +20,15 @@ class StdController extends Controller
     {
         if ($request->ajax()) {
             $tahun = date('Y');
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun(date('Y'))->status_std(['200'])->tahun($tahun)
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun(date('Y'))->status_std(['200', '102'])->tahun($tahun)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
                     'app_surat_tugas_dinas.kegiatan_std',
                     'app_surat_tugas_dinas.tanggal_mulai_tugas',
                     'app_surat_tugas_dinas.tanggal_selesai_tugas',
-                    'app_surat_tugas_dinas.departemen_id'
+                    'app_surat_tugas_dinas.departemen_id',
+                    'app_surat_tugas_dinas.status_std',
                 ])
                 ->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
             return DataTables::eloquent($listdata)
@@ -50,7 +51,7 @@ class StdController extends Controller
                 ->editColumn('nomor_std', function ($row) {
                     $detail = "detail('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $str = '<ul class="list-group list-group-flush">';
-                    $str .= '<li class="list-group-item p-0">' . (Str::limit($row->kegiatan_std, 60, ' ...')) . '</li>';
+                    $str .= '<li class="list-group-item p-0">' . (Str::limit($row->kegiatan_std, 50, ' ...')) . '</li>';
                     $str .= '<li class="list-group-item p-0"><a href="#" onclick="' . $detail . '" class="">' . $row->nomor_std . '</a></li>';
                     $str .= '</ul>';
                     return $str;
@@ -62,6 +63,11 @@ class StdController extends Controller
                 ->editColumn('pegawai', function ($row) {
                     $str = '<ul class="list-group list-group-flush">';
                     foreach ($row->pegawai as $index => $r) {
+                        if (count($row->pegawai) == 1) {
+                            $str .= '<li class="list-group-item p-0">' . $r->nama_pegawai . '</li>';
+                            break;
+                        }
+
                         $nomor = $index + 1;
                         if ($nomor <= 3) {
                             $str .= '<li class="list-group-item p-0">' . $nomor . '. ' . $r->nama_pegawai . '</li>';
@@ -76,6 +82,9 @@ class StdController extends Controller
                 ->editColumn('departemen', function ($row) {
                     return $row->departemen->departemen ?? '-';
                 })
+                ->editColumn('status', function ($row) {
+                    return str_status_std($row->status_std);
+                })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {
                         $instance->where(function ($w) use ($request) {
@@ -85,7 +94,7 @@ class StdController extends Controller
                         });
                     }
                 })
-                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_dinas', 'departemen', 'action'])
+                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_dinas', 'departemen', 'status', 'action'])
                 ->make(true);
         }
 
@@ -100,6 +109,7 @@ class StdController extends Controller
                     ['data' => 'tanggal_dinas', 'name' => 'tanggal_dinas', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'pegawai', 'name' => 'pegawai', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'departemen', 'name' => 'departemen', 'orderable' => 'false', 'searchable' => 'false'],
+                    ['data' => 'status', 'name' => 'status', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'action', 'name' => 'action', 'orderable' => 'false', 'searchable' => 'false']
                 ]
             ]
@@ -135,7 +145,7 @@ class StdController extends Controller
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
-                    $edit = "edit('" . encode_arr(['stugas_id' => $row->id]) . "')";
+                    $edit = "lengkapi('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $actionBtn = '
                     <center>
                         <button type="button" onclick="' . $edit . '" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Lengkapi</button>
@@ -156,6 +166,11 @@ class StdController extends Controller
                 ->editColumn('pegawai', function ($row) {
                     $str = '<ul class="list-group list-group-flush">';
                     foreach ($row->pegawai as $index => $r) {
+                        if (count($row->pegawai) == 1) {
+                            $str .= '<li class="list-group-item p-0">' . $r->nama_pegawai . '</li>';
+                            break;
+                        }
+
                         $nomor = $index + 1;
                         if ($nomor <= 3) {
                             $str .= '<li class="list-group-item p-0">' . $nomor . '. ' . $r->nama_pegawai . '</li>';
@@ -211,6 +226,16 @@ class StdController extends Controller
         ];
 
         return view('backend.admin.std.edit', $data);
+    }
+
+    public function Lengkapi($params)
+    {
+        $data = [
+            'judul' => 'Lengkapi STD',
+            'params' => $params
+        ];
+
+        return view('backend.admin.std.lengkapi', $data);
     }
 
     public function delete($params)

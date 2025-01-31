@@ -16,7 +16,7 @@ class Create extends Component
 
     public $nomor_surat, $kode_surat, $nomor_std;
     public $id, $spd_id, $user_id, $pegawai_id = [], $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
-    public $keterangan, $pimpinan_ttd, $status_std = '200';
+    public $keterangan, $pimpinan_ttd, $pimpinan_id, $status_std = '102';
 
     public $kelengkapan_laporan_std = [];
     public $tembusan_std = [];
@@ -141,6 +141,8 @@ class Create extends Component
         }
 
         $pimpinan_ttd = Pimpinan::where('id', $this->pimpinan_ttd)->select(['id', 'nama_pimpinan', 'nip', 'jabatan', 'detail_jabatan'])->first()->toArray();
+        $this->pimpinan_id = $pimpinan_ttd['id'];
+
         $std = SuratTugasDinas::create([
             'user_id' => auth()->user()->id,
             'spd_id' => $this->spd_id,
@@ -151,6 +153,7 @@ class Create extends Component
             'tanggal_mulai_tugas' => $this->tanggal_mulai_tugas,
             'tanggal_selesai_tugas' => $this->tanggal_selesai_tugas,
             'pimpinan_ttd' => json_encode($pimpinan_ttd),
+            'pimpinan_id' => $this->pimpinan_id,
             'keterangan' => $this->keterangan,
             'kelengkapan_laporan_std' => json_encode($kelengkapan_laporan_std),
             'tembusan_std' => json_encode($tembusan_std),

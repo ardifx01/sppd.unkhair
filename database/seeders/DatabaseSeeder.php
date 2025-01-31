@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->role();
     }
 
@@ -34,9 +35,14 @@ class DatabaseSeeder extends Seeder
 
     public function role()
     {
+        // $role = [
+        //     'name' => 'keuangan',
+        //     'description' => 'Role user Keuangan bertugas untuk input Nilai Pencairan SPPD',
+        // ];
+
         $role = [
-            'name' => 'keuangan',
-            'description' => 'Role user Keuangan bertugas untuk input Nilai Pencairan SPPD',
+            'name' => 'review-st',
+            'description' => 'Role review STD yang sudah di buat oleh Admin STD',
         ];
 
         Role::create($role);

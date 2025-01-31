@@ -52,6 +52,22 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">
+                            Mendelegasikan :
+                        </label>
+                        <select class="form-control" wire:model="user_id">
+                            <option value="">-- Pilih Pengguna --</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ $user_id == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('user_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" wire:click="_reset"><i

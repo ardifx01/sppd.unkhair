@@ -28,15 +28,6 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('admin.pimpinan.index') }}"
-                            class="nav-link {{ routeIs(['admin.pimpinan.index']) ? 'active' : '' }}">
-                            <i class="fas fa-angle-double-right nav-icon" aria-hidden="true"
-                                style="font-size: 11px;"></i>
-                            <p>Data Pimpinan</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
                         <a href="{{ route('admin.pegawai.index') }}"
                             class="nav-link {{ routeIs(['admin.pegawai.index', 'admin.pegawai.import']) ? 'active' : '' }}">
                             <i class="fas fa-angle-double-right nav-icon" aria-hidden="true"
@@ -45,6 +36,14 @@
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.pimpinan.index') }}"
+                        class="nav-link {{ routeIs(['admin.pimpinan.index']) ? 'active' : '' }}">
+                        <i class="fas fa-angle-double-right nav-icon" aria-hidden="true" style="font-size: 11px;"></i>
+                        <p>Data Pimpinan</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.kodesurat.index') }}"
@@ -152,6 +151,24 @@
                 </a>
             </li>
         @endif
+    @endif
+
+    @if (auth()->user()->hasRole(['review-st']) && in_array(session('role'), ['review-st']))
+        <li class="nav-item {{ routeIs('admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}"
+                class="nav-link {{ routeIs('admin.dashboard') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Dashboard</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('admin.std.review') }}"
+                class="nav-link {{ routeIs(['admin.std.review']) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-newspaper-o"></i>
+                <p>Review Pengajuan STD</p>
+            </a>
+        </li>
     @endif
 
     @if (auth()->user()->hasRole(['keuangan']) && in_array(session('role'), ['keuangan']))

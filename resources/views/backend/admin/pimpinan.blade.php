@@ -43,6 +43,7 @@
                                         <th class="text-left">NIP</th>
                                         <th class="text-left">Nama Pimpinan</th>
                                         <th class="text-left">Jabatan</th>
+                                        <th class="text-left">Mendelegasikan</th>
                                         <th>
                                             <center>Aksi</center>
                                         </th>

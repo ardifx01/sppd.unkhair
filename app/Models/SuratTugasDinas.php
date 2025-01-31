@@ -42,9 +42,19 @@ class SuratTugasDinas extends Model
         'kelengkapan_laporan_std',
         'tembusan_std',
         'pimpinan_ttd',
+        'pimpinan_id',
+        'tanggal_review',
+        'reviewer_id',
+        'alasan',
         'status_std'
     ];
 
+    public function scopepimpinan($query, $value)
+    {
+        if ($value) {
+            $query->where('app_surat_tugas_dinas.pimpinan_id', $value);
+        }
+    }
     public function scopepencarian($query, $value)
     {
         if ($value) {
@@ -56,6 +66,13 @@ class SuratTugasDinas extends Model
     {
         if ($value) {
             $query->whereIn('app_surat_tugas_dinas.status_std', $value);
+        }
+    }
+
+    public function scopepimpinan_id($query, $value)
+    {
+        if ($value) {
+            $query->whereIn('app_surat_tugas_dinas.pimpinan_id', $value);
         }
     }
 

@@ -8,7 +8,7 @@ use App\Models\RiwayatNomorSurat;
 use App\Models\SuratTugasDinas;
 use Livewire\Component;
 
-class Edit extends Component
+class LengkapiStd extends Component
 {
     public $judul;
 
@@ -24,8 +24,6 @@ class Edit extends Component
     public $tanggal_std;
 
     public $readonly = "readonly";
-
-    public $fromSppd = false;
 
     public $pegawai_selected = [];
 
@@ -66,7 +64,7 @@ class Edit extends Component
             }
         }
 
-        $this->status_std = $get->status_std;
+        $this->status_std = "102";
         $this->pimpinan_ttd = get_datajson($get->pimpinan_ttd, 'id');
 
         $this->pimpinan_id = $get->pimpinan_id;
@@ -78,10 +76,6 @@ class Edit extends Component
                 'nama' => $row->nama_pegawai
             ];
         }
-
-        if ($get->spd_id) {
-            $this->fromSppd = true;
-        }
     }
 
     public function render()
@@ -91,11 +85,7 @@ class Edit extends Component
         }
 
         $pimpinan = Pimpinan::where('ppk', 0)->orderBy('nama_pimpinan', 'ASC')->get();
-        if ($this->fromSppd) {
-            return view('livewire.std.edit-from-sppd', ['pimpinan' => $pimpinan]);
-        } else {
-            return view('livewire.std.edit', ['pimpinan' => $pimpinan]);
-        }
+        return view('livewire.std.lengkapi-std', ['pimpinan' => $pimpinan]);
     }
 
     public function pecah_nomor_std($nomor_std)
@@ -165,6 +155,8 @@ class Edit extends Component
         $this->pimpinan_id = $pimpinan_ttd['id'];
 
         $std = SuratTugasDinas::where('id', $this->stugas_id)->first();
+
+        // $this->status_std = '200';
 
         // remove daftar pegawai
         $std->pegawai()->sync([]);

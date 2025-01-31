@@ -53,4 +53,9 @@ class User extends Authenticatable
                 ->orWhere('email', 'like', '%' . $value . '%');
         }
     }
+
+    public function pj_pimpinan()
+    {
+        return $this->hasOne(Pimpinan::class, 'user_id', 'id');
+    }
 }

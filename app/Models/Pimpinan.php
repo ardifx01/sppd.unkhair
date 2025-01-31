@@ -36,6 +36,7 @@ class Pimpinan extends Model
         'jabatan',
         'detail_jabatan',
         'ppk',
+        'user_id'
     ];
 
     public function scopepencarian($query, $value)
@@ -43,5 +44,10 @@ class Pimpinan extends Model
         if ($value) {
             $query->where('nama_pimpinan', 'like', '%' . $value . '%');
         }
+    }
+
+    public function mendelegasikan()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

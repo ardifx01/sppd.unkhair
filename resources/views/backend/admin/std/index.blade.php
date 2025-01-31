@@ -49,8 +49,10 @@
                                         </th>
                                         <th class="text-left">Tanggal Dinas</th>
                                         <th class="text-left" style="vertical-align: middle">Pegawai</th>
-                                        <th class="text-left" style="vertical-align: middle">Departemen/Unit
+                                        <th class="text-left" style="vertical-align: middle">
+                                            Departemen/Unit
                                         </th>
+                                        <th class="text-left">Status</th>
                                         <th style="vertical-align: middle">
                                             <center>Aksi</center>
                                         </th>

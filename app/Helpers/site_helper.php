@@ -106,6 +106,25 @@ if (!function_exists('str_status_sppd')) {
     }
 }
 
+if (!function_exists('str_status_std')) {
+    function str_status_std($key = NULL)
+    {
+        $status = [
+            '102' => '<span class="text-muted">Sedang Pengajuan</span>',
+            '406' => '<span class="text-danger">Pengajuan Ditolak!</span>',
+            '200' => '<span class="text-success">Pengajuan Disetujui</span>',
+            '204' => '<span class="text-danger">Pengajuan Dihapus</span>',
+            '206' => '<span class="text-warning">STD Belum Lengkap</span>',
+        ];
+
+        if ($status && array_key_exists($key, $status)) {
+            return $status[$key];
+        }
+
+        return '';
+    }
+}
+
 if (!function_exists('get_datajson')) {
     function get_datajson($json, $key = NULL)
     {
@@ -126,6 +145,7 @@ if (!function_exists('str_role')) {
             'admin-spd' => 'Admin SPD',
             'admin-st' => 'Admin STD',
             'ppk' => 'PPK',
+            'review-st' => 'Review STD',
             'keuangan' => 'Keuangan',
         ];
 
