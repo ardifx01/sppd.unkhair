@@ -54,6 +54,7 @@ class User extends Authenticatable
         }
     }
 
+    // penanggung jawab dari pimpinan
     public function pj_pimpinan()
     {
         return $this->hasOne(Pimpinan::class, 'user_id', 'id');

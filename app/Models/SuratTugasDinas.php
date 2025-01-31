@@ -72,7 +72,7 @@ class SuratTugasDinas extends Model
     public function scopepimpinan_id($query, $value)
     {
         if ($value) {
-            $query->whereIn('app_surat_tugas_dinas.pimpinan_id', $value);
+            $query->where('app_surat_tugas_dinas.pimpinan_id', $value);
         }
     }
 
@@ -108,5 +108,10 @@ class SuratTugasDinas extends Model
     public function pimpinan_ttd()
     {
         return $this->hasOne(Pimpinan::class, 'id', 'pimpinan_ttd');
+    }
+
+    public function reviwer()
+    {
+        return $this->hasOne(User::class, 'id', 'reviewer_id');
     }
 }

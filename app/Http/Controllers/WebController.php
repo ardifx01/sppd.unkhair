@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berkas;
 use App\Models\SuratPerjalananDinas;
+use App\Models\SuratTugasDinas;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -94,7 +95,7 @@ class WebController extends Controller
         }
     }
 
-    public function verifikasi_qrcode($params)
+    public function verifikasi_spd($params)
     {
         if (!$params) {
             abort(404);
@@ -114,5 +115,27 @@ class WebController extends Controller
             'get' => $get
         ];
         return view('detail-sppd', $data);
+    }
+
+    public function verifikasi_std($params)
+    {
+        if (!$params) {
+            abort(404);
+            exit();
+        }
+
+        $params = decode_arr($params);
+        if (!$params) {
+            abort(403);
+            exit();
+        }
+
+        $get = SuratTugasDinas::with(['pegawai', 'departemen', 'reviwer', 'user'])->where('id', $params['stugas_id'])->first();
+        // dd($get);
+        $data = [
+            'judul' => 'Data Pengajuan STD',
+            'get' => $get
+        ];
+        return view('detail-std', $data);
     }
 }

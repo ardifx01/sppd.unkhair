@@ -53,7 +53,7 @@
                                             Departemen/Unit
                                         </th>
                                         <th class="text-left">Status</th>
-                                        <th style="vertical-align: middle">
+                                        <th style="vertical-align: middle; width: 9%;">
                                             <center>Aksi</center>
                                         </th>
                                     </tr>

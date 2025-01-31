@@ -26,30 +26,31 @@ class ReviewStd extends Component
     {
         $this->params = decode_arr($params);
         $this->get = SuratTugasDinas::with(['pegawai', 'departemen', 'user'])->where('id', $this->params['stugas_id'])->first();
-        dd($this);
+        // dd($this);
         $this->dispatch('open-modal', modal: $this->modal);
     }
 
     public function save()
     {
-        $rules = [
-            'status_std' => 'required',
-        ];
-
-        if ($this->status_spd && $this->status_spd != '200') {
-            $rules += ['alasan' => 'required'];
-        }
-        $this->validate($rules);
-
+        $this->status_std = '200';
         SuratTugasDinas::where('id', $this->params['stugas_id'])->update([
             'status_std' => $this->status_std,
             'tanggal_review' => now(),
             'reviewer_id' => auth()->user()->id,
-            'alasan' => $this->alasan,
+            'alasan' => '',
         ]);
 
         $this->dispatch('alert', type: 'success', title: 'Succesfully', message: 'Berhasil Review Pengajuan STD');
         $this->_reset();
         $this->dispatch('load-datatable');
+    }
+
+    public function _reset()
+    {
+        $this->resetErrorBag();
+        $this->get = NULL;
+        $this->params = NULL;
+        $this->status_std = NULL;
+        $this->dispatch('close-modal', modal: $this->modal);
     }
 }

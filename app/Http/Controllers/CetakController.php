@@ -18,7 +18,9 @@ class CetakController extends Controller
         }
 
         $sppd = SuratPerjalananDinas::with(['pegawai', 'departemen'])->where('id', $params['sppd_id'])->first();
-        // dd($sppd);
+        if ($sppd->status_spd != '200') {
+            abort(404);
+        }
 
         $qrcode_name = $params['sppd_id'] . '.png';
         $qrcode_path = 'images/qrcode/';
@@ -31,7 +33,7 @@ class CetakController extends Controller
         if (!file_exists($lokasi_file . $qrcode_name)) {
             // generate qrcode
             $file_path = $qrcode_path . $qrcode_name;
-            $dt = route('frontend.verifikasi-qrcode', encode_arr(['sppd_id' => $params['sppd_id']]));
+            $dt = route('frontend.verifikasi-sppd', encode_arr(['sppd_id' => $params['sppd_id']]));
             QrCode::size(512)
                 ->format('png')
                 ->merge(public_path('images/logo.png'), 0.2, true)
@@ -57,6 +59,30 @@ class CetakController extends Controller
         }
 
         $std = SuratTugasDinas::with(['pegawai', 'departemen'])->where('id', $params['stugas_id'])->first();
+
+        if ($std->status_std != '200') {
+            abort(404);
+        }
+
+        $qrcode_name = $params['stugas_id'] . '.png';
+        $qrcode_path = 'images/qrcode/';
+
+        $lokasi_file = public_path($qrcode_path);
+        if (!File::isDirectory($lokasi_file)) {
+            File::makeDirectory($lokasi_file, 0755, true, true);
+        }
+
+        // generate qrcode jika file belum ada dan sudah diverifikasi
+        if (!file_exists($lokasi_file . $qrcode_name) && $std->reviewer_id) {
+            // generate qrcode
+            $file_path = $qrcode_path . $qrcode_name;
+            $dt = route('frontend.verifikasi-std', encode_arr(['stugas_id' => $params['stugas_id']]));
+            QrCode::size(512)
+                ->format('png')
+                ->merge(public_path('images/logo.png'), 0.2, true)
+                ->errorCorrection('M')
+                ->generate($dt, $file_path);
+        }
 
         $data = ['std' => $std];
         $pdf = PDF::loadView('pdf.cetak-std', $data)->setPaper('a4', 'portrait');

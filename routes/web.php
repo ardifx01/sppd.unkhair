@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::controller(App\Http\Controllers\WebController::class)->group(function () {
     Route::get('/', 'index')->name('frontend.site');
     Route::get('/beranda', 'index')->name('frontend.beranda');
-    Route::get('/verifikasi-sppd/{params}', 'verifikasi_qrcode')->name('frontend.verifikasi-qrcode');
+    Route::get('/verifikasi-sppd/{params}', 'verifikasi_spd')->name('frontend.verifikasi-sppd');
+    Route::get('/verifikasi-std/{params}', 'verifikasi_std')->name('frontend.verifikasi-std');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

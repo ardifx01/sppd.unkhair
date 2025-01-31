@@ -110,10 +110,10 @@ if (!function_exists('str_status_std')) {
     function str_status_std($key = NULL)
     {
         $status = [
-            '102' => '<span class="text-muted">Sedang Pengajuan</span>',
-            '406' => '<span class="text-danger">Pengajuan Ditolak!</span>',
-            '200' => '<span class="text-success">Pengajuan Disetujui</span>',
-            '204' => '<span class="text-danger">Pengajuan Dihapus</span>',
+            '102' => '<span class="text-warning">Belum Diverifikasi</span>',
+            '406' => '<span class="text-danger">STD Ditolak!</span>',
+            '200' => '<span class="text-success">Terverifikasi</span>',
+            '204' => '<span class="text-danger">STD Dihapus</span>',
             '206' => '<span class="text-warning">STD Belum Lengkap</span>',
         ];
 

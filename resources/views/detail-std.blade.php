@@ -1,28 +1,67 @@
-<div class="modal fade" wire:ignore.self id="{{ $modal }}" tabindex="-1" aria-labelledby="ModalUpdateRoleLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">{{ $judul }}</h5>
-                <button type="button" class="close" wire:click="_reset">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body pt-2">
-                @if ($get)
+<!DOCTYPE html>
+<html lang='en'>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <title>{{ pengaturan('nama-sub-aplikasi') }}</title>
+
+        <style>
+            .warna-success {
+                background-color: #d4edda;
+            }
+
+            .warna-info {
+                background-color: #d1ecf1;
+            }
+
+            .warna-warning {
+                background-color: #fff3cd;
+            }
+
+            .warna-danger {
+                background-color: #f8d7da;
+            }
+
+            .warna-primary {
+                background-color: #cce5ff;
+            }
+
+            .nav-tabs .nav-link.active {
+                font-weight: bold;
+                background-color: transparent;
+                border-bottom: 3px solid #dd0000;
+                border-right: none;
+                border-left: none;
+                border-top: none;
+            }
+
+            .table-responsive {
+                display: table;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class='container mt-3'>
+            <div class="card">
+                <div class="card-body">
                     <div class="text-right mb-4">
-                        <b style="font-size:12px;">Dibuat Oleh : &nbsp;</b>
-                        <span class="badge bg-cyan">
+                        <b style="font-size:12px;">Diajukan Oleh : &nbsp;</b>
+                        <span class="badge badge-info">
                             <i class="fa fa-user"></i>
                             {{ $get->user?->name }}
                         </span>
-                        <span class="badge bg-cyan">
+                        <span class="badge badge-info">
                             <i class="fa fa-clock"></i>
                             {{ tgl_indo($get->created_at) }}
                         </span>
                     </div>
-                    <div class="table-responsive mb-0 border">
-                        <table class="table table-sm mb-0">
+                    <div class="table-responsive">
+                        <table class="table">
                             <tr>
                                 <th class="text-right warna-warning" width="15%">Nomor STD :</td>
                                 <td width="40%">
@@ -82,26 +121,21 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <th class="text-right warna-info">Diverifikasi Oleh :</td>
-                            <td>
-                                {{ $get->reviwer?->name ?? '-' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="text-right warna-info">Tanggal Verifikasi :</td>
-                            <td>
-                                {{ tgl_indo($get->tanggal_review ?? '') }}
-                            </td>
-                        </tr>
                     </table>
                 </div>
-            @endif
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" wire:click="_reset"><i class="fa fa-times"></i>
-                Close</button>
+                <hr>
+                <dl>
+                    <dt>Diverifikasi Oleh :</dt>
+                    <dd>{{ $get->reviwer?->name ?? '-' }}</dd>
+
+                    <dt>Tanggal Verifikasi :</dt>
+                    <dd>
+                        {{ tgl_indo($get->tanggal_review ?? '') }}
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
-</div>
-</div>
+</body>
+
+</html>

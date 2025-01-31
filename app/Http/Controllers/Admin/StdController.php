@@ -37,9 +37,15 @@ class StdController extends Controller
                     $edit = "edit('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $detail = "detail('" . encode_arr(['stugas_id' => $row->id]) . "')";
                     $confirm = "return confirm('Apakah Anda Yakin Menghapus Data?');";
+
+                    $btnPrint = '';
+                    if ($row->status_std == '200') {
+                        $btnPrint = '<a href="' . route('cetak.std', encode_arr(['stugas_id' => $row->id])) . '" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>';
+                    }
+
                     $actionBtn = '
                     <center>
-                        <a href="' . route('cetak.std', encode_arr(['stugas_id' => $row->id])) . '" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>    
+                        ' . $btnPrint . '    
                         <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
                         <button type="button" onclick="' . $edit . '" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
                         <!--

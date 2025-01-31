@@ -134,7 +134,18 @@
                         @endif
                         a.n Rektor <br>
                         {{ get_datajson($std->pimpinan_ttd, 'jabatan') }}
-                        {!! str_repeat('<br>', 5) !!}
+
+                        @if (file_exists(public_path('images/qrcode/' . $std->id . '.png')))
+                            <br>
+                            <br>
+                            <img src="{{ get_image(public_path('images/qrcode/' . $std->id . '.png')) }}"
+                                style="width:90px; height:90px;">
+                            <br>
+                            <br>
+                        @else
+                            {!! str_repeat('<br>', 5) !!}
+                        @endif
+
                         {{ get_datajson($std->pimpinan_ttd, 'nama_pimpinan') }} <br>
                         NIP: {{ get_datajson($std->pimpinan_ttd, 'nip') }}
                     </td>

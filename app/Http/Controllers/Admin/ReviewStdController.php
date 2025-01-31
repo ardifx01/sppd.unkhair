@@ -20,23 +20,34 @@ class ReviewStdController extends Controller
     {
         if ($request->ajax()) {
             $tahun = date('Y');
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun(date('Y'))->status_std(['102'])->tahun($tahun)
+            $pimpinan = auth()->user()->pj_pimpinan()->first();
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun($tahun)->status_std(['102', '200'])->pimpinan_id($pimpinan->id)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
                     'app_surat_tugas_dinas.kegiatan_std',
                     'app_surat_tugas_dinas.tanggal_mulai_tugas',
                     'app_surat_tugas_dinas.tanggal_selesai_tugas',
-                    'app_surat_tugas_dinas.departemen_id'
+                    'app_surat_tugas_dinas.departemen_id',
+                    'app_surat_tugas_dinas.status_std',
                 ])
+                ->orderByRaw("FIELD(status_std , '102', '200') ASC")
                 ->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
-                    $onclick = "review('" . encode_arr(['stugas_id' => $row->id]) . "')";
+                    $detail = "detail('" . encode_arr(['stugas_id' => $row->id]) . "')";
+
+                    $btnReview = '<button type="button" class="btn btn-sm btn-primary disabled"><i class="fa fa-search"></i> Review</button>';
+                    if ($row->status_std == '102') {
+                        $review = "review('" . encode_arr(['stugas_id' => $row->id]) . "')";
+                        $btnReview = '<button type="button" onclick="' . $review . '" class="btn btn-sm btn-primary disabled"><i class="fa fa-search"></i> Review</button>';
+                    }
+
                     $actionBtn = '
                     <center>
-                        <button type="button" onclick="' . $onclick . '" class="btn btn-sm btn-info"><i class="fa fa-search"></i> Review</button>
+                        <button type="button" onclick="' . $detail . '" class="btn btn-sm btn-info"><i class="fa fa-info-circle"></i></button>
+                        ' . $btnReview . '
                     </center>';
                     return $actionBtn;
                 })
@@ -74,6 +85,9 @@ class ReviewStdController extends Controller
                 ->editColumn('departemen', function ($row) {
                     return $row->departemen->departemen ?? '-';
                 })
+                ->editColumn('status', function ($row) {
+                    return str_status_std($row->status_std);
+                })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {
                         $instance->where(function ($w) use ($request) {
@@ -83,7 +97,7 @@ class ReviewStdController extends Controller
                         });
                     }
                 })
-                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_dinas', 'departemen', 'action'])
+                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_dinas', 'departemen', 'status', 'action'])
                 ->make(true);
         }
 
@@ -98,6 +112,7 @@ class ReviewStdController extends Controller
                     ['data' => 'tanggal_dinas', 'name' => 'tanggal_dinas', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'pegawai', 'name' => 'pegawai', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'departemen', 'name' => 'departemen', 'orderable' => 'false', 'searchable' => 'false'],
+                    ['data' => 'status', 'name' => 'status', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'action', 'name' => 'action', 'orderable' => 'false', 'searchable' => 'false']
                 ]
             ]
