@@ -20,7 +20,7 @@ class StdController extends Controller
     {
         if ($request->ajax()) {
             $tahun = date('Y');
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun(date('Y'))->status_std(['200', '102'])->tahun($tahun)
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200', '102'])->tahun($tahun)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
@@ -30,6 +30,7 @@ class StdController extends Controller
                     'app_surat_tugas_dinas.departemen_id',
                     'app_surat_tugas_dinas.status_std',
                 ])
+                ->orderByRaw("FIELD(status_std , '102', '200') ASC")
                 ->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
