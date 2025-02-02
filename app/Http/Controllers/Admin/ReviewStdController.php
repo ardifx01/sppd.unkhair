@@ -21,7 +21,7 @@ class ReviewStdController extends Controller
         if ($request->ajax()) {
             $tahun = date('Y');
             $pimpinan = auth()->user()->pj_pimpinan()->first();
-            $pimpinan_id = NULL;
+            $pimpinan_id = '-';
             if ($pimpinan) {
                 $pimpinan_id = $pimpinan->id;
             }
