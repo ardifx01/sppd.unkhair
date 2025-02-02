@@ -21,7 +21,12 @@ class ReviewStdController extends Controller
         if ($request->ajax()) {
             $tahun = date('Y');
             $pimpinan = auth()->user()->pj_pimpinan()->first();
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun($tahun)->status_std(['102', '200'])->pimpinan_id($pimpinan->id)
+            $pimpinan_id = NULL;
+            if ($pimpinan) {
+                $pimpinan_id = $pimpinan->id;
+            }
+
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->tahun($tahun)->status_std(['102', '200'])->pimpinan_id($pimpinan_id)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
