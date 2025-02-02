@@ -46,7 +46,7 @@ class ReviewStdController extends Controller
                     $btnReview = '<button type="button" class="btn btn-sm btn-primary disabled"><i class="fa fa-search"></i> Review</button>';
                     if ($row->status_std == '102') {
                         $review = "review('" . encode_arr(['stugas_id' => $row->id]) . "')";
-                        $btnReview = '<button type="button" onclick="' . $review . '" class="btn btn-sm btn-primary disabled"><i class="fa fa-search"></i> Review</button>';
+                        $btnReview = '<button type="button" onclick="' . $review . '" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Review</button>';
                     }
 
                     $actionBtn = '
