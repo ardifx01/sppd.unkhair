@@ -7,6 +7,7 @@ use App\Models\Departemen;
 use App\Models\Pegawai;
 use App\Models\SuratPerjalananDinas;
 use App\Models\SuratTugasDinas;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -65,7 +66,16 @@ class DashboardController extends Controller
     public function get_statistik_usulan_departemen(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Departemen::with(['sppd', 'std'])->where('parent_id', NULL)->orderBy('created_at', 'ASC');
+            $listdata = Departemen::with([
+                'sppd' => function (Builder $query) {
+                    $query->whereYear('created_at', date('Y'))
+                        ->where('status_spd', '200');
+                },
+                'std' => function (Builder $query) {
+                    $query->whereYear('created_at', date('Y'))
+                        ->where('status_std', '200');
+                }
+            ])->where('parent_id', NULL)->orderBy('created_at', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('jml_sppd', function ($row) {
@@ -90,7 +100,12 @@ class DashboardController extends Controller
     public function get_statistik_usulan_pegawai(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Pegawai::with(['sppd'])->orderBy('nama_pegawai', 'ASC');
+            $listdata = Pegawai::with([
+                'sppd' => function (Builder $query) {
+                    $query->whereYear('created_at', date('Y'))
+                        ->where('status_spd', '200');
+                }
+            ])->orderBy('nama_pegawai', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('nama_pegawai', function ($row) {
