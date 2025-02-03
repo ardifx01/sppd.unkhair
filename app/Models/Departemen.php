@@ -40,6 +40,16 @@ class Departemen extends Model
         return $this->hasMany(Departemen::class, 'parent_id', 'id');
     }
 
+    public function sppd()
+    {
+        return $this->hasMany(SuratPerjalananDinas::class, 'departemen_id', 'id');
+    }
+
+    public function std()
+    {
+        return $this->hasMany(SuratTugasDinas::class, 'departemen_id', 'id');
+    }
+
     public function scopedepartemen($query, $value = NULL)
     {
         $query->where('parent_id', $value);

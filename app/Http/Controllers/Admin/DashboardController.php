@@ -65,14 +65,14 @@ class DashboardController extends Controller
     public function get_statistik_usulan_departemen(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Departemen::where('parent_id', NULL)->orderBy('created_at', 'ASC');
+            $listdata = Departemen::with(['sppd', 'std'])->where('parent_id', NULL)->orderBy('created_at', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('jml_sppd', function ($row) {
-                    return '0';
+                    return $row->sppd->count();
                 })
                 ->editColumn('jml_std', function ($row) {
-                    return '0';
+                    return $row->std->count();
                 })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {
@@ -90,7 +90,7 @@ class DashboardController extends Controller
     public function get_statistik_usulan_pegawai(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Pegawai::orderBy('nama_pegawai', 'ASC');
+            $listdata = Pegawai::with(['sppd'])->orderBy('nama_pegawai', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('nama_pegawai', function ($row) {
@@ -103,7 +103,7 @@ class DashboardController extends Controller
                     return $str;
                 })
                 ->editColumn('jml_sppd', function ($row) {
-                    return '0';
+                    return $row->sppd->count();
                 })
                 ->editColumn('jml_std', function ($row) {
                     return '0';

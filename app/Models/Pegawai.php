@@ -94,6 +94,11 @@ class Pegawai extends Model
         }
     }
 
+    public function sppd()
+    {
+        return $this->hasMany(SuratPerjalananDinas::class, 'pegawai_id', 'id');
+    }
+
     public function departemen()
     {
         return $this->hasOne(Departemen::class, 'id', 'departemen_id');
