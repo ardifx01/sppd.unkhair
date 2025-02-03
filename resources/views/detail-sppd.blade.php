@@ -112,12 +112,12 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th class="text-right warna-warning">Detail Alokasi Anggaran :</td>
                                 <td>{{ $get->detail_alokasi_anggaran ?? '' }}</td>
                                 <td></td>
                                 <td></td>
-                            </tr>
+                            </tr> --}}
                         </table>
                     </div>
                     <hr>
