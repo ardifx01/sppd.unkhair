@@ -100,10 +100,13 @@ class DashboardController extends Controller
     public function get_statistik_usulan_pegawai(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Pegawai::with([
-                'sppd' => function (Builder $query) {
+            $listdata = Pegawai::withCount([
+                'sppd as jml_sppd' => function (Builder $query) {
                     $query->whereYear('created_at', date('Y'))
                         ->where('status_spd', '200');
+                },
+                'std AS jml_std' => function (Builder $query) {
+                    $query->whereYear('created_at', date('Y')); // Ganti 2024 dengan tahun yang diinginkan
                 }
             ])->orderBy('nama_pegawai', 'ASC');
             return DataTables::eloquent($listdata)
@@ -118,10 +121,10 @@ class DashboardController extends Controller
                     return $str;
                 })
                 ->editColumn('jml_sppd', function ($row) {
-                    return $row->sppd->count();
+                    return $row->jml_sppd ?? 0;
                 })
                 ->editColumn('jml_std', function ($row) {
-                    return '0';
+                    return $row->jml_std ?? 0;
                 })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {

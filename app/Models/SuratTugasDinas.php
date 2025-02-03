@@ -97,7 +97,7 @@ class SuratTugasDinas extends Model
 
     public function pegawai()
     {
-        return $this->belongsToMany(Pegawai::class, 'app_surat_tugas_dinas_has_pegawai', 'stugas_id');
+        return $this->belongsToMany(Pegawai::class, 'app_surat_tugas_dinas_has_pegawai', 'surat_tugas_dinas_id');
     }
 
     public function departemen()
