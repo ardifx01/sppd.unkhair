@@ -66,12 +66,12 @@ class DashboardController extends Controller
     public function get_statistik_usulan_departemen(Request $request)
     {
         if ($request->ajax()) {
-            $listdata = Departemen::with([
-                'sppd' => function (Builder $query) {
+            $listdata = Departemen::withCount([
+                'sppd AS jml_sppd' => function (Builder $query) {
                     $query->whereYear('created_at', date('Y'))
                         ->where('status_spd', '200');
                 },
-                'std' => function (Builder $query) {
+                'std AS jml_std' => function (Builder $query) {
                     $query->whereYear('created_at', date('Y'))
                         ->where('status_std', '200');
                 }
@@ -79,10 +79,10 @@ class DashboardController extends Controller
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('jml_sppd', function ($row) {
-                    return $row->sppd->count();
+                    return $row->jml_sppd ?? 0;
                 })
                 ->editColumn('jml_std', function ($row) {
-                    return $row->std->count();
+                    return $row->jml_std ?? 0;
                 })
                 ->filter(function ($instance) use ($request) {
                     if (!empty($request->input('search.value'))) {
@@ -106,7 +106,8 @@ class DashboardController extends Controller
                         ->where('status_spd', '200');
                 },
                 'std AS jml_std' => function (Builder $query) {
-                    $query->whereYear('created_at', date('Y')); // Ganti 2024 dengan tahun yang diinginkan
+                    $query->whereYear('created_at', date('Y'))
+                        ->where('status_std', '200');
                 }
             ])->orderBy('nama_pegawai', 'ASC');
             return DataTables::eloquent($listdata)
