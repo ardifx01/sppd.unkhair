@@ -51,7 +51,7 @@ Route::group(['middleware' => 'isLogin'], function () {
             Route::get('/dashboard/statistik-pegawai', 'get_statistik_usulan_pegawai')->name('admin.dashboard.satistik-pegawai');
         });
 
-        Route::group(['middleware' => ['role:developper|admin-spd|admin-st|ppk']], function () {
+        Route::group(['middleware' => ['role:developper|admin-spd|admin-st|ppk|review-st']], function () {
             Route::controller(App\Http\Controllers\Admin\DepartemenController::class)->group(function () {
                 Route::get('/departemen/index', 'index')->name('admin.departemen.index');
                 Route::get('/departemen/unitkhusus/{params}', 'unitkhusus')->name('admin.departemen.unitkhusus');
