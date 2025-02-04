@@ -106,13 +106,13 @@
                                     {{ tgl_indo($get->tanggal_kembali, false) }}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th class="text-right warna-warning">Kode MAK :</td>
                                 <td>{{ $get->kode_mak ?? '' }}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
-                            {{-- <tr>
+                            <tr>
                                 <th class="text-right warna-warning">Detail Alokasi Anggaran :</td>
                                 <td>{{ $get->detail_alokasi_anggaran ?? '' }}</td>
                                 <td></td>
