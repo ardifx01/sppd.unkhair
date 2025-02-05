@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\SuratPerjalananDinas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -129,8 +128,6 @@ class LaporanSppdController extends Controller
             'tgl_akhir' => trim($tanggal[1]),
             'departemen_id' => $departemen_id
         ];
-
-        // $slug = Str::slug($nama_file);
 
         return Excel::download(new SppdExport($params), $nama_file);
     }
