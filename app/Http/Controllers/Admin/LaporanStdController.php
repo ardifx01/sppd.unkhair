@@ -132,7 +132,9 @@ class LaporanStdController extends Controller
             'tgl_akhir' => trim($tanggal[1]),
             'departemen_id' => $departemen_id
         ];
-        return Excel::download(new StdExport($params), $nama_file);
+
+        $slug = Str::slug($nama_file);
+        return Excel::download(new StdExport($params), $slug);
     }
 
 

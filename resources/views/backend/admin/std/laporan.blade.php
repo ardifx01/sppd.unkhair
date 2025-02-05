@@ -52,7 +52,7 @@
                                     <div class="col-sm-4">
                                         <select class="form-control" id="departemen_id" name="departemen_id"
                                             style="width: 100%;">
-                                            <option value="">-- Pilih --</option>
+                                            <option value="">-- All --</option>
                                         </select>
                                     </div>
                                 </div>
