@@ -123,16 +123,16 @@ class LaporanSppdController extends Controller
         $tanggal = explode('to', $request->date);
         $departemen_id = $request->departemen_id;
 
-        $nama_file = time() . ' - Export SPPD (' . str_tanggal_dinas(trim($tanggal[0]), trim($tanggal[1])) . ').xlsx';
+        $nama_file = time() . ' - Export SPPD.xlsx';
         $params = [
             'tgl_mulai' => trim($tanggal[0]),
             'tgl_akhir' => trim($tanggal[1]),
             'departemen_id' => $departemen_id
         ];
 
-        $slug = Str::slug($nama_file);
+        // $slug = Str::slug($nama_file);
 
-        return Excel::download(new SppdExport($params), $slug);
+        return Excel::download(new SppdExport($params), $nama_file);
     }
 
     public function pdf(Request $request)
