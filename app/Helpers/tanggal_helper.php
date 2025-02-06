@@ -100,9 +100,9 @@ if (!function_exists('tgl_indo')) {
         $date->settings(['formatFunction' => 'translatedFormat']);
 
         if (!$time) {
-            return $date->format('j F Y');
+            return $date->format('j M Y');
         }
-        return $date->format('j F Y H:i');
+        return $date->format('j M Y H:i');
     }
 }
 
