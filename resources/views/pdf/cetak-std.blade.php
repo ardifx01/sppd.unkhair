@@ -101,7 +101,7 @@
             </table>
 
             <p style="font-size:15px; text-align: justify; line-height: 20px;">
-                Untuk melakukan {{ $std->kegiatan_std }}
+                {{ $std->kegiatan_std }}
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                 Universitas.
