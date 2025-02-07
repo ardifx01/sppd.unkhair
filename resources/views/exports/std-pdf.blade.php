@@ -79,7 +79,7 @@
                     <th class="kolom">No</th>
                     <th class="kolom">Nomor STD</th>
                     <th class="kolom">Kegiatan STD</th>
-                    <th class="kolom">Tanggal Dinas</th>
+                    <th class="kolom">Tanggal STD</th>
                     <th class="kolom">Pegawai</th>
                     <th class="kolom">Departemen/Unit</th>
                     <th class="kolom">Dibuat</th>
@@ -90,7 +90,7 @@
                         <td class="kolom">{{ $row->nomor_std }}</td>
                         <td class="kolom">{{ $row->kegiatan_std }}</td>
                         <td class="kolom">
-                            {{ str_tanggal_dinas($row->tanggal_mulai_tugas, $row->tanggal_selesai_tugas) }}
+                            {{ tgl_indo($row->tanggal_std, false) }}
                         </td>
                         <td class="kolom">
                             @php

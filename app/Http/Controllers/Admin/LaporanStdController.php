@@ -30,11 +30,12 @@ class LaporanStdController extends Controller
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
                     'app_surat_tugas_dinas.kegiatan_std',
+                    'app_surat_tugas_dinas.tanggal_std',
                     'app_surat_tugas_dinas.tanggal_mulai_tugas',
                     'app_surat_tugas_dinas.tanggal_selesai_tugas',
                     'app_surat_tugas_dinas.departemen_id'
                 ])
-                ->orderBy('app_surat_tugas_dinas.created_at', 'DESC')
+                ->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC')
                 ->orderBy('app_surat_tugas_dinas.departemen_id', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
@@ -45,8 +46,8 @@ class LaporanStdController extends Controller
                     $str .= '</ul>';
                     return $str;
                 })
-                ->editColumn('tanggal_dinas', function ($row) {
-                    $str = str_tanggal_dinas($row->tanggal_mulai_tugas, $row->tanggal_selesai_tugas);
+                ->editColumn('tanggal_std', function ($row) {
+                    $str = tgl_indo($row->tanggal_std, false);
                     return $str;
                 })
                 ->editColumn('pegawai', function ($row) {
@@ -71,7 +72,7 @@ class LaporanStdController extends Controller
                     if ($request->get('tanggal_awal') && $request->get('tanggal_akhir')) {
                         $tgl_mulai = Carbon::parse($request->get('tanggal_awal'))->format('Y-m-d');
                         $tgl_akhir = Carbon::parse($request->get('tanggal_akhir'))->format('Y-m-d');
-                        $instance->whereBetween(DB::raw('DATE(app_surat_tugas_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+                        $instance->whereBetween('app_surat_tugas_dinas.tanggal_std', [$tgl_mulai, $tgl_akhir]);
                         $filter = true;
                     }
 
@@ -92,7 +93,7 @@ class LaporanStdController extends Controller
                         });
                     }
                 })
-                ->rawColumns(['nomor_std', 'tanggal_dinas', 'pegawai', 'departemen'])
+                ->rawColumns(['nomor_std', 'tanggal_std', 'pegawai', 'departemen'])
                 ->make(true);
         }
 
@@ -104,7 +105,7 @@ class LaporanStdController extends Controller
                 'columns' => [
                     ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'nomor_std', 'name' => 'nomor_std', 'orderable' => 'false', 'searchable' => 'true'],
-                    ['data' => 'tanggal_dinas', 'name' => 'tanggal_dinas', 'orderable' => 'false', 'searchable' => 'true'],
+                    ['data' => 'tanggal_std', 'name' => 'tanggal_std', 'orderable' => 'false', 'searchable' => 'true'],
                     ['data' => 'pegawai', 'name' => 'pegawai', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'departemen', 'name' => 'departemen', 'orderable' => 'false', 'searchable' => 'false']
                 ]
@@ -157,18 +158,19 @@ class LaporanStdController extends Controller
                 'app_surat_tugas_dinas.id',
                 'app_surat_tugas_dinas.nomor_std',
                 'app_surat_tugas_dinas.kegiatan_std',
+                'app_surat_tugas_dinas.tanggal_std',
                 'app_surat_tugas_dinas.tanggal_mulai_tugas',
                 'app_surat_tugas_dinas.tanggal_selesai_tugas',
                 'app_surat_tugas_dinas.departemen_id',
                 'app_surat_tugas_dinas.created_at',
             ]);
-        $liststd->whereBetween(DB::raw('DATE(app_surat_tugas_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+        $liststd->whereBetween('app_surat_tugas_dinas.tanggal_std', [$tgl_mulai, $tgl_akhir]);
 
         if ($departemen_id) {
             $liststd->where('app_surat_tugas_dinas.departemen_id', '=', $departemen_id);
         }
 
-        $liststd->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
+        $liststd->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC');
         $liststd->orderBy('app_surat_tugas_dinas.departemen_id', 'ASC');
 
         $data = [

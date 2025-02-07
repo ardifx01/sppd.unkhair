@@ -35,7 +35,7 @@
                             <form class="form-horizontal ml-2">
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">
-                                        Tanggal Pengajuan
+                                        Tanggal SPPD
                                     </label>
                                     <div class="col-sm-2">
                                         <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" />

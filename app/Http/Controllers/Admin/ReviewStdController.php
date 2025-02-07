@@ -31,13 +31,14 @@ class ReviewStdController extends Controller
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',
                     'app_surat_tugas_dinas.kegiatan_std',
+                    'app_surat_tugas_dinas.tanggal_std',
                     'app_surat_tugas_dinas.tanggal_mulai_tugas',
                     'app_surat_tugas_dinas.tanggal_selesai_tugas',
                     'app_surat_tugas_dinas.departemen_id',
                     'app_surat_tugas_dinas.status_std',
                 ])
                 ->orderByRaw("FIELD(status_std , '102', '200') ASC")
-                ->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
+                ->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
@@ -64,8 +65,8 @@ class ReviewStdController extends Controller
                     $str .= '</ul>';
                     return $str;
                 })
-                ->editColumn('tanggal_dinas', function ($row) {
-                    $str = str_tanggal_dinas($row->tanggal_mulai_tugas, $row->tanggal_selesai_tugas);
+                ->editColumn('tanggal_std', function ($row) {
+                    $str = tgl_indo($row->tanggal_std, false);
                     return $str;
                 })
                 ->editColumn('pegawai', function ($row) {
@@ -102,7 +103,7 @@ class ReviewStdController extends Controller
                         });
                     }
                 })
-                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_dinas', 'departemen', 'status', 'action'])
+                ->rawColumns(['nomor_std', 'pegawai', 'tanggal_std', 'departemen', 'status', 'action'])
                 ->make(true);
         }
 
@@ -114,7 +115,7 @@ class ReviewStdController extends Controller
                 'columns' => [
                     ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'nomor_std', 'name' => 'nomor_std', 'orderable' => 'false', 'searchable' => 'true'],
-                    ['data' => 'tanggal_dinas', 'name' => 'tanggal_dinas', 'orderable' => 'false', 'searchable' => 'false'],
+                    ['data' => 'tanggal_std', 'name' => 'tanggal_std', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'pegawai', 'name' => 'pegawai', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'departemen', 'name' => 'departemen', 'orderable' => 'false', 'searchable' => 'false'],
                     ['data' => 'status', 'name' => 'status', 'orderable' => 'false', 'searchable' => 'false'],

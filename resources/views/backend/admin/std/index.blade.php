@@ -47,7 +47,7 @@
                                         <th class="text-left" style="vertical-align: middle">
                                             Kegiatan STD
                                         </th>
-                                        <th class="text-left">Tanggal Dinas</th>
+                                        <th class="text-left">Tanggal STD</th>
                                         <th class="text-left" style="vertical-align: middle">Pegawai</th>
                                         <th class="text-left" style="vertical-align: middle">
                                             Departemen/Unit

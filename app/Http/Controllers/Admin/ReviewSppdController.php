@@ -29,7 +29,7 @@ class ReviewSppdController extends Controller
                     'app_surat_perjalanan_dinas.departemen_id',
                     'b.nama_pegawai'
                 ])
-                ->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
+                ->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {

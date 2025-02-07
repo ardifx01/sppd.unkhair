@@ -33,19 +33,23 @@ class SppdController extends Controller
                 '200'
             ];
 
-            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])->status_spd($status_spd)->tahun($tahun)->admin_spd($admin_spd)->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
+            $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])
+                ->status_spd($status_spd)
+                ->tahun($tahun)
+                ->admin_spd($admin_spd)
+                ->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
-                    'app_surat_perjalanan_dinas.tanggal_berangakat',
-                    'app_surat_perjalanan_dinas.tanggal_kembali',
+                    'app_surat_perjalanan_dinas.tanggal_spd',
                     'app_surat_perjalanan_dinas.tujuan',
                     'app_surat_perjalanan_dinas.status_spd',
                     'app_surat_perjalanan_dinas.departemen_id',
                     'b.nama_pegawai',
                     'b.nip',
                 ])
-                ->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
+                ->orderByRaw("FIELD(status_spd , '102', '200', '406') ASC")
+                ->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
@@ -92,11 +96,10 @@ class SppdController extends Controller
                     return '<a href="#" onclick="' . $detail . '" class="">' . $row->nomor_spd . '</a>';
                 })
                 ->editColumn('tanggal_berangakat', function ($row) {
-                    return str_tanggal_dinas($row->tanggal_berangakat, $row->tanggal_kembali);
+                    return tgl_indo($row->tanggal_spd, false);
                 })
                 ->editColumn('pegawai', function ($row) {
                     $str = $row->nama_pegawai;
-                    // $str .= '<br>NIP: ' . $row->nip ?? '-';
                     return  $str;
                 })
                 ->editColumn('departemen', function ($row) {

@@ -30,8 +30,7 @@ class SppdExport implements FromView
                 'app_surat_perjalanan_dinas.id',
                 'app_surat_perjalanan_dinas.nomor_spd',
                 'app_surat_perjalanan_dinas.kegiatan_spd',
-                'app_surat_perjalanan_dinas.tanggal_berangakat',
-                'app_surat_perjalanan_dinas.tanggal_kembali',
+                'app_surat_perjalanan_dinas.tanggal_spd',
                 'app_surat_perjalanan_dinas.tujuan',
                 'app_surat_perjalanan_dinas.departemen_id',
                 'app_surat_perjalanan_dinas.kode_mak',
@@ -40,13 +39,13 @@ class SppdExport implements FromView
                 'b.nama_pegawai',
                 'b.nip',
             ]);
-        $listsppd->whereBetween(DB::raw('DATE(app_surat_perjalanan_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+        $listsppd->whereBetween('tanggal_spd', [$tgl_mulai, $tgl_akhir]);
 
         if ($this->departemen_id) {
             $listsppd->where('app_surat_perjalanan_dinas.departemen_id', '=', $this->departemen_id);
         }
 
-        $listsppd->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
+        $listsppd->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC');
         $listsppd->orderBy('app_surat_perjalanan_dinas.departemen_id', 'ASC');
 
         return view('exports.sppd-excel', [

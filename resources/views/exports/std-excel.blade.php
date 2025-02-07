@@ -5,7 +5,7 @@
             <th>No</th>
             <th>Nomor STD</th>
             <th>Kegiatan STD</th>
-            <th>Tanggal Dinas</th>
+            <th>Tanggal STD</th>
             <th>Pegawai</th>
             <th>Departemen/Unit</th>
         </tr>
@@ -16,7 +16,7 @@
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $row->nomor_std }}</td>
                 <td>{{ $row->kegiatan_std }}</td>
-                <td>{{ str_tanggal_dinas($row->tanggal_mulai_tugas, $row->tanggal_selesai_tugas) }}</td>
+                <td>{{ tgl_indo($row->tanggal_std, false) }}</td>
                 <td>
                     @php
                         $str = '<ul>';

@@ -30,17 +30,18 @@ class StdExport implements FromView
                 'app_surat_tugas_dinas.id',
                 'app_surat_tugas_dinas.nomor_std',
                 'app_surat_tugas_dinas.kegiatan_std',
+                'app_surat_tugas_dinas.tanggal_std',
                 'app_surat_tugas_dinas.tanggal_mulai_tugas',
                 'app_surat_tugas_dinas.tanggal_selesai_tugas',
                 'app_surat_tugas_dinas.departemen_id'
             ]);
-        $liststd->whereBetween(DB::raw('DATE(app_surat_tugas_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+        $liststd->whereBetween('app_surat_tugas_dinas.tanggal_std', [$tgl_mulai, $tgl_akhir]);
 
         if ($this->departemen_id) {
             $liststd->where('app_surat_tugas_dinas.departemen_id', '=', $this->departemen_id);
         }
 
-        $liststd->orderBy('app_surat_tugas_dinas.created_at', 'DESC');
+        $liststd->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC');
         $liststd->orderBy('app_surat_tugas_dinas.departemen_id', 'ASC');
 
         return view('exports.std-excel', [

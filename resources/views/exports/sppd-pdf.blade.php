@@ -93,7 +93,7 @@
                         <td class="kolom">{{ $loop->index + 1 }}</td>
                         <td class="kolom">{{ $row->nomor_spd }}</td>
                         <td class="kolom">{{ $row->kegiatan_spd }}</td>
-                        <td class="kolom">{{ str_tanggal_dinas($row->tanggal_berangakat, $row->tanggal_kembali) }}</td>
+                        <td class="kolom">{{ tgl_indo($row->tanggal_spd, false) }}</td>
                         <td class="kolom">{{ $row->tujuan }}</td>
                         <td class="kolom">{{ $row->nama_pegawai }}</td>
                         <td class="kolom">{{ $row->departemen->departemen ?? '-' }}</td>

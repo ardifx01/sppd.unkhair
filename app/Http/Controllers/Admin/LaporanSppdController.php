@@ -28,8 +28,7 @@ class LaporanSppdController extends Controller
                 ->select([
                     'app_surat_perjalanan_dinas.id',
                     'app_surat_perjalanan_dinas.nomor_spd',
-                    'app_surat_perjalanan_dinas.tanggal_berangakat',
-                    'app_surat_perjalanan_dinas.tanggal_kembali',
+                    'app_surat_perjalanan_dinas.tanggal_spd',
                     'app_surat_perjalanan_dinas.tujuan',
                     'app_surat_perjalanan_dinas.departemen_id',
                     'app_surat_perjalanan_dinas.kode_mak',
@@ -38,7 +37,7 @@ class LaporanSppdController extends Controller
                     'b.nama_pegawai',
                     'b.nip',
                 ])
-                ->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC')
+                ->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC')
                 ->orderBy('app_surat_perjalanan_dinas.departemen_id', 'ASC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
@@ -46,7 +45,7 @@ class LaporanSppdController extends Controller
                     return $row->nomor_spd;
                 })
                 ->editColumn('tanggal_berangakat', function ($row) {
-                    return str_tanggal_dinas($row->tanggal_berangakat, $row->tanggal_kembali);
+                    return tgl_indo($row->tanggal_spd, false);
                 })
                 ->editColumn('pegawai', function ($row) {
                     $str = $row->nama_pegawai;
@@ -63,7 +62,7 @@ class LaporanSppdController extends Controller
                     if ($request->get('tanggal_awal') && $request->get('tanggal_akhir')) {
                         $tgl_mulai = Carbon::parse($request->get('tanggal_awal'))->format('Y-m-d');
                         $tgl_akhir = Carbon::parse($request->get('tanggal_akhir'))->format('Y-m-d');
-                        $instance->whereBetween(DB::raw('DATE(app_surat_perjalanan_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+                        $instance->whereBetween('tanggal_spd', [$tgl_mulai, $tgl_akhir]);
                         $filter = true;
                     }
 
@@ -152,8 +151,7 @@ class LaporanSppdController extends Controller
                 'app_surat_perjalanan_dinas.id',
                 'app_surat_perjalanan_dinas.nomor_spd',
                 'app_surat_perjalanan_dinas.kegiatan_spd',
-                'app_surat_perjalanan_dinas.tanggal_berangakat',
-                'app_surat_perjalanan_dinas.tanggal_kembali',
+                'app_surat_perjalanan_dinas.tanggal_spd',
                 'app_surat_perjalanan_dinas.tujuan',
                 'app_surat_perjalanan_dinas.departemen_id',
                 'app_surat_perjalanan_dinas.kode_mak',
@@ -163,13 +161,13 @@ class LaporanSppdController extends Controller
                 'b.nama_pegawai',
                 'b.nip',
             ]);
-        $listsppd->whereBetween(DB::raw('DATE(app_surat_perjalanan_dinas.created_at)'), [$tgl_mulai, $tgl_akhir]);
+        $listsppd->whereBetween('tanggal_spd', [$tgl_mulai, $tgl_akhir]);
 
         if ($departemen_id) {
             $listsppd->where('app_surat_perjalanan_dinas.departemen_id', '=', $departemen_id);
         }
 
-        $listsppd->orderBy('app_surat_perjalanan_dinas.created_at', 'DESC');
+        $listsppd->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC');
         $listsppd->orderBy('app_surat_perjalanan_dinas.departemen_id', 'ASC');
 
         $data = [

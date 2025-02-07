@@ -35,7 +35,7 @@
                             <form class="form-horizontal ml-2">
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">
-                                        Tanggal Pengajuan
+                                        Tanggal STD
                                     </label>
                                     <div class="col-sm-2">
                                         <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" />
@@ -88,7 +88,7 @@
                                     <tr>
                                         <th class="text-left" style="width:3%;">#</th>
                                         <th class="text-left">Kegiatan STD</th>
-                                        <th class="text-left">Tanggal Dinas</th>
+                                        <th class="text-left">Tanggal STD</th>
                                         <th class="text-left">Pegawai</th>
                                         <th class="text-left">Departemen/Unit</th>
                                     </tr>

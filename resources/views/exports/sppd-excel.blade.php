@@ -20,7 +20,7 @@
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $row->nomor_spd }}</td>
                 <td>{{ $row->kegiatan_spd }}</td>
-                <td>{{ str_tanggal_dinas($row->tanggal_berangakat, $row->tanggal_kembali) }}</td>
+                <td>{{ tgl_indo($row->tanggal_spd, false) }}</td>
                 <td>{{ $row->tujuan }}</td>
                 <td>{{ $row->nama_pegawai }}</td>
                 <td>{{ $row->departemen->departemen ?? '-' }}</td>
