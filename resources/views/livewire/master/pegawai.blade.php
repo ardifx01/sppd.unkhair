@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">
-                                        Tempat, Tanggal Lahir<sup class="text-danger">*</sup> :
+                                        Tempat, Tanggal Lahir :
                                     </label>
                                     <div class="row">
                                         <div class="col-md-7">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">
-                                        Agama<sup class="text-danger">*</sup> :
+                                        Agama :
                                     </label>
                                     <select class="custom-select" wire:model="agama">
                                         <option value="">-- Pilih --</option>

@@ -62,8 +62,8 @@ class Pegawai extends Component
         $rules = [
             'nama_pegawai' => 'required',
             // 'jk' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
+            // 'tempat_lahir' => 'required',
+            // 'tanggal_lahir' => 'required',
             // 'agama' => 'required',
             'jabatan' => 'required',
             'departemen_id' => 'required',

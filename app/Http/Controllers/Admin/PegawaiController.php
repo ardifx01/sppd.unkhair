@@ -42,7 +42,7 @@ class PegawaiController extends Controller
                 })
                 ->editColumn('ttl', function ($row) {
                     $str = $row->tempat_lahir . ', ' . $row->tanggal_lahir;
-                    return $str;
+                    return (trim($str) != ',') ? $str : '-';
                 })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('kategori')) {
