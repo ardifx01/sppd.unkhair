@@ -85,9 +85,9 @@
 
         @if (in_array(session('role'), ['admin-spd', 'ppk']))
             <li
-                class="nav-item {{ routeIs(['admin.sppd.index', 'admin.sppd.create', 'admin.sppd.edit', 'admin.sppd.review']) ? 'menu-open' : '' }}">
+                class="nav-item {{ routeIs(['admin.sppd.index', 'admin.sppd.create', 'admin.sppd.edit', 'admin.sppd.review', 'admin.sppd.pembatalan']) ? 'menu-open' : '' }}">
                 <a href="#"
-                    class="nav-link {{ routeIs(['admin.sppd.index', 'admin.sppd.create', 'admin.sppd.edit', 'admin.sppd.review']) ? 'active' : '' }}">
+                    class="nav-link {{ routeIs(['admin.sppd.index', 'admin.sppd.create', 'admin.sppd.edit', 'admin.sppd.review', 'admin.sppd.pembatalan']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-clone"></i>
                     <p> Data SPPD <i class="right fas fa-angle-left"></i></p>
                 </a>
@@ -117,6 +117,15 @@
                                 <i class="fas fa-angle-double-right nav-icon" aria-hidden="true"
                                     style="font-size: 11px;"></i>
                                 <p>Review Pengajuan SPPD</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.sppd.pembatalan') }}"
+                                class="nav-link {{ routeIs(['admin.sppd.pembatalan']) ? 'active' : '' }}">
+                                <i class="fas fa-angle-double-right nav-icon" aria-hidden="true"
+                                    style="font-size: 11px;"></i>
+                                <p>Pembatalan SPPD</p>
                             </a>
                         </li>
                     @endif

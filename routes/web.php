@@ -84,6 +84,7 @@ Route::group(['middleware' => 'isLogin'], function () {
 
             Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
                 Route::get('/sppd/review', 'index')->name('admin.sppd.review');
+                Route::get('/sppd/pembatalan', 'pembatalan')->name('admin.sppd.pembatalan');
             });
 
             Route::controller(App\Http\Controllers\Admin\StdController::class)->group(function () {
