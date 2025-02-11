@@ -5,6 +5,7 @@ namespace App\Livewire\Sppd;
 use App\Models\KodeSurat;
 use App\Models\RiwayatNomorSurat;
 use App\Models\SuratPerjalananDinas;
+use App\Models\SuratTugasDinas;
 use Livewire\Component;
 
 class Edit extends Component
@@ -125,6 +126,23 @@ class Edit extends Component
             'tanggal_spd' => 'required',
         ]);
 
+        // edit sppd jika std sudah terbit maka akan terupdate otomatis
+        $std = SuratTugasDinas::where('spd_id', $this->sppd_id)->first();
+        if ($std) {
+            // remove daftar pegawai
+            $std->pegawai()->sync([]);
+
+            $std->update([
+                'departemen_id' => $this->departemen_id,
+                'kegiatan_std' => $this->kegiatan_spd,
+                'tanggal_mulai_tugas' => $this->tanggal_berangakat,
+                'tanggal_selesai_tugas' => $this->tanggal_kembali,
+            ]);
+
+            // simpan daftar pegawai
+            $std->pegawai()->sync($this->pegawai_id);
+        }
+        // dd($std);
 
         SuratPerjalananDinas::where('id', $this->sppd_id)->update([
             'tanggal_spd' => $this->tanggal_spd,

@@ -84,8 +84,12 @@
                             Transportasi<sup class="text-danger">*</sup> :
                         </label>
                         <div class="input-group w-25">
-                            <input type="text" class="form-control" wire:model="angkutan"
-                                placeholder="Transportasi berangkat">
+                            <select class="form-control" id="angkutan" wire:model="angkutan" style="width: 100%;">
+                                <option value="">-- Pilih --</option>
+                                @foreach (transportasi() as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         @error('angkutan')
                             <small class="text-danger">{{ $message }}</small>

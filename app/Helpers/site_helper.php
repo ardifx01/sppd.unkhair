@@ -247,3 +247,26 @@ if (!function_exists('searcharray')) {
         return ($key === FALSE) ? FALSE : TRUE;
     }
 }
+
+if (!function_exists('transportasi')) {
+    function transportasi($key = NULL)
+    {
+        $transportasi = [
+            'Pesawat' => 'Pesawat',
+            'Kereta Api' => 'Kereta Api',
+            'Ferry' => 'Ferry',
+            'Speedboad' => 'Speedboad',
+            'Bus' => 'Bus',
+            'Mobil Pribadi/Dinas' => 'Mobil Pribadi/Dinas',
+            'Ojek/Taksi Online' => 'Ojek/Taksi Online',
+            'Sepeda Motor' => 'Sepeda Motor',
+            'Transportasi Umum' => 'Transportasi Umum',
+        ];
+
+        if ($transportasi && array_key_exists($key, $transportasi)) {
+            return $transportasi[$key];
+        }
+
+        return $transportasi;
+    }
+}
