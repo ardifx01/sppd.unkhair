@@ -13,7 +13,7 @@ class StdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin-st']);
+        $this->middleware(['role:admin-st|admin-spd']);
     }
 
     public function index(Request $request)
@@ -135,6 +135,10 @@ class StdController extends Controller
 
     public function stdfromsppd(Request $request)
     {
+        if (!auth()->user()->hasRole('admin-spd')) {
+            abort(403);
+        }
+
         if ($request->ajax()) {
             $tahun = date('Y');
             $listdata = SuratTugasDinas::with(['pegawai'])->status_std(['206'])->tahun($tahun)
@@ -237,6 +241,10 @@ class StdController extends Controller
 
     public function Lengkapi($params)
     {
+        if (!auth()->user()->hasRole('admin-spd')) {
+            abort(403);
+        }
+
         $data = [
             'judul' => 'Lengkapi STD',
             'params' => $params

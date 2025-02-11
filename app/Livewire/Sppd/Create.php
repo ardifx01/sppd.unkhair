@@ -60,7 +60,8 @@ class Create extends Component
         $jenis_surat = 'spd';
         $keterangan = auth()->user()->name . ' membuat SPPD ' . $get->keterangan;
 
-        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
+        // $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
+        $riwayat = RiwayatNomorSurat::tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
             $this->nomor_surat = ($urut < 10) ? '0' . $urut : $urut;

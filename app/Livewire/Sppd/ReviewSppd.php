@@ -116,7 +116,8 @@ class ReviewSppd extends Component
         $keterangan = auth()->user()->name . ', PPK auto dibuatkan STD setelah menyetujui usulan SPPD ' . $nomor_spd;
 
         // cek nomor surat terakhir
-        $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
+        // $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
+        $riwayat = RiwayatNomorSurat::tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
             $nomor = ($urut < 10) ? '0' . $urut : $urut;
