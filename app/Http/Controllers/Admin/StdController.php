@@ -129,6 +129,8 @@ class StdController extends Controller
 
     public function create()
     {
+        abort(403);
+
         $data = [
             'judul' => 'Buat STD',
         ];
@@ -141,6 +143,8 @@ class StdController extends Controller
         if (!auth()->user()->hasRole('admin-spd')) {
             abort(403);
         }
+
+        abort(403);
 
         if ($request->ajax()) {
             $tahun = date('Y');
