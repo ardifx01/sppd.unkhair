@@ -254,7 +254,7 @@ if (!function_exists('transportasi')) {
         $transportasi = [
             'Pesawat' => 'Pesawat',
             'Kereta Api' => 'Kereta Api',
-            'Ferry' => 'Ferry',
+            'Kapal Feri' => 'Kapal Feri',
             'Speedboad' => 'Speedboad',
             'Bus' => 'Bus',
             'Mobil Pribadi/Dinas' => 'Mobil Pribadi/Dinas',
