@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SuratTugasDinas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ class StdController extends Controller
             $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200', '102', '409'])->tahun($tahun)
                 ->select([
                     'app_surat_tugas_dinas.id',
+                    DB::raw("SUBSTRING_INDEX(app_surat_tugas_dinas.nomor_std, '/', 1) AS nomor"),
                     'app_surat_tugas_dinas.nomor_std',
                     'app_surat_tugas_dinas.kegiatan_std',
                     'app_surat_tugas_dinas.tanggal_std',
@@ -30,6 +32,7 @@ class StdController extends Controller
                     'app_surat_tugas_dinas.status_std',
                 ])
                 ->orderByRaw("FIELD(status_std , '102', '200') ASC")
+                ->orderBy('nomor', 'DESC')
                 ->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
