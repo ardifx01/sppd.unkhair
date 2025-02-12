@@ -31,6 +31,7 @@ class SuratTugasDinas extends Model
      */
     protected $fillable = [
         'user_id',
+        'std_dk',
         'spd_id',
         'nomor_std',
         'tanggal_std',
@@ -55,6 +56,14 @@ class SuratTugasDinas extends Model
             $query->where('app_surat_tugas_dinas.pimpinan_id', $value);
         }
     }
+
+    public function scopedalam_kota($query, $value)
+    {
+        if ($value) {
+            $query->where('app_surat_tugas_dinas.std_dk', $value);
+        }
+    }
+
     public function scopepencarian($query, $value)
     {
         if ($value) {

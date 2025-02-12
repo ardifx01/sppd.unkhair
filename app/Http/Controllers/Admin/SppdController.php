@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SuratPerjalananDinas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class SppdController extends Controller
@@ -41,6 +42,7 @@ class SppdController extends Controller
                 ->join('app_pegawai AS b', 'app_surat_perjalanan_dinas.pegawai_id', '=', 'b.id')
                 ->select([
                     'app_surat_perjalanan_dinas.id',
+                    DB::raw("SUBSTRING_INDEX(app_surat_perjalanan_dinas.nomor_spd, '/', 1) AS nomor"),
                     'app_surat_perjalanan_dinas.nomor_spd',
                     'app_surat_perjalanan_dinas.tanggal_spd',
                     'app_surat_perjalanan_dinas.tujuan',
@@ -49,7 +51,8 @@ class SppdController extends Controller
                     'b.nama_pegawai',
                     'b.nip',
                 ])
-                ->orderByRaw("FIELD(status_spd , '102', '200', '406') ASC")
+                // ->orderByRaw("FIELD(status_spd , '102', '200', '406') ASC")
+                ->orderBy('nomor', 'DESC')
                 ->orderBy('app_surat_perjalanan_dinas.tanggal_spd', 'DESC');
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()

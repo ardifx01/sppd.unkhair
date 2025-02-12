@@ -30,14 +30,14 @@
                         <div class="card-tools"></div>
                     </div>
                     <div class="card-body">
-                        @if (auth()->user()->hasRole(['admin-st']) && in_array(session('role'), ['admin-st']))
+                        @if (auth()->user()->hasRole('admin-st-dk') && in_array(session('role'), ['admin-st-dk']))
                             <button class="btn btn-sm btn-primary"
                                 onclick="location.href='{{ route('admin.std.create') }}'">
                                 <i class="fa fa-plus"></i> Buat STD
                             </button>
                         @endif
 
-                        @if (auth()->user()->hasRole(['admin-spd']) && in_array(session('role'), ['admin-spd']))
+                        @if (auth()->user()->hasRole(['admin-st']) && in_array(session('role'), ['admin-st']))
                             <button class="btn btn-sm btn-danger"
                                 onclick="location.href='{{ route('admin.std.fromSppd') }}'">
                                 <i class="fa fa-list"></i> STD Dari SPPD

@@ -146,6 +146,7 @@ if (!function_exists('str_role')) {
             'super-admin' => 'Super Admin',
             'admin-spd' => 'Admin SPD',
             'admin-st' => 'Admin STD',
+            'admin-st-dk' => 'Admin STD Dalam Kota',
             'ppk' => 'PPK',
             'review-st' => 'Review STD',
             'keuangan' => 'Keuangan',

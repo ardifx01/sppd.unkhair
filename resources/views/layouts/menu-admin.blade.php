@@ -1,8 +1,8 @@
 <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
 
     <li class="nav-header">MAIN MENU</li>
-    @if (auth()->user()->hasRole(['developper', 'admin-spd', 'admin-st', 'ppk']) &&
-            in_array(session('role'), ['developper', 'admin-spd', 'admin-st', 'ppk']))
+    @if (auth()->user()->hasRole(['developper', 'admin-spd', 'admin-st', 'admin-st-dk', 'ppk']) &&
+            in_array(session('role'), ['developper', 'admin-spd', 'admin-st', 'admin-st-dk', 'ppk']))
         <li class="nav-item {{ routeIs('admin.dashboard') ? 'active' : '' }}">
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -131,7 +131,9 @@
                     @endif
                 </ul>
             </li>
+        @endif
 
+        @if (in_array(session('role'), ['admin-st']))
             <li class="nav-item">
                 <a href="{{ route('admin.std.index') }}"
                     class="nav-link {{ routeIs(['admin.std.index', 'admin.std.create', 'admin.std.fromSppd', 'admin.std.edit']) ? 'active' : '' }}">
@@ -141,12 +143,12 @@
             </li>
         @endif
 
-        @if (in_array(session('role'), ['admin-st']))
+        @if (in_array(session('role'), ['admin-st-dk']))
             <li class="nav-item">
                 <a href="{{ route('admin.std.index') }}"
                     class="nav-link {{ routeIs(['admin.std.index', 'admin.std.create', 'admin.std.fromSppd', 'admin.std.edit']) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-newspaper-o"></i>
-                    <p>Data STD</p>
+                    <p>Data STD Dalam Kota</p>
                 </a>
             </li>
         @endif

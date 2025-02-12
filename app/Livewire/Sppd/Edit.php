@@ -109,7 +109,7 @@ class Edit extends Component
 
     public function save()
     {
-        abort(403);
+        // abort(403);
 
         $this->validate([
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
@@ -134,7 +134,21 @@ class Edit extends Component
             // remove daftar pegawai
             $std->pegawai()->sync([]);
 
+            $nomor_std = $std->nomor_std;
+
+            // jika ada perubahan nomor_spd maka nomor_std juga berubah
+            if ($this->nomor_spd != $this->nomor_spd_old) {
+                // pecah normor_spd untuk ambil nomor urut surat
+                $pecah_spd = explode("/", $this->nomor_spd);
+
+                // pecah nomor_std
+                $pecah_std = explode("/", $nomor_std);
+                // simpan nomor_std dengan format nomor/UN44/kode_surat/tahun
+                $nomor_std = $pecah_spd[0] . "/" . trim($pecah_std[1]) . "/" . trim($pecah_std[2]) . "/" . trim($pecah_std[3]);
+            }
+
             $std->update([
+                'nomor_std' => $nomor_std,
                 'tanggal_std' => $this->tanggal_spd,
                 'departemen_id' => $this->departemen_id,
                 'kegiatan_std' => $this->kegiatan_spd,

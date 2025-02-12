@@ -7,6 +7,7 @@ use App\Models\Pimpinan;
 use App\Models\RiwayatNomorSurat;
 use App\Models\SuratPerjalananDinas;
 use App\Models\SuratTugasDinas;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -80,7 +81,7 @@ class Create extends Component
         $this->nomor_surat = '01';
         $kode = "UN44" . "/" . $get->kode;
         $tahun = date('Y');
-        $jenis_surat = 'st';
+        $jenis_surat = 'std-dk';
         $keterangan = auth()->user()->name . ' membuat surat ' . $get->keterangan;
 
         // $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
@@ -107,12 +108,15 @@ class Create extends Component
 
     public function save()
     {
-        abort(403);
+        // abort(403);
 
         $this->validate([
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
-            'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std',
+            'nomor_std' => [
+                'required',
+                Rule::unique('app_surat_tugas_dinas')->where('std_dk', 1)
+            ],
             'pegawai_id' => 'required|array|min:1',
             'departemen_id' => 'required',
             'kegiatan_std' => 'required',

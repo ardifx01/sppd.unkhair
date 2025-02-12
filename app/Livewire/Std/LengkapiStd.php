@@ -6,6 +6,7 @@ use App\Models\KodeSurat;
 use App\Models\Pimpinan;
 use App\Models\RiwayatNomorSurat;
 use App\Models\SuratTugasDinas;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class LengkapiStd extends Component
@@ -116,12 +117,16 @@ class LengkapiStd extends Component
 
     public function save()
     {
-        abort(403);
+        // abort(403);
 
         $this->validate([
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
-            'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std,' . $this->stugas_id,
+            // 'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std,' . $this->stugas_id,
+            'nomor_std' => [
+                'required',
+                Rule::unique('app_surat_tugas_dinas')->where('std_dk', 0)->ignore($this->stugas_id)
+            ],
             'pegawai_id' => 'required|array|min:1',
             'departemen_id' => 'required',
             'kegiatan_std' => 'required',
@@ -163,6 +168,7 @@ class LengkapiStd extends Component
         // remove daftar pegawai
         $std->pegawai()->sync([]);
         $std->update([
+            'user_id' => auth()->user()->id,
             'nomor_std' => $this->nomor_std,
             'tanggal_std' => $this->tanggal_std,
             'departemen_id' => $this->departemen_id,

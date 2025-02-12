@@ -41,8 +41,8 @@ class DatabaseSeeder extends Seeder
         // ];
 
         $role = [
-            'name' => 'review-st',
-            'description' => 'Role review STD yang sudah di buat oleh Admin STD',
+            'name' => 'admin-st-dk',
+            'description' => 'Role user pembuat Surat Tugas Dalam Kota',
         ];
 
         Role::create($role);

@@ -14,14 +14,20 @@ class StdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin-st|admin-spd']);
+        $this->middleware(['role:admin-st|admin-st-dk|admin-spd']);
     }
 
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $tahun = date('Y');
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200', '102', '409'])->tahun($tahun)
+
+            $std_dk = 0;
+            if (auth()->user()->hasRole('admin-st-dk') && in_array(session('role'), ['admin-st-dk'])) {
+                $std_dk = 1;
+            }
+
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->dalam_kota($std_dk)->status_std(['200', '102', '409'])->tahun($tahun)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     DB::raw("SUBSTRING_INDEX(app_surat_tugas_dinas.nomor_std, '/', 1) AS nomor"),
@@ -31,9 +37,10 @@ class StdController extends Controller
                     'app_surat_tugas_dinas.departemen_id',
                     'app_surat_tugas_dinas.status_std',
                 ])
-                ->orderByRaw("FIELD(status_std , '102', '200') ASC")
+                // ->orderByRaw("FIELD(status_std , '102', '200') ASC")
                 ->orderBy('nomor', 'DESC')
                 ->orderBy('app_surat_tugas_dinas.tanggal_std', 'DESC');
+
             return DataTables::eloquent($listdata)
                 ->addIndexColumn()
                 ->editColumn('action', function ($row) {
@@ -129,7 +136,9 @@ class StdController extends Controller
 
     public function create()
     {
-        abort(403);
+        if (!auth()->user()->hasRole('admin-st-dk')) {
+            abort(403);
+        }
 
         $data = [
             'judul' => 'Buat STD',
@@ -140,11 +149,9 @@ class StdController extends Controller
 
     public function stdfromsppd(Request $request)
     {
-        if (!auth()->user()->hasRole('admin-spd')) {
+        if (auth()->user()->hasRole('admin-st-dk')) {
             abort(403);
         }
-
-        abort(403);
 
         if ($request->ajax()) {
             $tahun = date('Y');
@@ -248,7 +255,7 @@ class StdController extends Controller
 
     public function Lengkapi($params)
     {
-        if (!auth()->user()->hasRole('admin-spd')) {
+        if (!auth()->user()->hasRole(['admin-spd', 'admin-st'])) {
             abort(403);
         }
 

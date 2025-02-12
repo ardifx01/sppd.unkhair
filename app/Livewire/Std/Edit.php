@@ -6,13 +6,14 @@ use App\Models\KodeSurat;
 use App\Models\Pimpinan;
 use App\Models\RiwayatNomorSurat;
 use App\Models\SuratTugasDinas;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Edit extends Component
 {
     public $judul;
 
-    public $nomor_surat, $kode_surat, $nomor_std, $nomor_std_old;
+    public $std_dk, $nomor_surat, $kode_surat, $nomor_std, $nomor_std_old;
 
     public $stugas_id, $departemen_id, $departemen, $kegiatan_std, $tanggal_mulai_tugas, $tanggal_selesai_tugas;
     public $keterangan, $pimpinan_ttd, $pimpinan_id, $status_std;
@@ -37,6 +38,7 @@ class Edit extends Component
         $this->judul = $judul;
 
         $get = SuratTugasDinas::with(['departemen', 'pegawai'])->where('id', $this->stugas_id)->first();
+        $this->std_dk = $get->std_dk;
         $this->nomor_std = $get->nomor_std;
         $this->nomor_std_old = $get->nomor_std;
 
@@ -107,7 +109,12 @@ class Edit extends Component
         $get = KodeSurat::where('kode', trim($pecah[2]))->first();
         $kode = "UN44" . "/" . trim($pecah[2]);
         $tahun = trim($pecah[3]);
+
         $jenis_surat = 'st';
+        if ($this->std_dk) {
+            $jenis_surat = 'std-dk';
+        }
+
         $keterangan = auth()->user()->name . ' membuat STD ' . $get->keterangan;
         $this->riwayat_nomor_surat = [
             'nomor' => $this->nomor_surat,
@@ -126,12 +133,14 @@ class Edit extends Component
 
     public function save()
     {
-        abort(403);
-
-        $this->validate([
+        // abort(403);
+        $rules = [
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
-            'nomor_std' => 'required|unique:app_surat_tugas_dinas,nomor_std,' . $this->stugas_id,
+            'nomor_std' => [
+                'required',
+                Rule::unique('app_surat_tugas_dinas')->where('std_dk', $this->std_dk)->ignore($this->stugas_id)
+            ],
             'pegawai_id' => 'required|array|min:1',
             'departemen_id' => 'required',
             'kegiatan_std' => 'required',
@@ -139,7 +148,9 @@ class Edit extends Component
             'tanggal_selesai_tugas' => 'required',
             'pimpinan_ttd' => 'required',
             'tanggal_std' => 'required',
-        ]);
+        ];
+
+        $this->validate($rules);
 
         $kelengkapan_laporan_std = [];
         $tembusan_std = [];

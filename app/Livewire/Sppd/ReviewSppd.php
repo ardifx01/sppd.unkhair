@@ -37,7 +37,7 @@ class ReviewSppd extends Component
 
     public function save()
     {
-        abort(403);
+        // abort(403);
 
         $rules = [
             'status_spd' => 'required',
@@ -64,7 +64,6 @@ class ReviewSppd extends Component
             $this->create_std();
         }
 
-
         $this->dispatch('alert', type: 'success', title: 'Succesfully', message: 'Berhasil Review Pengajuan SPPD');
         $this->_reset();
         $this->dispatch('load-datatable');
@@ -84,7 +83,7 @@ class ReviewSppd extends Component
         $pegawai_id[] = $this->get->pegawai_id;
 
         $values = [
-            'user_id' => auth()->user()->id,
+            // 'user_id' => auth()->user()->id,
             'spd_id' => $this->params['sppd_id'],
             'nomor_std' => $nomor_std,
             'departemen_id' => $departemen_id,

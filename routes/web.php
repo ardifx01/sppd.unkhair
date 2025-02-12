@@ -76,15 +76,15 @@ Route::group(['middleware' => 'isLogin'], function () {
                 Route::get('/sppd/delete/{params}', 'delete')->name('admin.sppd.delete');
             });
 
+            Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
+                Route::get('/sppd/review', 'index')->name('admin.sppd.review');
+                Route::get('/sppd/pembatalan', 'pembatalan')->name('admin.sppd.pembatalan');
+            });
+
             Route::controller(App\Http\Controllers\Admin\LaporanSppdController::class)->group(function () {
                 Route::get('/sppd/laporan', 'index')->name('admin.sppd.laporan');
                 Route::get('/sppd/export/excel', 'excel')->name('admin.sppd.laporan.export.excel');
                 Route::get('/sppd/export/pdf', 'pdf')->name('admin.sppd.laporan.export.pdf');
-            });
-
-            Route::controller(App\Http\Controllers\Admin\ReviewSppdController::class)->group(function () {
-                Route::get('/sppd/review', 'index')->name('admin.sppd.review');
-                Route::get('/sppd/pembatalan', 'pembatalan')->name('admin.sppd.pembatalan');
             });
 
             Route::controller(App\Http\Controllers\Admin\StdController::class)->group(function () {
