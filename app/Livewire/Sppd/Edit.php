@@ -133,6 +133,7 @@ class Edit extends Component
             $std->pegawai()->sync([]);
 
             $std->update([
+                'tanggal_std' => $this->tanggal_spd,
                 'departemen_id' => $this->departemen_id,
                 'kegiatan_std' => $this->kegiatan_spd,
                 'tanggal_mulai_tugas' => $this->tanggal_berangakat,
