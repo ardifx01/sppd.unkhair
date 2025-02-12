@@ -37,6 +37,8 @@ class ReviewSppd extends Component
 
     public function save()
     {
+        abort(403);
+
         $rules = [
             'status_spd' => 'required',
             'pejabat_ppk' => 'required'
