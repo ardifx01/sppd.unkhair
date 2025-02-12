@@ -31,10 +31,10 @@
                     </div>
                     <div class="card-body">
                         @if (auth()->user()->hasRole(['admin-st']) && in_array(session('role'), ['admin-st']))
-                            <button class="btn btn-sm btn-primary"
+                            {{-- <button class="btn btn-sm btn-primary"
                                 onclick="location.href='{{ route('admin.std.create') }}'">
                                 <i class="fa fa-plus"></i> Buat STD
-                            </button>
+                            </button> --}}
                         @endif
 
                         @if (auth()->user()->hasRole(['admin-spd']) && in_array(session('role'), ['admin-spd']))
