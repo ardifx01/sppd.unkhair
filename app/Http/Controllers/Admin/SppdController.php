@@ -30,7 +30,8 @@ class SppdController extends Controller
             $status_spd = [
                 '102',
                 '406',
-                '200'
+                '200',
+                '409'
             ];
 
             $listdata = SuratPerjalananDinas::with(['departemen', 'surat_tugas'])

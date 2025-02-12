@@ -20,7 +20,7 @@ class StdController extends Controller
     {
         if ($request->ajax()) {
             $tahun = date('Y');
-            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200', '102'])->tahun($tahun)
+            $listdata = SuratTugasDinas::with(['departemen', 'pegawai'])->status_std(['200', '102', '409'])->tahun($tahun)
                 ->select([
                     'app_surat_tugas_dinas.id',
                     'app_surat_tugas_dinas.nomor_std',

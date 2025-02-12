@@ -96,7 +96,7 @@ if (!function_exists('str_status_sppd')) {
             '406' => '<span class="text-danger">Pengajuan Ditolak!</span>',
             '200' => '<span class="text-success">Pengajuan Disetujui</span>',
             '204' => '<span class="text-danger">Pengajuan Dihapus</span>',
-            '409' => '<span class="text-danger">SPPD Batal!</span>',
+            '409' => '<span class="text-danger">SPPD Dibatalkan!</span>',
         ];
 
         if ($status && array_key_exists($key, $status)) {
@@ -116,7 +116,7 @@ if (!function_exists('str_status_std')) {
             '200' => '<span class="text-success">Terverifikasi</span>',
             '204' => '<span class="text-danger">STD Dihapus</span>',
             '206' => '<span class="text-warning">STD Belum Lengkap</span>',
-            '409' => '<span class="text-danger">STD Batal!</span>',
+            '409' => '<span class="text-danger">STD Dibatalkan!</span>',
         ];
 
         if ($status && array_key_exists($key, $status)) {
