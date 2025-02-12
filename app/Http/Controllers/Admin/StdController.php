@@ -149,7 +149,7 @@ class StdController extends Controller
 
     public function stdfromsppd(Request $request)
     {
-        if (auth()->user()->hasRole('admin-st-dk')) {
+        if (!auth()->user()->hasRole('admin-st')) {
             abort(403);
         }
 
