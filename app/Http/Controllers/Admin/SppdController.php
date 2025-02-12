@@ -146,6 +146,8 @@ class SppdController extends Controller
 
     public function create()
     {
+        abort(500);
+
         $data = [
             'judul' => 'Buat SPPD',
         ];
