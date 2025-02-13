@@ -105,7 +105,7 @@
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
                 Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                 Universitas.
-                @dump(json_decode($std->kelengkapan_laporan_std, true));
+                {{-- @dump(json_decode($std->kelengkapan_laporan_std, true)); --}}
                 @if (json_decode($std->kelengkapan_laporan_std, true))
                     <br>Di lengkapi dengan: <br>
                     @foreach (json_decode($std->kelengkapan_laporan_std, true) as $row)
