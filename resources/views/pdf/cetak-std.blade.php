@@ -105,7 +105,7 @@
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
 
                 {{-- std luar kota muncul teks berikut --}}
-                @if (!$get->std_dk)
+                @if (!$std->std_dk)
                     Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
                     Universitas.
                 @endif
