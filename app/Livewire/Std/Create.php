@@ -153,6 +153,7 @@ class Create extends Component
         $std = SuratTugasDinas::create([
             'user_id' => auth()->user()->id,
             'spd_id' => $this->spd_id,
+            'std_dk' => 1,
             'nomor_std' => $this->nomor_std,
             'tanggal_std' => $this->tanggal_std,
             'departemen_id' => $this->departemen_id,
