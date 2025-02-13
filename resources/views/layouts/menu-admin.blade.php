@@ -83,7 +83,7 @@
             </ul>
         </li>
 
-        @if (in_array(session('role'), ['admin-spd', 'ppk']))
+        @if (auth()->user()->hasRole(['admin-spd', 'admin-st', 'ppk']))
             <li
                 class="nav-item {{ routeIs(['admin.sppd.index', 'admin.sppd.create', 'admin.sppd.edit', 'admin.sppd.review', 'admin.sppd.pembatalan']) ? 'menu-open' : '' }}">
                 <a href="#"
@@ -133,7 +133,7 @@
             </li>
         @endif
 
-        @if (in_array(session('role'), ['admin-st']))
+        @if (auth()->user()->hasRole('admin-st') || in_array(session('role'), ['admin-st']))
             <li class="nav-item">
                 <a href="{{ route('admin.std.index') }}"
                     class="nav-link {{ routeIs(['admin.std.index', 'admin.std.create', 'admin.std.fromSppd', 'admin.std.edit']) ? 'active' : '' }}">
@@ -143,7 +143,7 @@
             </li>
         @endif
 
-        @if (in_array(session('role'), ['admin-st-dk']))
+        @if (auth()->user()->hasRole('admin-st-dk') && in_array(session('role'), ['admin-st-dk']))
             <li class="nav-item">
                 <a href="{{ route('admin.std.index') }}"
                     class="nav-link {{ routeIs(['admin.std.index', 'admin.std.create', 'admin.std.fromSppd', 'admin.std.edit']) ? 'active' : '' }}">
