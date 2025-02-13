@@ -103,8 +103,13 @@
             <p style="font-size:15px; text-align: justify; line-height: 20px;">
                 {{ $std->kegiatan_std }}
                 pada tanggal {{ str_tanggal_dinas($std->tanggal_mulai_tugas, $std->tanggal_selesai_tugas) }}.
-                Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
-                Universitas.
+
+                {{-- std luar kota muncul teks berikut --}}
+                @if (!$get->std_dk)
+                    Setelah melaksanakan tugas harap saudara menyampaikan laporan hasil kegiatan kepada Pimpinan
+                    Universitas.
+                @endif
+
                 {{-- @dump(json_decode($std->kelengkapan_laporan_std, true)); --}}
                 @if (json_decode($std->kelengkapan_laporan_std, true))
                     <br>Di lengkapi dengan: <br>
