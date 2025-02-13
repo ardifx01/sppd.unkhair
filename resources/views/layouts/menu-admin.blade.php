@@ -17,7 +17,7 @@
                 <p> Data Master <i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview">
-                @if (in_array(session('role'), ['admin-spd', 'admin-st', 'ppk']))
+                @if (in_array(session('role'), ['admin-spd', 'admin-st', 'admin-st-dk', 'ppk']))
                     <li class="nav-item">
                         <a href="{{ route('admin.departemen.index') }}"
                             class="nav-link {{ routeIs(['admin.departemen.index', 'admin.departemen.unitkhusus']) ? 'active' : '' }}">
