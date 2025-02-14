@@ -17,7 +17,7 @@
                                 <div class="row">
                                     <div class="col-sm-4 mr-0 pr-1">
                                         <input type="text" class="form-control" wire:model="nomor_surat"
-                                            wire:model.live.debounce.400ms="nomor_surat">
+                                            wire:model.live.debounce.400ms="nomor_surat" readonly>
                                     </div>
                                     <div class="col-sm-8 ml-0 pl-0">
                                         <div class="input-group">

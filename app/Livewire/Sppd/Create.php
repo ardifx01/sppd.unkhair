@@ -6,6 +6,7 @@ use App\Models\Departemen;
 use App\Models\KodeSurat;
 use App\Models\RiwayatNomorSurat;
 use App\Models\SuratPerjalananDinas;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -117,11 +118,14 @@ class Create extends Component
     public function save()
     {
         // abort(403);
-
         $this->validate([
             'nomor_surat' => 'required|numeric|regex:/^[0-9]+$/',
             'kode_surat' => 'required',
-            'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd',
+            // 'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd',
+
+            // cek nomor_spd di table sppd dan std
+            'nomor_spd' => 'required|unique:app_surat_perjalanan_dinas,nomor_spd|unique:app_surat_tugas_dinas,nomor_std',
+
             'pegawai_id' => 'required',
             'departemen_id' => 'required',
             'kegiatan_spd' => 'required',

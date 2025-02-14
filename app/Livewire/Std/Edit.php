@@ -164,6 +164,8 @@ class Edit extends Component
             }
         }
 
+        // dd($this->kelengkapan_laporan_std, $kelengkapan_laporan_std);
+
         if ($this->tembusan_std) {
             foreach ($this->tembusan_std as $val) {
                 $tembusan_std[] = [
@@ -179,9 +181,7 @@ class Edit extends Component
 
         $std = SuratTugasDinas::where('id', $this->stugas_id)->first();
 
-        // remove daftar pegawai
-        $std->pegawai()->sync([]);
-        $std->update([
+        $values = [
             'nomor_std' => $this->nomor_std,
             'tanggal_std' => $this->tanggal_std,
             'departemen_id' => $this->departemen_id,
@@ -191,10 +191,16 @@ class Edit extends Component
             'pimpinan_ttd' => json_encode($pimpinan_ttd),
             'pimpinan_id' => $this->pimpinan_id,
             'keterangan' => $this->keterangan,
-            'kelengkapan_laporan_std' => json_encode($kelengkapan_laporan_std),
-            'tembusan_std' => json_encode($tembusan_std),
+            'kelengkapan_laporan_std' => $kelengkapan_laporan_std ? json_encode($kelengkapan_laporan_std) : NULL,
+            'tembusan_std' => $tembusan_std ? json_encode($tembusan_std) : NULL,
             'status_std' => $this->status_std,
-        ]);
+        ];
+
+        // dd($values);
+
+        // remove daftar pegawai
+        $std->pegawai()->sync([]);
+        $std->update($values);
 
         // simpan daftar pegawai
         $std->pegawai()->sync($this->pegawai_id);

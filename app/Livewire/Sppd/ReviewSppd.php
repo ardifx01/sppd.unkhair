@@ -110,7 +110,8 @@ class ReviewSppd extends Component
         // pecah nomor_sppd dalam bentuk array
         $pecah = explode("/", $nomor_spd);
 
-        $nomor = '01';
+        // $nomor = '01';
+        $nomor = trim($pecah[0]);
         $kode = trim($pecah[1]) . "/" . trim($pecah[2]);
         $tahun = trim($pecah[3]);
         $jenis_surat = 'st';
@@ -118,11 +119,13 @@ class ReviewSppd extends Component
 
         // cek nomor surat terakhir
         // $riwayat = RiwayatNomorSurat::kode($kode)->tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
+        /*
         $riwayat = RiwayatNomorSurat::tahun($tahun)->jenis($jenis_surat)->orderBy('nomor', 'DESC')->limit(1)->first();
         if ($riwayat) {
             $urut = (int) abs($riwayat->nomor) + 1;
             $nomor = ($urut < 10) ? '0' . $urut : $urut;
         }
+        */
 
         $this->riwayat_nomor_surat = [
             'nomor' => $nomor,
