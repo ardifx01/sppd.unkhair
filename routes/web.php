@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +26,11 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/sppd.unkhair/public/livewire/update', $handle);
+    return Route::post('/sppd-unkhair/public/livewire/update', $handle);
 });
 
 Livewire::setScriptRoute(function ($handle) {
-    return Route::get('/sppd.unkhair/public/livewire/livewire.js', $handle);
+    return Route::get('/sppd-unkhair/public/livewire/livewire.js', $handle);
 });
 
 Route::get('/login', App\Livewire\Auth\Login::class)->name('auth.login');

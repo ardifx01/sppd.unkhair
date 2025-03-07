@@ -36,7 +36,7 @@
             rel="stylesheet">
 
         <!-- Vendor CSS Files -->
-        <link href="{{ asset('flexstart') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ asset('flexstart/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('flexstart') }}/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="{{ asset('flexstart') }}/vendor/aos/aos.css" rel="stylesheet">
         <link href="{{ asset('flexstart') }}/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
