@@ -217,15 +217,13 @@
                     @endif
                     Pejabat Pembuat Komitmen
 
-                    @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
+                    @if ($qrcode_sppd)
                         <br>
                         <br>
-                        <img src="{{ public_path('images/qrcode/' . $sppd->id . '.png') }}"
-                            style="width:90px; height:90px;">
+                        <img src="{{ $qrcode_sppd }}" style="width:90px; height:90px;">
                         <br>
                         <br>
                     @else
-                        @dump(public_path('images/qrcode/' . $sppd->id . '.png'))
                         {!! str_repeat('<br>', 5) !!}
                     @endif
 

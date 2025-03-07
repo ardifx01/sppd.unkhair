@@ -41,7 +41,18 @@ class CetakController extends Controller
                 ->generate($dt, $file_path);
         }
 
-        $data = ['sppd' => $sppd];
+        $qrcode_sppd = public_path('images/qrcode/' . $params['sppd_id'] . '.png');
+        if(file_exists($qrcode_sppd))
+        {
+            $qrcode_sppd = get_image($qrcode_sppd);
+        }
+
+        $data = [
+            'sppd' => $sppd,
+            'qrcode_sppd' => $qrcode_sppd
+        ];
+        // dd($data);
+
         $pdf = PDF::loadView('pdf.cetak-sppd', $data)->setPaper('a4', 'portrait');
 
 
@@ -84,7 +95,9 @@ class CetakController extends Controller
                 ->generate($dt, $file_path);
         }
 
-        $data = ['std' => $std];
+        $data = [
+            'std' => $std
+        ];
         $pdf = PDF::loadView('pdf.cetak-std', $data)->setPaper('a4', 'portrait');
 
 
