@@ -225,6 +225,7 @@
                         <br>
                         <br>
                     @else
+                        @dump(public_path('images/qrcode/' . $sppd->id . '.png'))
                         {!! str_repeat('<br>', 5) !!}
                     @endif
 
