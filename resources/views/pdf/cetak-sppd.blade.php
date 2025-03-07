@@ -266,7 +266,7 @@
                             <td style="padding:0px;"></td>
                             <td colspan="2" style="padding:0px;">
                                 Pejabat Pembuat Komitmen
-                                @dump(get_image(public_path('images/qrcode/' . $sppd->id . '.png')))
+                                @dump(public_path('images/qrcode/' . $sppd->id . '.png'))
                                 @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
                                     <br>
                                     <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
