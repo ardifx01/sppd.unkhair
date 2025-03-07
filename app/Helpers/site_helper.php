@@ -163,6 +163,10 @@ if (!function_exists('str_role')) {
 if (!function_exists('get_image')) {
     function get_image($path_image = NULL)
     {
+        if(env('APP_ENV') == 'local') {
+            return $path_image;
+        }
+        
         $type = pathinfo($path_image, PATHINFO_EXTENSION);
         $data = file_get_contents($path_image);
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
