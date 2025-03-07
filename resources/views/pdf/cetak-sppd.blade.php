@@ -38,8 +38,7 @@
             <table width="100%" align="center">
                 <tr>
                     <td width="10%" style="text-align:center">
-                        <img src="{{ get_image(public_path('images/logo-hp.png')) }}" alt=""
-                            style="width:95px; height:90px;">
+                        <img src="{{ public_path('images/logo-hp.png') }}" alt="" style="width:95px; height:90px;">
                     </td>
                     <td width="80%" style="text-align:center">
                         <span style="font-size:20px;">
@@ -221,7 +220,7 @@
                     @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
                         <br>
                         <br>
-                        <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
+                        <img src="{{ public_path('images/qrcode/' . $sppd->id . '.png') }}"
                             style="width:90px; height:90px;">
                         <br>
                         <br>
@@ -266,10 +265,9 @@
                             <td style="padding:0px;"></td>
                             <td colspan="2" style="padding:0px;">
                                 Pejabat Pembuat Komitmen
-                                @dump(public_path('images/qrcode/' . $sppd->id . '.png'))
                                 @if (file_exists(public_path('images/qrcode/' . $sppd->id . '.png')))
                                     <br>
-                                    <img src="{{ get_image(public_path('images/qrcode/' . $sppd->id . '.png')) }}"
+                                    <img src="{{ public_path('images/qrcode/' . $sppd->id . '.png') }}"
                                         style="width:60px; height:60px;">
                                     <br>
                                 @else
