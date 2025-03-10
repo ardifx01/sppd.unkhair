@@ -83,10 +83,10 @@
                         </tr>
                         <tr>
                             <th class="text-right warna-warning">Berangkat Dari :</td>
-                            <td>{{ $get->berangakat }}</td>
+                            <td colspan="3">{{ $get->berangakat }}</td>
 
-                            <th class="text-right warna-warning">Lama Perjalanan :</td>
-                            <td>{{ $get->lama_pd }} hari</td>
+                            {{-- <th class="text-right warna-warning">Lama Perjalanan :</td>
+                            <td>{{ $get->lama_pd }} hari</td> --}}
                         </tr>
                         <tr>
                             <th class="text-right warna-warning">Tujuan Ke :</td>
