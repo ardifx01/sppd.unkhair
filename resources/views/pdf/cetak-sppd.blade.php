@@ -195,7 +195,7 @@
                     Keterangan Lain-Lainnya <br> <br>
                 </td>
                 <td class="kolom" colspan="2">
-
+                    {{ $sppd->keterangan ?? '' }}
                 </td>
             </tr>
         </table>
